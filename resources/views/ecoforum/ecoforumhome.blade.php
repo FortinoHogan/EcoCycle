@@ -13,8 +13,7 @@
             <textarea
                 id="discussion-box"
                 placeholder="Start a discussion"
-                style="padding: 12px 15px; border: 1px solid #ddd; border-radius: 20px; outline: none; resize: none; overflow: hidden; font-size: 14px; line-height: 1.5; width: 100%; height: 40px; color: #333; background-color: transparent;">
-            </textarea>
+                style="padding: 12px 15px; border: 1px solid #ddd; border-radius: 20px; outline: none; resize: none; overflow: hidden; font-size: 14px; line-height: 1.5; width: 100%; height: 40px; color: #333; background-color: transparent;"></textarea>
         </div>
 
         <!-- Upload Photo -->
