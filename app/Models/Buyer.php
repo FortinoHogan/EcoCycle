@@ -32,4 +32,9 @@ class Buyer extends Model
     {
         return $this->hasMany(Address::class, 'buyer_id');
     }
+
+    public function post ()
+    {
+        return $this->hasMany(Post::class, 'buyer_id');
+    }
 }
