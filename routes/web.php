@@ -5,7 +5,15 @@ use App\Http\Controllers\homeController;
 use App\Http\Controllers\buyerController;
 use App\Http\Controllers\sellerController;
 
+use App\Http\Controllers\profileController;
+use App\Http\Controllers\ecoforumController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ShopController;
+
 Route::get('/', [homeController::class, 'index'])->name('home.view');
+Route::get('/profile', [profileController::class, 'index'])->name('profile');
+
+Route::resource('ecoforum', ecoforumController::class);
 
 Route::prefix('/buyer')->group(function(){
     Route::get('/logout', [buyerController::class, 'logout_personal'])->name('logout_buyer');
@@ -28,4 +36,8 @@ Route::prefix('/seller')->group(function(){
     Route::get('/register', [sellerController::class, 'index_register_personal'])->name('sellerRegister.view');
     Route::post('/register', [sellerController::class, 'register_personal'])->name('register_seller.post');
 });
+
+Route::get('/payment/snap-token', [PaymentController::class, 'snapToken']);
+Route::get('/payment', [PaymentController::class, 'index']);
+Route::get('/shop', [ShopController::class, 'index']);
 

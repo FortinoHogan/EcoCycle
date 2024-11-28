@@ -15,7 +15,7 @@ class Post extends Model
         'image',
     ];
 
-    public function comment ()
+    public function comment()
     {
         return $this->hasMany(Comment::class, 'post_id');
     }
@@ -24,5 +24,4 @@ class Post extends Model
     {
         return $this->belongsTo(Buyer::class, 'buyer_id');
     }
-
 }
