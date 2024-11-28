@@ -22,13 +22,13 @@
                     <a href="#" class="text-[#E9EEDC] hover:underline" aria-current="page">Home</a>
                 </li>
                 <li>
-                    <a href="#" class="text-[#E9EEDC] hover:underline">EcoForum</a>
+                    <a href="{{route('ecoforum.index')}}" class="text-[#E9EEDC] hover:underline">EcoForum</a>
                 </li>
                 <li>
                     <a href="#" class="text-[#E9EEDC] hover:underline">EcoLearning</a>
                 </li>
                 <li>
-                    <a href="#" class="text-[#E9EEDC] hover:underline">Profile</a>
+                    <a href="{{route('profile')}}" class="text-[#E9EEDC] hover:underline">Profile</a>
                 </li>
             </ul>
         </div>
