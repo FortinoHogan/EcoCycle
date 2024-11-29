@@ -6,13 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
 {
-    //
-    protected $table = 'posts';
-    protected $guarded = [];
-    protected $fillable = [
-        'post_id',
-        'comment',
-    ];
+    protected $table = 'comments';
 
     public function post(){
         return $this->belongsTo(Post::class, 'post_id');

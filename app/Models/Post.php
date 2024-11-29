@@ -24,6 +24,4 @@ class Post extends Model
     {
         return $this->belongsTo(Buyer::class, 'buyer_id');
     }
-
-
 }
