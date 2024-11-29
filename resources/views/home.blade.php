@@ -4,7 +4,7 @@
     <div class="mb-40">
         <div class="konten1 flex justify-center items-center px-60 mt-24 mb-32 gap-10 max-md:flex-col max-sm:px-8">
             <div class="image-container animate-slideInFromLeft">
-                <img src="{{ asset('asset/orang.png') }}" class="max-w-[400px] max-sm:w-[150px]" alt="">
+                <img src="{{ asset('asset/orang.png') }}" class="max-w-[400px] max-sm:w-[200px] max-md:w-[300px]" alt="">
             </div>
 
             <div class="text-container flex flex-col gap-8 text-center animate-slideInFromRight">

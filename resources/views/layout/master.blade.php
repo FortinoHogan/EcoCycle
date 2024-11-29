@@ -18,7 +18,7 @@
         @include('component.navbar')
     </div>
 
-    <div>
+    <div class="max-sm:mt-20">
         @yield('konten')
     </div>
 
