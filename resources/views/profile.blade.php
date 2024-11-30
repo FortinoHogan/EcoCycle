@@ -20,10 +20,7 @@
 
 <div class="max-w-4xl mx-auto mt-10 bg-white rounded-lg shadow-md page-transition">
     <div class="flex justify-between items-center px-6 py-4 border-b border-[#3C552D]">
-      <h1 class="text-xl font-bold text-[#3C552D]">Hi, John Doe</h1>
-      <button class="px-4 py-2 text-center text-[#3C552D] bg-white border-2 border-[#3C552D] rounded-full shadow-lg hover:bg-[#2a4120] hover:text-[#3C552D] flex items-center justify-center">
-        Save
-      </button>
+      <h1 class="text-xl font-bold text-[#3C552D]">Hi, {{$buyer->name}}</h1>
     </div>
 
     <div class="p-6">
@@ -46,10 +43,15 @@
             </div>
 
             <!-- User Info -->
-            <h2 class="mt-4 text-lg font-bold">John Doe</h2>
-            <p class="text-sm text-gray-500 mt-1">johndoe@gmail.com - EcoNewbie</p>
+            <h2 class="mt-4 text-lg font-bold">{{$buyer->name}}</h2>
+            <p class="text-sm text-gray-500 mt-1">{{$buyer->email}} -
+                @if($buyer->greenPoint >= 0  && $buyer->greenPoint <= 25) EcoNewbie
+                @elseif($buyer->greenPoint >= 26  && $buyer->greenPoint <= 50) EcoAlly
+                @elseif($buyer->greenPoint >= 51  && $buyer->greenPoint <= 75) EcoWarrior
+                @elseif($buyer->greenPoint >= 76  && $buyer->greenPoint <= 100) EcoGuardian
+                @endif</p>
             {{-- Loyalty Point --}}
-            <p class="text-sm text-gray-500 mt-1">Your current point : 0</p>
+            <p class="text-sm text-gray-500 mt-1">Your current point : {{$buyer->greenPoint}}</p>
             <!-- Loyalty Program Progress Bar -->
             <div class="w-full mt-4">
                 <h3 class="text-sm font-medium text-gray-700">Loyalty Program</h3>
@@ -70,7 +72,7 @@
 
         <!-- Account Section -->
         <form class="mt-6 space-y-4">
-            <!-- Username -->
+            <!-- Name -->
             <div>
               <label for="username" class="block text-sm font-medium text-gray-700">
                 Username
@@ -79,7 +81,7 @@
                 id="username"
                 name="username"
                 type="text"
-                value="John Doe"
+                value="{{$buyer->name}}"
                 class="mt-1 w-full rounded border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
               />
             </div>
@@ -87,16 +89,30 @@
             <!-- Email -->
             <div>
               <label for="email" class="block text-sm font-medium text-gray-700">
-                Email <span class="text-red-500">*</span>
+                Email <span class="text-red-500"></span>
               </label>
               <input
                 id="email"
                 name="email"
                 type="email"
-                value="johndoe@gmail.com"
+                value="{{$buyer->email}}"
                 class="mt-1 w-full rounded border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
               />
             </div>
+
+            {{-- Phone num --}}
+            <div>
+                <label for="email" class="block text-sm font-medium text-gray-700">
+                  Phone number <span class="text-red-500"></span>
+                </label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  value="{{$buyer->phone}}"
+                  class="mt-1 w-full rounded border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
+                />
+              </div>
 
             <!-- Password -->
             <div class="relative">
@@ -109,7 +125,7 @@
                     id="password"
                     name="password"
                     type="password"
-                    value="password"
+                    value="{{$buyer->password}}"
                     class="mt-1 w-full rounded border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 pr-10"
                   />
                   <!-- Icon mata -->
@@ -118,56 +134,20 @@
                     onclick="togglePassword()"
                     class="absolute inset-y-0 right-0 px-3 flex items-center"
                   >
-                    <!-- Eye Icon for hidden password -->
                     <i id="eye-icon" class="fa-solid fa-eye text-gray-500"></i>
                   </button>
                 </div>
               </div>
-
-            <!-- Full Name -->
-            <div>
-              <label for="fullname" class="block text-sm font-medium text-gray-700">
-                Full Name <span class="text-red-500">*</span>
-              </label>
-              <input
-                id="fullname"
-                name="fullname"
-                type="text"
-                value="John Doe"
-                class="mt-1 w-full rounded border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
-              />
-            </div>
-      <!-- Title -->
-      <div>
-        <label for="title" class="block text-sm font-medium text-gray-700">
-          Title
-        </label>
-        <input
-          id="title"
-          name="title"
-          type="text"
-          value="EcoNewbie"
-          class="mt-1 w-full rounded border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
-          disabled
-        />
-      </div>
-
-      <!-- Language -->
-      <div>
-        <label for="language" class="block text-sm font-medium text-gray-700">
-          Language
-        </label>
-        <select
-          id="language"
-          name="language"
-          class="mt-1 w-full rounded border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
-        >
-          <option selected>English</option>
-          <option>Bahasa Indonesia</option>
-        </select>
-      </div>
         </form>
     </div>
+
+    <div class="flex justify-center items-center">
+        <button class="px-4 py-2 text-center rounded-full text-[#3C552D] bg-white border-2 border-[#3C552D] shadow-lg hover:bg-[#2a4120] hover:text-white">
+            Save
+        </button>
+    </div>
+
+
 </div>
 
 <script>
@@ -176,15 +156,11 @@
       const eyeIcon = document.getElementById("eye-icon");
 
       if (passwordField.type === "password") {
-        // Show the password
         passwordField.type = "text";
-        // Change the icon to 'eye-slash'
         eyeIcon.classList.remove("fa-eye");
         eyeIcon.classList.add("fa-eye-slash");
       } else {
-        // Hide the password
         passwordField.type = "password";
-        // Change the icon to 'eye'
         eyeIcon.classList.remove("fa-eye-slash");
         eyeIcon.classList.add("fa-eye");
       }

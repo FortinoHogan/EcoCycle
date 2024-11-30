@@ -11,7 +11,6 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ShopController;
 
 Route::get('/', [homeController::class, 'index'])->name('home.view');
-Route::get('/profile', [profileController::class, 'index'])->name('profile');
 
 Route::resource('ecoforum', ecoforumController::class);
 
@@ -31,6 +30,8 @@ Route::prefix('/buyer')->group(function(){
     Route::post('/shop/checkout', [PaymentController::class, 'process'])->name("checkout-process");
     Route::get('/success', [PaymentController::class, 'success'])->name("checkout-success");
     Route::get('/payment', [PaymentController::class, 'index']);
+
+    Route::get('/profile', [buyerController::class, 'index'])->name('profile');
 });
 
 Route::prefix('/seller')->group(function(){
