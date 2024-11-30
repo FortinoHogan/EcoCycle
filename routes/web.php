@@ -5,10 +5,10 @@ use App\Http\Controllers\homeController;
 use App\Http\Controllers\buyerController;
 use App\Http\Controllers\sellerController;
 
-use App\Http\Controllers\profileController;
 use App\Http\Controllers\ecoforumController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ShopController;
+use App\Http\Controllers\TransactionController;
 
 Route::get('/', [homeController::class, 'index'])->name('home.view');
 
@@ -27,7 +27,11 @@ Route::prefix('/buyer')->group(function(){
 
     Route::get('/shop', [ShopController::class, 'index'])->name('shop.view');
 
-    Route::post('/shop/checkout', [PaymentController::class, 'process'])->name("checkout-process");
+    Route::post('/detail/{product_id}', [TransactionController::class, 'detail_product'])->name("detail");
+    Route::post('/cart/add', [TransactionController::class, 'add_to_cart'])->name('add-to-cart');
+    Route::get('/success', [PaymentController::class, 'success'])->name("checkout-success");
+    Route::post('/checkout/{product_id}', [PaymentController::class, 'process'])->name("checkout-process");
+    Route::get('/checkout', [TransactionController::class, 'checkout'])->name("checkout");
     Route::get('/success', [PaymentController::class, 'success'])->name("checkout-success");
     Route::get('/payment', [PaymentController::class, 'index']);
 
