@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Buyer;
 
 class profileController extends Controller
 {
     //
     public function index(){
-        return view('profile');
+        $buyer = Buyer::all();
+        return view('profile', compact('buyer'));
     }
 }

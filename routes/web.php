@@ -12,7 +12,6 @@ use App\Http\Controllers\ShopController;
 use App\Http\Controllers\EcoLearningController;
 
 Route::get('/', [homeController::class, 'index'])->name('home.view');
-Route::get('/profile', [profileController::class, 'index'])->name('profile');
 
 Route::resource('ecoforum', ecoforumController::class);
 
@@ -34,6 +33,8 @@ Route::prefix('/buyer')->group(function(){
     Route::get('/payment', [PaymentController::class, 'index']);
 
     Route::get('/ecolearning', [EcoLearningController::class, 'index'])->name('ecolearning');
+
+    Route::get('/profile', [buyerController::class, 'index'])->name('profile');
 });
 
 Route::prefix('/seller')->group(function(){
