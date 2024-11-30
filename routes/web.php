@@ -9,6 +9,7 @@ use App\Http\Controllers\ecoforumController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\EcoLearningController;
 
 Route::get('/', [homeController::class, 'index'])->name('home.view');
 
@@ -34,6 +35,8 @@ Route::prefix('/buyer')->group(function(){
     Route::get('/checkout', [TransactionController::class, 'checkout'])->name("checkout");
     Route::get('/success', [PaymentController::class, 'success'])->name("checkout-success");
     Route::get('/payment', [PaymentController::class, 'index']);
+
+    Route::get('/ecolearning', [EcoLearningController::class, 'index'])->name('ecolearning');
 
     Route::get('/profile', [buyerController::class, 'index'])->name('profile');
 });

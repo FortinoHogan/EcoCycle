@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('product_id')->constrained('products');
             $table->string('ingredient');
             $table->string('origin');
-            $table->string('description');
+            $table->text('description');
             $table->timestamps();
         });
     }

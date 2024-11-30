@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->integer('price');
             $table->integer('stock');
-            $table->binary('image');
+            $table->binary('image')->nullable();
             $table->integer('popularity');
             $table->foreignId('seller_id')->constrained('sellers');
             $table->timestamps();
