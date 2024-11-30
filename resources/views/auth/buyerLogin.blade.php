@@ -41,6 +41,6 @@
             Seller
             account</a>
         <span class="text-[#3C552D] text-lg font-medium">Doesn't have an account? <a href="{{ route('buyerRegister.view') }}"
-                class=" hover:text-gray-400 transition-all duration-500">Create a Beeli Account</a></span>
+                class=" hover:text-gray-400 transition-all duration-500">Create a EcoCycle Account</a></span>
     </div>
 @endsection

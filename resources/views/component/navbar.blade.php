@@ -98,6 +98,8 @@
         right: 0;
     }
 </style>
+
+{{-- FIRST NAVBAR --}}
 <nav class="bg-[#E9EEDC] max-sm:fixed top-0 left-0 right-0 w-full z-50">
     <div class="flex justify-between items-center px-8 max-sm:flex-row">
         <div>
@@ -398,6 +400,8 @@
     </div>
 </nav>
 
+{{-- SECOND NAVBAR --}}
+@if (session('buyer') || session('seller'))
 <nav class="bg-[#3C552D] sm:flex hidden">
     <div class="px-8 py-3">
         <div class="flex items-center">
@@ -406,20 +410,33 @@
                     <a href="{{ route('home.view') }}" class="text-[#E9EEDC] hover:underline"
                         aria-current="page">Home</a>
                 </li>
-                <li>
-                    <a href="{{ route('ecoforum.index') }}" class="text-[#E9EEDC] hover:underline">EcoForum</a>
-                </li>
-                <li>
-                    <a href="#" class="text-[#E9EEDC] hover:underline">EcoLearning</a>
-                </li>
-                <li>
-                    <a href="{{ route('profile') }}" class="text-[#E9EEDC] hover:underline">Profile</a>
-                </li>
+                @if (session('buyer'))
+                    <li>
+                        <a href="{{ route('shop.view') }}" class="text-[#E9EEDC] hover:underline">Shop</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('ecoforum.index') }}" class="text-[#E9EEDC] hover:underline">EcoForum</a>
+                    </li>
+                    <li>
+                        <a href="#" class="text-[#E9EEDC] hover:underline">EcoLearning</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('profile') }}" class="text-[#E9EEDC] hover:underline">Profile</a>
+                    </li>
+                @endif
+
+                @if (session('seller'))
+                    <li>
+                        <a href="#" class="text-[#E9EEDC] hover:underline">My Shop</a>
+                    </li>
+                @endif
             </ul>
         </div>
     </div>
 </nav>
+@endif
 
+{{-- SIDE BAR --}}
 <nav id="sidebar" class="bg-[#3C552D] sm:hidden h-[100vh] w-[45%] fixed top-20 right-0 z-50">
     <div class="px-8 py-3">
         <div class="flex items-center">
@@ -436,6 +453,9 @@
                 <li>
                     <a href="{{ route('home.view') }}" class="text-[#E9EEDC] hover:underline"
                         aria-current="page">Home</a>
+                </li>
+                <li>
+                    <a href="{{ route('shop.view') }}" class="text-[#E9EEDC] hover:underline">Shop</a>
                 </li>
                 <li>
                     <a href="{{ route('ecoforum.index') }}" class="text-[#E9EEDC] hover:underline">EcoForum</a>

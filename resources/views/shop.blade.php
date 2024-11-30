@@ -1,5 +1,12 @@
 @extends('layout.master')
 @section('konten')
+    {{-- @foreach ($product as $b)
+        <div class="flex justify-center items-center">
+            <img src="data:image/jpeg;base64,{{ base64_encode($b->image) }}" alt=""
+                class="w-40 h-40 object-cover mb-4 p-3">
+        </div>
+    @endforeach --}}
+
     <section class="bg-gray-50 py-8 antialiased dark:bg-gray-900 md:py-12">
         <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
             <div class="mb-4 grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-4">
@@ -145,34 +152,4 @@
             </div>
         </div>
     </section>
-@endsection
-
-@section('scripts')
-    @isset($token)
-        <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key={{ env('MIDTRANS_CLIENT_KEY') }}></script>
-        <script type="text/javascript">
-            console.log('{{ $token }}');
-            document.getElementById('pay-button').onclick = function() {
-                event.preventDefault();
-                // SnapToken acquired from previous step
-                snap.pay('{{ $token }}', {
-                    // Optional
-                    onSuccess: function(result) {
-                        /* You may add your own js here, this is just example */
-                        document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
-                    },
-                    // Optional
-                    onPending: function(result) {
-                        /* You may add your own js here, this is just example */
-                        document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
-                    },
-                    // Optional
-                    onError: function(result) {
-                        /* You may add your own js here, this is just example */
-                        document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
-                    }
-                });
-            };
-        </script>
-    @endisset
 @endsection
