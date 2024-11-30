@@ -9,9 +9,10 @@ class buyerController extends Controller
 {
     public function index()
     {
-        $buyer = Buyer::all();
-        return view('buyerProfile', compact('buyer'));
+        $buyer = session('buyer');
+        return view('profile', compact('buyer'));
     }
+
 
     public function index_login_personal(){
         return view('auth.buyerLogin');
