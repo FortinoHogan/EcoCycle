@@ -74,8 +74,31 @@
         width: 0%;
         left: 50%;
     }
+
+    #sidebar {
+        position: fixed;
+        top: 20;
+        right: -100%;
+        height: 100vh;
+        width: 45%;
+        background-color: #3C552D;
+        z-index: 50;
+        transition: right 0.3s ease-in-out;
+    }
+
+    #sidebar.show {
+        right: 0;
+    }
+
+    #sidebar.hidden {
+        right: -100%;
+    }
+
+    #sidebar.show {
+        right: 0;
+    }
 </style>
-<nav class="bg-[#E9EEDC] max-sm:fixed top-0 w-full z-50">
+<nav class="bg-[#E9EEDC] max-sm:fixed top-0 left-0 right-0 w-full z-50">
     <div class="flex justify-between items-center px-8 max-sm:flex-row">
         <div>
             <a href="{{ route('home.view') }}" class="flex items-center space-x-3 rtl:space-x-reverse">
@@ -431,16 +454,20 @@
 <script>
     $(document).ready(function() {
         const sidebar = $('#sidebar');
-        sidebar.addClass('hidden');
 
         $('#nav-icon').click(function() {
-            sidebar.toggleClass('hidden');
+            if (sidebar.hasClass('show')) {
+                sidebar.removeClass('show');
+            } else {
+                sidebar.addClass('show');
+            }
+
             $(this).toggleClass('open');
-            sidebar.addClass('animate-slideInFromRight2');
         });
+
         $(document).click(function(e) {
             if (!$(e.target).closest('#nav-icon, #sidebar').length) {
-                sidebar.addClass('hidden');
+                sidebar.removeClass('show');
                 $('#nav-icon').removeClass('open');
             }
         });
