@@ -1,11 +1,11 @@
 @extends('layout.master')
 @section('konten')
-    {{-- @foreach ($product as $b)
+    @foreach ($product as $b)
         <div class="flex justify-center items-center">
             <img src="data:image/jpeg;base64,{{ base64_encode($b->image) }}" alt=""
                 class="w-40 h-40 object-cover mb-4 p-3">
         </div>
-    @endforeach --}}
+    @endforeach
 
     <section class="bg-gray-50 py-8 antialiased dark:bg-gray-900 md:py-12">
         <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">

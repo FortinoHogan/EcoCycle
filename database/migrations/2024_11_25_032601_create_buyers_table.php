@@ -19,7 +19,7 @@ return new class extends Migration
             $table->bigInteger('phone');
             $table->integer('greenPoint');
             $table->string('role');
-            $table->binary('profileImage');
+            $table->binary('profileImage')->nullable();
             $table->timestamps();
         });
 

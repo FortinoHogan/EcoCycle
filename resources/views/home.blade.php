@@ -19,15 +19,15 @@
         </div>
 
         <div class="konten2 mx-32 max-sm:mx-8">
-            <p class="text-center font-bold text-[40px] text-[#3C552D] mt-20 mb-10">BENEFITS</p>
-            <div class="flex gap-20 max-sm:flex max-sm:flex-col max-sm:gap-10">
+            <p class="text-center font-bold text-[40px] text-[#3C552D] mb-7">BENEFITS</p>
+            <div class="flex gap-3 max-sm:flex max-sm:flex-col max-sm:gap-10">
                 <div class="max-sm:flex max-sm:flex-col">
-                    <div class="text-end mb-10 animate-fromTopLeft max-sm:text-center">
+                    <div class="text-end w-11/12 mb-10 animate-fromTopLeft max-sm:text-center">
                         <p class="font-medium text-lg">Mendukung Lingkungan</p>
                         <p class="text-[#616161]">Membeli produk daur ulang dan organik membantu mengurangi limbah dan
                             mendukung keberlanjutan.</p>
                     </div>
-                    <div class="text-end animate-fromBottomLeft max-sm:text-center">
+                    <div class="text-end w-11/12 animate-fromBottomLeft max-sm:text-center">
                         <p class="font-medium text-lg">Transparansi Produk</p>
                         <p class="text-[#616161]">Setiap produk dilengkapi informasi asal bahan dan dampak lingkungannya,
                             mempermudah keputusan
@@ -35,12 +35,12 @@
                     </div>
                 </div>
                 <div class="max-sm:flex max-sm:flex-col">
-                    <div class="mb-10 animate-fromTopRight max-sm:text-center">
+                    <div class="mb-10 w-11/12 animate-fromTopRight max-sm:text-center">
                         <p class="font-medium text-lg">Komunitas Pendukung</p>
                         <p class="text-[#616161]">Bergabung dengan EcoForum untuk berbagi pengalaman, tips, dan ulasan
                             bersama pengguna lain yang peduli pada lingkungan.</p>
                     </div>
-                    <div class="animate-fromBottomRight max-sm:text-center">
+                    <div class="animate-fromBottomRight w-11/12 max-sm:text-center">
                         <p class="font-medium text-lg">Edukasi Gaya Hidup Hijau</p>
                         <p class="text-[#616161]">Akses ke artikel, video, dan tantangan ramah lingkungan untuk
                             menginspirasi

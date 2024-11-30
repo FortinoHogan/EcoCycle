@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('region');
             $table->string('role');
             $table->integer('balance');
-            $table->binary('profileImage');
+            $table->binary('profileImage')->nullable();
             $table->timestamps();
         });
 
