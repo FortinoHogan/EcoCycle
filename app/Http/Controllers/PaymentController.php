@@ -8,17 +8,17 @@ use Midtrans\Snap;
 
 class PaymentController extends Controller
 {
-    public function index() {
-        return view('shop.payment');
+    public function success() {
+        return view('success');
     }
 
-    public function snapToken(Request $request)
+    public function process(Request $request)
     {
         // Set Midtrans configuration
         Config::$serverKey = config('midtrans.server_key');
         Config::$isProduction = config('midtrans.is_production');
-        Config::$isSanitized = true;
-        Config::$is3ds = true;
+        Config::$isSanitized = config('midtrans.is_sanitized');
+        Config::$is3ds = config('midtrans.is_3ds');
 
         // Example transaction details
         $params = [
@@ -36,9 +36,9 @@ class PaymentController extends Controller
 
         try {
             $snapToken = Snap::getSnapToken($params);
-            return response()->json(['token' => $snapToken]);
+            return view('shop-detail', ['token' => $snapToken ?? null]);
         } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
+            return view('shop-detail', ['token' => null]); // Ensure token is always passed
         }
     }
 }

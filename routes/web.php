@@ -37,7 +37,8 @@ Route::prefix('/seller')->group(function(){
     Route::post('/register', [sellerController::class, 'register_personal'])->name('register_seller.post');
 });
 
-Route::get('/payment/snap-token', [PaymentController::class, 'snapToken']);
+Route::post('/shop/checkout', [PaymentController::class, 'process'])->name("checkout-process");
+Route::get('/success', [PaymentController::class, 'success'])->name("checkout-success");
 Route::get('/payment', [PaymentController::class, 'index']);
 Route::get('/shop', [ShopController::class, 'index']);
 

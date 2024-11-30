@@ -2,7 +2,7 @@
 @section('konten')
     <section class="bg-gray-50 py-8 antialiased dark:bg-gray-900 md:py-12">
         <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
-            <div class="mb-4 grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-4">
+            <div class="mb-4">
                 <div class="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
                     <div class="h-56 w-full">
                         <a href="#">
@@ -120,9 +120,6 @@
 
                         <div class="mt-4 flex items-center justify-between gap-4">
                             <p class="text-2xl font-extrabold leading-tight text-gray-900 dark:text-white">$1,699</p>
-
-                            <form action="{{ route('checkout-process') }}" method="POST">
-                                @csrf
                                 <button id="pay-button" type="submit"
                                     class="inline-flex items-center rounded-lg bg-green-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-green-800 focus:outline-none focus:ring-4  focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
                                     <svg class="-ms-2 me-2 h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -131,48 +128,40 @@
                                             stroke-width="2"
                                             d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6" />
                                     </svg>
-                                    CHECK OUT
+                                    PURCHASE
                                 </button>
-                            </form>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="w-full text-center">
-                <button type="button"
-                    class="rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-green-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700">Show
-                    more</button>
             </div>
         </div>
     </section>
 @endsection
 
 @section('scripts')
-    @isset($token)
-        <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key={{ env('MIDTRANS_CLIENT_KEY') }}></script>
-        <script type="text/javascript">
-            console.log('{{ $token }}');
-            document.getElementById('pay-button').onclick = function() {
-                event.preventDefault();
-                // SnapToken acquired from previous step
-                snap.pay('{{ $token }}', {
-                    // Optional
-                    onSuccess: function(result) {
-                        /* You may add your own js here, this is just example */
-                        document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
-                    },
-                    // Optional
-                    onPending: function(result) {
-                        /* You may add your own js here, this is just example */
-                        document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
-                    },
-                    // Optional
-                    onError: function(result) {
-                        /* You may add your own js here, this is just example */
-                        document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
-                    }
-                });
-            };
-        </script>
-    @endisset
+    <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key={{ env('MIDTRANS_CLIENT_KEY') }}></script>
+    <script type="text/javascript">
+        console.log('{{ $token }}');
+        document.getElementById('pay-button').onclick = function() {
+            // SnapToken acquired from previous step
+            snap.pay('{{ $token }}', {
+                // Optional
+                onSuccess: function(result) {
+                    /* You may add your own js here, this is just example */
+                    // document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
+                    window.location.href = '{{ route('checkout-success') }}';
+                },
+                // Optional
+                onPending: function(result) {
+                    /* You may add your own js here, this is just example */
+                    document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
+                },
+                // Optional
+                onError: function(result) {
+                    /* You may add your own js here, this is just example */
+                    document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
+                }
+            });
+        };
+    </script>
 @endsection
