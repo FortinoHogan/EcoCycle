@@ -44,8 +44,52 @@ class TransactionController extends Controller
         return response()->json(['message' => 'Product added to cart']);
     }
 
-    public function checkout() {
+    public function cart()
+    {
         $cart = session()->get('cart', []);
-        return view('checkout', compact('cart'));
+        return view('cart', compact('cart'));
+    }
+
+    public function update_quantity(Request $request)
+    {
+        $productId = $request->input('product_id');
+        $action = $request->input('action');
+
+        $cart = session()->get('cart', []);
+
+        if (isset($cart[$productId])) {
+            if ($action === 'increment') {
+                $cart[$productId]['quantity']++;
+            } elseif ($action === 'decrement') {
+                $cart[$productId]['quantity']--;
+
+                // If quantity becomes zero, remove the item from the cart
+                if ($cart[$productId]['quantity'] <= 0) {
+                    unset($cart[$productId]);
+                }
+            }
+
+            session()->put('cart', $cart);
+
+            return response()->json([
+                'message' => 'Cart updated',
+            ]);
+        }
+        return response()->json(['message' => 'Product not found in cart'], 404);
+    }
+
+    public function remove_from_cart(Request $request)
+    {
+        $productId = $request->input('product_id');
+        $cart = session()->get('cart', []);
+
+        if (isset($cart[$productId])) {
+            unset($cart[$productId]); // Remove the item from the cart
+            session()->put('cart', $cart);
+
+            return response()->json(['message' => 'Item removed']);
+        }
+
+        return response()->json(['message' => 'Item not found in cart'], 404);
     }
 }

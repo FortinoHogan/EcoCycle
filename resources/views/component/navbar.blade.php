@@ -430,7 +430,7 @@
                             </div>
 
                             <li>
-                                <div onclick="window.location.href='{{ route('checkout') }}'" class="inline-flex text-[#E9EEDC] cursor-pointer hover:underline px-4">
+                                <div onclick="window.location.href='{{ route('cart') }}'" class="inline-flex text-[#E9EEDC] cursor-pointer hover:underline px-4">
                                     <svg class="-ms-2 me-2 h-5 w-5" aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                         fill="none" viewBox="0 0 24 24">

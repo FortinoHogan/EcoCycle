@@ -30,9 +30,11 @@ Route::prefix('/buyer')->group(function(){
 
     Route::post('/detail/{product_id}', [TransactionController::class, 'detail_product'])->name("detail");
     Route::post('/cart/add', [TransactionController::class, 'add_to_cart'])->name('add-to-cart');
+    Route::post('/cart/update-quantity', [TransactionController::class, 'update_quantity'])->name('update-quantity');
+    Route::post('/cart/remove', [TransactionController::class, 'remove_from_cart'])->name('remove-from-cart');
     Route::get('/success', [PaymentController::class, 'success'])->name("checkout-success");
     Route::post('/checkout/{product_id}', [PaymentController::class, 'process'])->name("checkout-process");
-    Route::get('/checkout', [TransactionController::class, 'checkout'])->name("checkout");
+    Route::get('/cart', [TransactionController::class, 'cart'])->name("cart");
     Route::get('/success', [PaymentController::class, 'success'])->name("checkout-success");
     Route::get('/payment', [PaymentController::class, 'index']);
 
