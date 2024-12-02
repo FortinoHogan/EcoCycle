@@ -11,4 +11,8 @@ class Comment extends Model
     public function post(){
         return $this->belongsTo(Post::class, 'post_id');
     }
+
+    public function buyer(){
+        return $this->belongsTo(Buyer::class, 'buyer_id');
+    }
 }
