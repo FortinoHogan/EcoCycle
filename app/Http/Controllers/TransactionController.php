@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Cart;
 
 class TransactionController extends Controller
 {
@@ -17,55 +18,52 @@ class TransactionController extends Controller
     public function add_to_cart(Request $request)
     {
         $productId = $request->input('product_id');
-        $product = \App\Models\Product::find($productId);
+        $buyerId = session('buyer')->id;
 
-        if (!$product) {
-            return response()->json(['message' => 'Product not found'], 404);
-        }
+        $cart = Cart::where('buyer_id', $buyerId)->where('product_id', $productId)->first();
 
-        $cart = session()->get('cart', []);
-
-        // If product exists, increase quantity
-        if (isset($cart[$productId])) {
-            $cart[$productId]['quantity']++;
+        if ($cart) {
+            Cart::where('buyer_id', $buyerId)
+                ->where('product_id', $productId)
+                ->update(['quantity' => $cart->quantity + 1]);
         } else {
-            // Add product to cart
-            $cart[$productId] = [
-                'name' => $product->name,
-                'price' => $product->price,
-                'quantity' => 1,
-                'image' => $product->image,
-            ];
+            Cart::create([
+                'buyer_id' => $buyerId,
+                'product_id' => $productId,
+                'quantity' => 1
+            ]);
         }
-
-        // Save cart to session
-        session()->put('cart', $cart);
 
         return response()->json(['message' => 'Product added to cart']);
     }
 
     public function cart()
     {
-        $cart = session()->get('cart', []);
+        $cart = Cart::with(['product'])->where('buyer_id', session('buyer')->id)->get();
         return view('cart', compact('cart'));
     }
 
     public function update_quantity(Request $request)
     {
         $productId = $request->input('product_id');
+        $buyerId = session('buyer')->id;
+
         $action = $request->input('action');
 
-        $cart = session()->get('cart', []);
+        $cart = Cart::where('buyer_id', $buyerId)->where('product_id', $productId)->first();
 
-        if (isset($cart[$productId])) {
+        if ($cart) {
             if ($action === 'increment') {
-                $cart[$productId]['quantity']++;
+                Cart::where('buyer_id', $buyerId)
+                    ->where('product_id', $productId)
+                    ->update(['quantity' => $cart->quantity + 1]);
             } elseif ($action === 'decrement') {
-                $cart[$productId]['quantity']--;
-
+                $cart->quantity -= 1;
                 // If quantity becomes zero, remove the item from the cart
-                if ($cart[$productId]['quantity'] <= 0) {
-                    unset($cart[$productId]);
+                if ($cart->quantity <= 0) {
+                    Cart::where('buyer_id', $buyerId)
+                        ->where('product_id', $productId)
+                        ->delete();
                 }
             }
 
@@ -91,5 +89,50 @@ class TransactionController extends Controller
         }
 
         return response()->json(['message' => 'Item not found in cart'], 404);
+    }
+
+    public function checkout(Request $request)
+    {
+        $buyerId = session('buyer')->id;
+        $productIds = $request->input('product_ids');
+
+        if (empty($productIds)) {
+            return response()->json(['message' => 'No products selected for checkout'], 400);
+        }
+
+        // $cart = Cart::where('buyer_id', $buyerId)->whereIn('product_id', $productIds)->get();
+
+        $cart = Cart::with(['product'])
+            ->whereIn('product_id', $productIds)
+            ->where('buyer_id', $buyerId)
+            ->get();
+
+        dd($cart);
+        foreach ($cart as $item) {
+            $imagePath = $item->product->image;
+
+            if ($imagePath && file_exists($imagePath)) {
+                $item->product->image = 'data:image/jpeg;base64,' . base64_encode(file_get_contents($imagePath));
+            } else {
+                // Handle the error, e.g., set a default image or log the error
+                $item->product->image = 'default-image-path';
+            }
+
+            // $item->product->image = 'data:image/jpeg;base64,' . base64_encode(file_get_contents($item->product->image));
+        }
+
+        return response()->json(['message' => $cart]);
+
+        // $cart = $cart->map(function ($item) {
+        //     $product = $item->product;
+        //     return [
+        //         'product_name' => $product ? $product->name : 'N/A',
+        //         'price' => $product ? $product->price : 0,
+        //         'quantity' => $item->quantity,
+        //         'product_image' => $product && $product->image ? "data:image/jpeg;base64," . base64_encode($product->image) : null
+        //     ];
+        // });
+
+        // return view('checkout', compact('cart'));
     }
 }
