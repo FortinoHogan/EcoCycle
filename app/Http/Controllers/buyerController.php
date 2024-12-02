@@ -67,8 +67,8 @@ class buyerController extends Controller
 
         $buyer = Buyer::with('address')->where('email', $request->floating_email)->first();
 
-        if ($buyer && $buyer->password == $request->floating_password) {
-            session(['buyer' => $buyer]); // Store the buyer in the session
+        if ($buyer && Hash::check($request->floating_password, $buyer->password)) {
+            session(['buyer' => $buyer]);
             return redirect()->route('home.view')->with('success', 'Login successful');
         }
 
