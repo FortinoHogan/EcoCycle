@@ -33,6 +33,7 @@ Route::prefix('/buyer')->group(function(){
     Route::get('/payment', [PaymentController::class, 'index']);
 
     Route::get('/ecolearning', [EcoLearningController::class, 'index'])->name('ecolearning');
+    Route::get('/articleDetail/{id}', [EcoLearningController::class, 'detail'])->name('articleDetail');
 
     Route::get('/profile', [buyerController::class, 'index'])->name('profile');
 });
