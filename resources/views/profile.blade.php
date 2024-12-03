@@ -18,7 +18,7 @@
     }
 </style>
 
-<div class="max-w-4xl mx-auto mt-10 bg-white rounded-lg shadow-md page-transition">
+<div class="max-w-4xl mx-auto mt-10 mb-20 py-3 bg-white rounded-lg shadow-md page-transition">
     <div class="flex justify-between items-center px-6 py-4 border-b border-[#3C552D]">
       <h1 class="text-xl font-bold text-[#3C552D]">Hi, {{$buyer->name}}</h1>
     </div>
@@ -141,13 +141,11 @@
         </form>
     </div>
 
-    <div class="flex justify-center items-center">
+    <div class="flex justify-center items-center mb-8">
         <button class="px-4 py-2 text-center rounded-full text-[#3C552D] bg-white border-2 border-[#3C552D] shadow-lg hover:bg-[#2a4120] hover:text-white">
             Save
         </button>
     </div>
-
-
 </div>
 
 <script>
