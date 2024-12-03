@@ -28,7 +28,7 @@
                                 <span class="px-2 font-semibold border-black border bg-[#F7FAF7] cursor-pointer update-cart"
                                     data-id="{{ $item->product_id }}" data-action="increment">+</span>
                             </div>
-                            <p>IDR {{ number_format($item->product->quantity, 0, ',', '.') }}</p>
+                            <p>IDR {{ number_format($item->product->price, 0, ',', '.') }}</p>
                         </div>
                     </div>
                     <div class="flex justify-between font-semibold mt-5">
@@ -130,24 +130,28 @@
                     return;
                 }
 
-                fetch('{{ route('checkout') }}', {
+                fetch('{{ route('process-checkout') }}', {
                         method: 'POST',
                         headers: {
                             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
                                 .getAttribute('content'),
                             'Content-Type': 'application/json',
-                            'Accept': 'application/json',
                         },
                         body: JSON.stringify({
                             product_ids: checkedProducts
                         }),
                     })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.message === 'Checkout successful') {
-                            
+                    .then(response => {
+                        if (response.redirected) {
+                            // Redirect to the new view
+                            window.location.href = response.url;
                         } else {
-                            console.log(data.message);
+                            return response.json();
+                        }
+                    })
+                    .then(data => {
+                        if (data && data.message) {
+                            alert(data.message);
                         }
                     })
                     .catch(error => {
