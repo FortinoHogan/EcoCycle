@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('buyer_id')->constrained('buyers')->cascadeOnDelete();
             $table->text('content');
             $table->binary('image')->nullable(); // Path atau URL gambar (opsional)
+            $table->integer('like');
             $table->timestamps();
         });
 

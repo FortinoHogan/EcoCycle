@@ -37,4 +37,9 @@ class Buyer extends Model
     {
         return $this->hasMany(Post::class, 'buyer_id');
     }
+
+    public function comment ()
+    {
+        return $this->hasMany(Comment::class, 'buyer_id');
+    }
 }
