@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             TransactionHeaderSeeder::class,
             TransactionDetailSeeder::class,
             ArticleSeeder::class,
+            ProductCategorySeeder::class
         ]);
     }
 }

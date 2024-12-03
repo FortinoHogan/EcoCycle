@@ -6,13 +6,13 @@ use App\Http\Controllers\BuyerController;
 use App\Http\Controllers\SellerController;
 use App\Http\Controllers\EcoForumController;
 use App\Http\Controllers\PaymentController;
-use App\Http\Controllers\ShopController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\EcoLearningController;
+use App\Http\Controllers\ShopController;
 
-Route::get('/', [homeController::class, 'index'])->name('home.view');
+Route::get('/', [HomeController::class, 'index'])->name('home.view');
 
-Route::resource('ecoforum', ecoforumController::class);
+Route::resource('ecoforum', EcoForumController::class);
 
 Route::prefix('/buyer')->group(function(){
     Route::get('/logout', [BuyerController::class, 'logout_personal'])->name('logout_buyer');
@@ -52,6 +52,8 @@ Route::prefix('/seller')->group(function(){
 
     Route::get('/register', [SellerController::class, 'index_register_personal'])->name('sellerRegister.view');
     Route::post('/register', [SellerController::class, 'register_personal'])->name('register_seller.post');
+
+    Route::resource('/shop', ShopController::class);
 });
 
 

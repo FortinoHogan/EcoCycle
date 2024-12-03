@@ -2,15 +2,111 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Product;
+use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Description;
+use App\Models\Product;
+use App\Models\ProductCategory;
+use App\Models\Seller;
+use Illuminate\Http\Request;
 
 class ShopController extends Controller
 {
-    public function index() {
-        $product = Product::with(['description'])->get();
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $seller = Seller::where('id', session('seller')->id)->first();
+        $products = Product::where('seller_id', session('seller')->id)->paginate(5);
+        $categories = Category::all();
 
-        return view('shop', compact('product'));
+        return view('seller.shop', compact('seller', 'products', 'categories'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'price' => 'required',
+            'stock' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'ingredients' => 'required',
+            'origin' => 'required',
+            'description' => 'required',
+            'categories' => 'required|array',
+        ]);
+
+        if ($request->hasFile('image')) {
+            $image = file_get_contents($request->file('image')->getRealPath());
+        } else {
+            return back()->withErrors(['image' => 'An image file is required']);
+        }
+        $product = Product::create([
+            'name' => $request->name,
+            'price' => $request->price,
+            'stock' => $request->stock,
+            'image' => $image,
+            'popularity' => 0,
+            'seller_id' => session('seller')->id,
+        ]);
+
+        Description::create([
+            'product_id' => $product->id,
+            'ingredient' => $request->ingredients,
+            'origin' => $request->origin,
+            'description' => $request->description,
+        ]);
+
+        foreach ($request->categories as $category) {
+            ProductCategory::create([
+                'category_id' => $category,
+                'product_id' => $product->id
+            ]);
+        }
+        return redirect()->route('shop.index');
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
     }
 }
