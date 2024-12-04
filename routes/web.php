@@ -31,15 +31,22 @@ Route::prefix('/buyer')->group(function () {
     Route::get('/shop', [BuyerController::class, 'shop'])->name('shop.view');
     Route::get('/detail/{product_id}', [TransactionController::class, 'detail_product'])->name("detail");
 
+<<<<<<< HEAD
     Route::get('/cart', [TransactionController::class, 'cart'])->name("cart");
+=======
+    Route::post('/detail/{product_id}', [TransactionController::class, 'detail_product'])->name("detail");
+
+>>>>>>> f112ca5 (feat: add update product)
     Route::post('/cart/add', [TransactionController::class, 'add_to_cart'])->name('add-to-cart');
     Route::post('/cart/update-quantity', [TransactionController::class, 'update_quantity'])->name('update-quantity');
     Route::post('/cart/remove', [TransactionController::class, 'remove_from_cart'])->name('remove-from-cart');
 
     Route::post('/process-checkout', [TransactionController::class, 'process_checkout'])->name('process-checkout');
     Route::get('/checkout/{transaction_id}', [TransactionController::class, 'checkout'])->name('checkout');
-
     Route::post('/process-success', [TransactionController::class, 'process_success'])->name('process-success');
+
+    Route::get('/cart', [TransactionController::class, 'cart'])->name("cart");
+
 
     Route::get('/ecolearning', [EcoLearningController::class, 'index'])->name('ecolearning');
     Route::get('/articleDetail/{id}', [EcoLearningController::class, 'detail'])->name('articleDetail');
@@ -60,4 +67,7 @@ Route::prefix('/seller')->group(function () {
 
 
     Route::resource('/shop', ShopController::class);
+
+    Route::get('/detail/{product_id}', [TransactionController::class, 'detail_product'])->name("detail_seller");
+    Route::post('/detail/{product_id}', [ShopController::class, 'update'])->name("update_seller");
 });
