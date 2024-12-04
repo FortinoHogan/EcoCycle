@@ -16,7 +16,7 @@ class CheckAuth
     public function handle(Request $request, Closure $next): Response
     {
         if (session()->has('buyer') || session()->has('seller')) {
-            return redirect()->route('home.view')->with('error', 'Please log-in first!');
+            return redirect()->route('home.view')->with('error', 'You are Logged In!');
         }
 
         return $next($request);
