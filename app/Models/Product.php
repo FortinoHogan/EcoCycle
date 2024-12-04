@@ -26,9 +26,9 @@ class Product extends Model
         return $this->hasOne(Description::class, 'product_id');
     }
 
-    public function category()
+    public function product_categories()
     {
-        return $this->hasMany(Category::class, 'product_id');
+        return $this->hasMany(ProductCategory::class);
     }
 
     public function transactionDetail()
@@ -40,4 +40,5 @@ class Product extends Model
     {
         return $this->hasManyThrough(Cart::class, 'product_id');
     }
+
 }

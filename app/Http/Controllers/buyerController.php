@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Buyer;
+use App\Models\Product;
 use Illuminate\Support\Facades\Hash;
 
-class buyerController extends Controller
+class BuyerController extends Controller
 {
     public function index()
     {
@@ -14,6 +15,11 @@ class buyerController extends Controller
         return view('profile', compact('buyer'));
     }
 
+    public function shop() {
+        $product = Product::with(['description'])->get();
+
+        return view('shop', compact('product'));
+    }
 
     public function index_login_personal()
     {

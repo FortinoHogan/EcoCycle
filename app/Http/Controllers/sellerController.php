@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Seller;
 use Illuminate\Support\Facades\Hash;
 
-class sellerController extends Controller
+class SellerController extends Controller
 {
     public function index()
     {

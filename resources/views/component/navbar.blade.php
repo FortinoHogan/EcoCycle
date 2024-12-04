@@ -445,7 +445,7 @@
                     @endif
                     @if (session('seller'))
                         <li>
-                            <a href="#" class="text-[#E9EEDC] hover:underline">My Shop</a>
+                            <a href="{{ route('shop.index') }}" class="text-[#E9EEDC] hover:underline">My Shop</a>
                         </li>
                     @endif
                 </ul>

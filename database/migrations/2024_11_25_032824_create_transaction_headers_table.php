@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('shipping_fee');
             $table->integer('grand_total');
             $table->string('snap_token')->nullable();
-            $table->foreignId('address_id')->constrained('addresses')->nullable()->onDelete('cascade');
+            $table->foreignId('address_id')->nullable()->constrained('addresses')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -9,12 +9,11 @@ class Category extends Model
     protected $table = 'categories';
     protected $guarded = [];
     protected $fillable = [
-        'product_id',
         'category'
     ];
 
-    public function product()
+    public function product_category()
     {
-        return $this->belongsTo(Product::class, 'product_id');
+        return $this->belongsTo(ProductCategory::class);
     }
 }

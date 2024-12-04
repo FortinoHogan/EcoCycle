@@ -6,14 +6,13 @@ use Illuminate\Http\Request;
 use Midtrans\Config;
 use Midtrans\Snap;
 use App\Models\Product;
+use App\Models\TransactionHeader;
 
 class PaymentController extends Controller
 {
     public function success() {
         return view('success');
     }
-
-    
 
     public function process(Request $request, $product_id)
     {

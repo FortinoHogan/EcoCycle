@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Address;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Cart;
+use App\Models\TransactionHeader;
+use App\Models\TransactionDetail;
+use Midtrans\Config;
+use Midtrans\Snap;
 
 class TransactionController extends Controller
 {
@@ -91,48 +96,76 @@ class TransactionController extends Controller
         return response()->json(['message' => 'Item not found in cart'], 404);
     }
 
-    public function checkout(Request $request)
+    public function process_checkout(Request $request)
     {
-        $buyerId = session('buyer')->id;
+        Config::$serverKey = config('midtrans.server_key');
+        Config::$isProduction = config('midtrans.is_production');
+        Config::$isSanitized = config('midtrans.is_sanitized');
+        Config::$is3ds = config('midtrans.is_3ds');
+
+        $buyer = session('buyer');
         $productIds = $request->input('product_ids');
 
         if (empty($productIds)) {
             return response()->json(['message' => 'No products selected for checkout'], 400);
         }
 
-        // $cart = Cart::where('buyer_id', $buyerId)->whereIn('product_id', $productIds)->get();
-
         $cart = Cart::with(['product'])
             ->whereIn('product_id', $productIds)
-            ->where('buyer_id', $buyerId)
+            ->where('buyer_id', $buyer->id)
             ->get();
 
-        dd($cart);
+        $address = Address::where('buyer_id', $buyer->id)->where('main', true)->first();
+
+        $total_price = 0;
         foreach ($cart as $item) {
-            $imagePath = $item->product->image;
-
-            if ($imagePath && file_exists($imagePath)) {
-                $item->product->image = 'data:image/jpeg;base64,' . base64_encode(file_get_contents($imagePath));
-            } else {
-                // Handle the error, e.g., set a default image or log the error
-                $item->product->image = 'default-image-path';
-            }
-
-            // $item->product->image = 'data:image/jpeg;base64,' . base64_encode(file_get_contents($item->product->image));
+            $total_price += $item->product->price * $item->quantity;
         }
 
-        return response()->json(['message' => $cart]);
+        $params = [
+            'transaction_details' => [
+                'order_id' => uniqid(),
+                'gross_amount' => $total_price + 10000, // Payment amount
+            ],
+            'customer_details' => [
+                'first_name' => $buyer->name,
+                // 'last_name' => 'Doe',
+                'email' => $buyer->email,
+                'phone' => $buyer->phone,
+            ],
+        ];
 
-        // $cart = $cart->map(function ($item) {
-        //     $product = $item->product;
-        //     return [
-        //         'product_name' => $product ? $product->name : 'N/A',
-        //         'price' => $product ? $product->price : 0,
-        //         'quantity' => $item->quantity,
-        //         'product_image' => $product && $product->image ? "data:image/jpeg;base64," . base64_encode($product->image) : null
-        //     ];
-        // });
+        $snapToken = Snap::getSnapToken($params);
 
-        // return view('checkout', compact('cart'));
+        TransactionHeader::create([
+            'status' => 'pending',
+            'buyer_id' => $buyer->id,
+            'total_price' => $total_price,
+            'shipping_fee' => 10000,
+            'grand_total' => $total_price + 10000,
+            'snap_token' => $snapToken,
+            'total_price' => $total_price,
+            'address_id' => $address->id ?? null
+        ]);
+
+        foreach ($cart as $item) {
+            TransactionDetail::create([
+                'transaction_id' => TransactionHeader::latest()->first()->id,
+                'product_id' => $item->product_id,
+                'quantity' => $item->quantity
+            ]);
+        }
+
+        return redirect()->route('checkout', ['transaction_id' => TransactionHeader::latest()->first()->id]);
+    }
+
+    public function checkout($transaction_id)
+    {
+        $cart = TransactionDetail::with(['product'])->where('transaction_id', $transaction_id)->get();
+        $transaction = TransactionHeader::where('id', $transaction_id)->first();
+
+        // dd($transaction);
+
+        return view('checkout', ['cart' => $cart, 'transaction' => $transaction]);
     }
 }
