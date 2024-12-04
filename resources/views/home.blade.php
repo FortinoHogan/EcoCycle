@@ -1,10 +1,25 @@
 @extends('layout.master')
 @section('konten')
-
+    @if (session('error'))
+        <script>
+            Swal.fire({
+                icon: 'warning',
+                title: 'Oops...',
+                text: '{{ session('error') }}',
+                confirmButtonText: 'OK',
+                didOpen: () => {
+                    const confirmButton = Swal.getConfirmButton();
+                    confirmButton.style.color = 'black';
+                    confirmButton.style.border = '1px solid #ccc';
+                }
+            });
+        </script>
+    @endif
     <div class="mb-40">
         <div class="konten1 flex justify-center items-center px-60 mt-24 mb-32 gap-10 max-md:flex-col max-sm:px-8">
             <div class="image-container animate-slideInFromLeft">
-                <img src="{{ asset('asset/orang.png') }}" class="max-w-[400px] max-sm:w-[200px] max-md:w-[300px]" alt="">
+                <img src="{{ asset('asset/orang.png') }}" class="max-w-[400px] max-sm:w-[200px] max-md:w-[300px]"
+                    alt="">
             </div>
 
             <div class="text-container flex flex-col gap-8 text-center animate-slideInFromRight">
