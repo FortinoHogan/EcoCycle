@@ -39,6 +39,7 @@ Route::prefix('/buyer')->group(function(){
     Route::post('/process-success', [TransactionController::class, 'process_success'])->name('process-success');
 
     Route::get('/ecolearning', [EcoLearningController::class, 'index'])->name('ecolearning');
+    Route::get('/articleDetail/{id}', [EcoLearningController::class, 'detail'])->name('articleDetail');
 
     Route::get('/profile', [BuyerController::class, 'index'])->name('profile');
 });

@@ -1,21 +1,23 @@
 @extends('layout.master')
 @section('konten')
-
-<div class="">
-    @foreach ($articles as $a)
-        <div class="flex flex-row justify-center mx-40 my-10 border border-[#3C552D] rounded-2xl gap-5">
-            <div>
-                <img src="data:image/jpeg;base64,{{ base64_encode($a->image) }}" alt=""
-                class="w-100 h-100 rounded-2xl object-cover">
+    <div class="mx-40 ">
+        @foreach ($articles as $a)
+            <div class="flex flex-row justify-center my-10 p-3 border border-[#3C552D] rounded-2xl gap-5">
+                <div class="max-w-[250px]  border-black">
+                    <img src="data:image/jpeg;base64,{{ base64_encode($a->image) }}" alt=""
+                        class="w-100 h-100 rounded-bl-2xl rounded-tl-2xl object-cover ">
+                </div>
+                <div class="flex flex-col justify-between gap-3 truncate">
+                    <div>
+                        <p class="text-xl font-semibold ">{{ $a->title }}</p>
+                        <p class="text-sm text-gray-500 mt-2">{{ $a->createdDate }}</p>
+                        <p class="text-md mt-4">{{ $a->description }}</p>
+                    </div>
+                    <div class="flex justify-end">
+                        <a href="{{route('articleDetail', ['id'=>$a->id])}}" class="font-medium border border-black mb-1 py-1 px-5 rounded-2xl hover:bg-[#3C552D] hover:text-white transition-all duration-500">See more...</a>
+                    </div>
+                </div>
             </div>
-            <div class="flex flex-col justify-between gap-5 truncate">
-                <p class="text-xl font-semibold ">{{$a->title}}</p>
-                <p class="text-sm text-gray-500">{{$a->createdDate}}</p>
-                <p class="text-md ">{{$a->description}}</p>
-            </div>
-        </div>
-    @endforeach
-</div>
-
-
+        @endforeach
+    </div>
 @endsection
