@@ -30,13 +30,9 @@ Route::prefix('/buyer')->group(function () {
 
     Route::get('/shop', [BuyerController::class, 'shop'])->name('shop.view');
     Route::get('/detail/{product_id}', [TransactionController::class, 'detail_product'])->name("detail");
-
-<<<<<<< HEAD
     Route::get('/cart', [TransactionController::class, 'cart'])->name("cart");
-=======
     Route::post('/detail/{product_id}', [TransactionController::class, 'detail_product'])->name("detail");
 
->>>>>>> f112ca5 (feat: add update product)
     Route::post('/cart/add', [TransactionController::class, 'add_to_cart'])->name('add-to-cart');
     Route::post('/cart/update-quantity', [TransactionController::class, 'update_quantity'])->name('update-quantity');
     Route::post('/cart/remove', [TransactionController::class, 'remove_from_cart'])->name('remove-from-cart');
@@ -64,7 +60,6 @@ Route::prefix('/seller')->group(function () {
         Route::get('/register', [SellerController::class, 'index_register_personal'])->name('sellerRegister.view');
         Route::post('/register', [SellerController::class, 'register_personal'])->name('register_seller.post');
     });
-
 
     Route::resource('/shop', ShopController::class);
 

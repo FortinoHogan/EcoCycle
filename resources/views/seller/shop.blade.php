@@ -204,5 +204,25 @@
         function stopPropagation(event) {
             event.stopPropagation();
         }
+
+        @if (session('insertSuccess'))
+            Swal.fire({
+                title: 'Insert Success',
+                text: '{{ session('success') }}',
+                icon: 'success',
+                confirmButtonText: 'OK',
+                confirmButtonColor: '#76b743'
+            });
+        @endif
+
+        @if (session('deleteSuccess'))
+            Swal.fire({
+                title: 'Delete Success',
+                text: '{{ session('success') }}',
+                icon: 'success',
+                confirmButtonText: 'OK',
+                confirmButtonColor: '#76b743'
+            });
+        @endif
     </script>
 @endsection

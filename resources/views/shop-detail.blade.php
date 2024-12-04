@@ -58,10 +58,17 @@
                                 </button>
                             @elseif (session('seller'))
                                 <div class="flex gap-5">
-                                    <button
-                                        class="hover:opacity-80 bg-[#76b743] border border-[#76b743] py-[10px] px-[24px] text-white rounded-md min-w-[100px] font-bold align-middle transition-all ease-in-out duration-500">
-                                        DELETE
-                                    </button>
+                                    <form id="delete-form-{{ $product->id }}"
+                                        action="{{ route('shop.destroy', $product->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button style="background: #76b743"
+                                            class="hover:opacity-80 bg-[#76b743] border border-[#76b743] py-[10px] px-[24px] text-white rounded-md min-w-[100px] font-bold align-middle transition-all ease-in-out duration-500"
+                                            onclick="confirmDelete({{ $product->id }})"
+                                            type="button">
+                                            DELETE
+                                        </button>
+                                    </form>
                                     <button
                                         class="hover:opacity-80 bg-[#76b743] border border-[#76b743] py-[10px] px-[24px] text-white rounded-md min-w-[100px] font-bold align-middle transition-all ease-in-out duration-500"
                                         onclick="toggleModal(true)">
@@ -194,6 +201,22 @@
             dropdownMenu.classList.toggle('hidden');
         });
 
+        function confirmDelete(productId) {
+            Swal.fire({
+                title: 'Are you sure?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'No'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById(`delete-form-${productId}`).submit();
+                }
+            });
+        }
+
         function previewImage(event) {
             const previewContainer = document.getElementById('imagePreview');
             previewContainer.innerHTML = '';
@@ -281,6 +304,15 @@
                     `;
                 });
         }
+        @if (session('updateSuccess'))
+            Swal.fire({
+                title: 'Update Success',
+                text: '{{ session('success') }}',
+                icon: 'success',
+                confirmButtonText: 'OK',
+                confirmButtonColor: '#76b743'
+            });
+        @endif
     </script>
 @endsection
 

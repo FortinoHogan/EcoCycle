@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Description;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\Seller;
+use App\Models\TransactionDetail;
+use App\Models\TransactionHeader;
 use Illuminate\Http\Request;
 
 class ShopController extends Controller
@@ -75,7 +78,7 @@ class ShopController extends Controller
                 'product_id' => $product->id
             ]);
         }
-        return redirect()->route('shop.index');
+        return redirect()->route('shop.index')->with('insertSuccess', 'Product created successfully');
     }
 
     /**
@@ -138,7 +141,7 @@ class ShopController extends Controller
                 'product_id' => $id
             ]);
         }
-        return redirect()->route('shop.index');
+        return redirect()->route('detail_seller', $id)->with('updateSuccess', 'Product updated successfully');
     }
 
     /**
@@ -146,6 +149,13 @@ class ShopController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $transactionHeaderIds = TransactionDetail::where('product_id', $id)->pluck('transaction_id');
+        TransactionDetail::where('product_id', $id)->delete();
+        TransactionHeader::whereIn('id', $transactionHeaderIds)->delete();
+        Cart::where('product_id', $id)->delete();
+        Description::where('product_id', $id)->delete();
+        ProductCategory::where('product_id', $id)->delete();
+        Product::where('id', $id)->delete();
+        return redirect()->route('shop.index')->with('deleteSuccess', 'Product deleted successfully');
     }
 }
