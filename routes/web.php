@@ -12,6 +12,8 @@ use App\Http\Controllers\EcoLearningController;
 use App\Http\Controllers\ShopController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home.view');
+Route::get('/login', [HomeController::class, 'index_login'])->name('login.view');
+Route::get('/register', [HomeController::class, 'index_register'])->name('register.view');
 
 Route::resource('ecoforum', EcoForumController::class);
 
@@ -19,10 +21,8 @@ Route::prefix('/buyer')->group(function () {
     Route::get('/logout', [BuyerController::class, 'logout_personal'])->name('logout_buyer');
 
     Route::middleware([CheckAuth::class])->group(function () {
-        Route::get('/login', [BuyerController::class, 'index_login_personal'])->name('buyerLogin.view');
         Route::post('/login', [BuyerController::class, 'login_personal'])->name('login_buyer.post');
 
-        Route::get('/register', [BuyerController::class, 'index_register_personal'])->name('buyerRegister.view');
         Route::post('/register', [BuyerController::class, 'register_personal'])->name('register_buyer.post');
     });
 
@@ -54,10 +54,8 @@ Route::prefix('/seller')->group(function () {
     Route::get('/logout', [SellerController::class, 'logout_personal'])->name('logout_seller');
 
     Route::middleware([CheckAuth::class])->group(function () {
-        Route::get('/login', [SellerController::class, 'index_login_personal'])->name('sellerLogin.view');
         Route::post('/login', [SellerController::class, 'login_personal'])->name('login_seller.post');
 
-        Route::get('/register', [SellerController::class, 'index_register_personal'])->name('sellerRegister.view');
         Route::post('/register', [SellerController::class, 'register_personal'])->name('register_seller.post');
     });
 

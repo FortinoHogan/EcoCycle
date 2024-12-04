@@ -21,18 +21,9 @@ class BuyerController extends Controller
         return view('shop', compact('product'));
     }
 
-    public function index_login_personal()
-    {
-        return view('auth.buyerLogin');
-    }
-
-    public function index_register_personal()
-    {
-        return view('auth.buyerRegister');
-    }
-
     public function register_personal(Request $request)
     {
+        session(['buyerRegis' => true]);
         $request->validate([
             'floating_email' => 'required|email|unique:buyers,email',
             'floating_password' => 'required|min:8',
@@ -60,7 +51,7 @@ class BuyerController extends Controller
             'profileImage' => null,
         ]);
 
-        return redirect()->route('buyerLogin.view')->with('success', 'Registration successful');
+        return redirect()->route('login.view')->with('success', 'Registration successful');
 
     }
 
@@ -79,9 +70,7 @@ class BuyerController extends Controller
         }
 
 
-        return redirect()->route('buyerLogin.view')->withErrors([
-            'login' => 'Invalid email or password. Please try again.'
-        ]);
+        return redirect()->route('login.view')->with(['error' => 'Invalid email or password', 'buyerLogin' => true]);
     }
 
     public function logout_personal()

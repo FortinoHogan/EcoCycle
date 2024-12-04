@@ -118,10 +118,10 @@
             @if (!session('buyer') && !session('seller'))
                 <div class="sm:flex hidden gap-6">
                     <div class="flex justify-end items-center w-80 gap-6">
-                        <a href="{{ route('buyerRegister.view') }}"
+                        <a href="{{ route('register.view') }}"
                             class="text-sm text-[#E9EEDC] font-medium border py-2 px-[18px] border-[#3C552D] rounded-md bg-[#3C552D]">Sign
                             Up</a>
-                        <a href="{{ route('buyerLogin.view') }}"
+                        <a href="{{ route('login.view') }}"
                             class="text-sm text-[#3C552D] font-medium border py-2 px-[25px] border-[#3C552D] rounded-md">Login</a>
                     </div>
 
@@ -462,11 +462,11 @@
             <ul class="flex flex-col gap-5 mt-5 font-medium text-sm">
                 @if (!session('buyer') && !session('seller'))
                     <li>
-                        <a href="{{ route('buyerRegister.view') }}" class="text-[#E9EEDC] hover:underline">Sign
+                        <a href="{{ route('register.view') }}" class="text-[#E9EEDC] hover:underline">Sign
                             Up</a>
                     </li>
                     <li>
-                        <a href="{{ route('buyerLogin.view') }}" class="text-[#E9EEDC] hover:underline">Login
+                        <a href="{{ route('login.view') }}" class="text-[#E9EEDC] hover:underline">Login
 
                         </a>
                     </li>
