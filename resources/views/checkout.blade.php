@@ -65,8 +65,26 @@
             snap.pay('{{ $transaction->snap_token }}', {
                 // Optional
                 onSuccess: function(result) {
-                    /* You may add your own js here, this is just example */
-                    // document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
+                    fetch('{{ route('process-success') }}', {
+                            method: 'POST',
+                            headers: {
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute('content'),
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                transaction_id: {{ $transaction->id }},
+                                midtrans_data: result
+                            }),
+                        })
+                        .then(response => {
+                            if (response.redirected) {
+                                // Redirect to the new view
+                                window.location.href = response.url;
+                            } else {
+                                return response.json();
+                            }
+                        })
                 },
                 // Optional
                 onPending: function(result) {

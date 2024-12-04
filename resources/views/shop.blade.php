@@ -32,14 +32,10 @@
                             <div class="mt-4 flex items-center justify-between gap-4">
                                 <p class="text-2xl font-extrabold leading-tight text-gray-900 dark:text-white">Rp.
                                     {{ number_format($prod->price, 0, ',', '.') }}</p>
-
-                                <form action="{{ route('detail', $product_id = $prod->id) }}" method="POST">
-                                    @csrf
-                                    <button id="pay-button" type="submit"
-                                        class="inline-flex items-center rounded-lg bg-green-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-green-800 focus:outline-none focus:ring-4  focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
-                                        SEE MORE
-                                    </button>
-                                </form>
+                                <button onclick="window.location.href='{{ route('detail', $product_id = $prod->id) }}'" id="pay-button" type="submit"
+                                    class="inline-flex items-center rounded-lg bg-green-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-green-800 focus:outline-none focus:ring-4  focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                                    SEE MORE
+                                </button>
                             </div>
                         </div>
                     </div>

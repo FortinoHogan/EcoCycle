@@ -24,11 +24,11 @@ Route::prefix('/buyer')->group(function(){
     Route::post('/register', [BuyerController::class, 'register_personal'])->name('register_buyer.post');
 
     Route::get('/profile', [BuyerController::class, 'index'])->name('buyerProfile');
-    Route::get('/shop', [BuyerController::class, 'shop'])->name('shop.view');
-
-
-    Route::post('/detail/{product_id}', [TransactionController::class, 'detail_product'])->name("detail");
     
+    Route::get('/shop', [BuyerController::class, 'shop'])->name('shop.view');
+    Route::get('/detail/{product_id}', [TransactionController::class, 'detail_product'])->name("detail");
+    
+    Route::get('/cart', [TransactionController::class, 'cart'])->name("cart");
     Route::post('/cart/add', [TransactionController::class, 'add_to_cart'])->name('add-to-cart');
     Route::post('/cart/update-quantity', [TransactionController::class, 'update_quantity'])->name('update-quantity');
     Route::post('/cart/remove', [TransactionController::class, 'remove_from_cart'])->name('remove-from-cart');
@@ -36,8 +36,7 @@ Route::prefix('/buyer')->group(function(){
     Route::post('/process-checkout', [TransactionController::class, 'process_checkout'])->name('process-checkout');
     Route::get('/checkout/{transaction_id}', [TransactionController::class, 'checkout'])->name('checkout');
     
-    Route::get('/payment/{transaction_id}', [PaymentController::class, 'payment'])->name('payment');
-    Route::get('/cart', [TransactionController::class, 'cart'])->name("cart");
+    Route::post('/process-success', [TransactionController::class, 'process_success'])->name('process-success');
 
     Route::get('/ecolearning', [EcoLearningController::class, 'index'])->name('ecolearning');
 

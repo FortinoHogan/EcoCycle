@@ -29,6 +29,11 @@
                             class="me-2 rounded bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900 dark:text-green-300">
                             Ingredients: {{ $product->description->ingredient }}
                         </span>
+                        <br>
+                        <span
+                            class="me-2 rounded bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900 dark:text-green-300">
+                            Origin: {{ $product->description->origin }}
+                        </span>
                         <div class="mt-4 flex items-center justify-between gap-4">
                             <p class="text-2xl font-extrabold leading-tight text-gray-900 dark:text-white">Rp.
                                 {{ number_format($product->price, 0, ',', '.') }}</p>
@@ -54,6 +59,16 @@
 @section('scripts')
     <script>
         function addToCart(productId) {
+            const addToCartButton = document.getElementById('pay-button');
+            addToCartButton.disabled = true; // Disable the button during loading
+            addToCartButton.innerHTML = `
+                <svg class="animate-spin -ms-2 me-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C6.268 0 2 4.268 2 9.5S6.268 19 12 19v-2a8 8 0 01-8-8z"></path>
+                </svg>
+                Adding...
+            `;
+
             fetch('{{ route('add-to-cart') }}', {
                     method: 'POST',
                     headers: {
@@ -66,9 +81,32 @@
                 })
                 .then(response => response.json())
                 .then(data => {
-                    alert(data.message);
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Added to Cart',
+                        text: data.message,
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
                 })
-                .catch(error => console.error('Error:', error));
+                .catch(error => {
+                    console.error('Error:', error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Failed to add to cart. Please try again.',
+                    });
+                })
+                .finally(() => {
+                    addToCartButton.disabled = false; // Re-enable the button
+                    addToCartButton.innerHTML = `
+                        <svg class="-ms-2 me-2 h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6" />
+                        </svg>
+                        ADD TO CART
+                    `;
+                });
         }
     </script>
 @endsection

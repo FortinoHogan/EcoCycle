@@ -138,7 +138,8 @@ class TransactionController extends Controller
         $snapToken = Snap::getSnapToken($params);
 
         TransactionHeader::create([
-            'status' => 'pending',
+            'id' => $params['transaction_details']['order_id'],
+            'status' => 'unpaid',
             'buyer_id' => $buyer->id,
             'total_price' => $total_price,
             'shipping_fee' => 10000,
@@ -164,8 +165,20 @@ class TransactionController extends Controller
         $cart = TransactionDetail::with(['product'])->where('transaction_id', $transaction_id)->get();
         $transaction = TransactionHeader::where('id', $transaction_id)->first();
 
-        // dd($transaction);
-
         return view('checkout', ['cart' => $cart, 'transaction' => $transaction]);
+    }
+
+    public function process_success(Request $request) {
+        $transaction_id = $request->input('transaction_id');
+        $midtrans_data = $request->input('midtrans_data');
+
+        TransactionHeader::where('id', $transaction_id)->update(['status' => 'paid']);
+
+        return redirect()->route('success', ['transaction_id' => $transaction_id, 'midtrans_data' => $midtrans_data]);
+    }   
+
+    public function success($transaction_id, $midtrans_data) {
+        dd($transaction_id, $midtrans_data);        
+        return view('success');
     }
 }

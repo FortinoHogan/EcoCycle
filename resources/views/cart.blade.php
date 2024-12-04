@@ -126,9 +126,22 @@
                 });
 
                 if (checkedProducts.length === 0) {
-                    alert('Please select at least one product to checkout.');
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'No items selected',
+                        text: 'Please select at least one product to checkout.',
+                    });
                     return;
                 }
+
+                // Disable the button and show loading state
+                checkoutButton.disabled = true;
+                checkoutButton.innerHTML = `
+                        <svg class="animate-spin -ms-2 me-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C6.268 0 2 4.268 2 9.5S6.268 19 12 19v-2a8 8 0 01-8-8z"></path>
+                        </svg>
+                        Processing...`;
 
                 fetch('{{ route('process-checkout') }}', {
                         method: 'POST',
@@ -151,11 +164,27 @@
                     })
                     .then(data => {
                         if (data && data.message) {
-                            alert(data.message);
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Checkout Complete',
+                                text: data.message,
+                                timer: 2000,
+                                showConfirmButton: false,
+                            });
                         }
                     })
                     .catch(error => {
                         console.error('Error:', error);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Checkout Failed',
+                            text: 'There was an issue processing your checkout. Please try again.',
+                        });
+                    })
+                    .finally(() => {
+                        // Restore the button state
+                        checkoutButton.disabled = false;
+                        checkoutButton.innerHTML = 'Check Out';
                     });
             });
         });
