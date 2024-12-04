@@ -214,12 +214,12 @@
 
             @if (session('buyer'))
                 <div class="flex gap-6">
-                    <div class="flex justify-end items-center w-80 gap-6">
+                    <div class="sm:flex hidden justify-end items-center w-80 gap-6">
                         <a href="{{ route('logout_buyer') }}"
                             class="text-sm text-[#3C552D] font-medium border py-2 px-[25px] border-[#3C552D] rounded-md">Logout</a>
                     </div>
 
-                    <div class="flex items-center md:order-2 space-x-1 md:space-x-0 rtl:space-x-reverse">
+                    <div class="max-sm:pr-10 flex items-center md:order-2 space-x-1 md:space-x-0 rtl:space-x-reverse">
                         <button type="button" data-dropdown-toggle="language-dropdown-menu"
                             class="inline-flex items-center font-medium justify-center px-4 py-2 text-sm text-gray-900 dark:text-white rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
                             <svg class="w-5 h-5 rounded-full me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -305,12 +305,12 @@
                 </div>
             @elseif (session('seller'))
                 <div class="flex gap-6">
-                    <div class="flex justify-end items-center w-80 gap-6">
+                    <div class="sm:flex hidden justify-end items-center w-80 gap-6">
                         <a href="{{ route('logout_seller') }}"
                             class="text-sm text-[#3C552D] font-medium border py-2 px-[25px] border-[#3C552D] rounded-md">Logout</a>
                     </div>
 
-                    <div class="flex items-center md:order-2 space-x-1 md:space-x-0 rtl:space-x-reverse">
+                    <div class="max-sm:pr-10 flex items-center md:order-2 space-x-1 md:space-x-0 rtl:space-x-reverse">
                         <button type="button" data-dropdown-toggle="language-dropdown-menu"
                             class="inline-flex items-center font-medium justify-center px-4 py-2 text-sm text-gray-900 dark:text-white rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
                             <svg class="w-5 h-5 rounded-full me-3" aria-hidden="true"
@@ -405,7 +405,7 @@
     <nav class="bg-[#3C552D] sm:flex hidden">
         <div class="px-8 py-3 w-full">
             <div class="flex items-center w-full">
-                <ul class="flex flex-row font-medium space-x-8 rtl:space-x-reverse text-sm w-full">
+                <ul class="flex items-center flex-row font-medium space-x-8 rtl:space-x-reverse text-sm w-full">
                     <li>
                         <a href="{{ route('home.view') }}" class="text-[#E9EEDC] hover:underline"
                             aria-current="page">Home</a>
@@ -430,7 +430,8 @@
                             </div>
 
                             <li>
-                                <div onclick="window.location.href='{{ route('cart') }}'" class="inline-flex text-[#E9EEDC] cursor-pointer hover:underline px-4">
+                                <div onclick="window.location.href='{{ route('cart') }}'"
+                                    class="inline-flex text-[#E9EEDC] cursor-pointer hover:underline px-4">
                                     <svg class="-ms-2 me-2 h-5 w-5" aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                         fill="none" viewBox="0 0 24 24">
@@ -459,31 +460,51 @@
     <div class="px-8 py-3">
         <div class="flex items-center">
             <ul class="flex flex-col gap-5 mt-5 font-medium text-sm">
-                <li>
-                    <a href="{{ route('buyerRegister.view') }}" class="text-[#E9EEDC] hover:underline">Sign
-                        Up</a>
-                </li>
-                <li>
-                    <a href="{{ route('buyerLogin.view') }}" class="text-[#E9EEDC] hover:underline">Login
+                @if (!session('buyer') && !session('seller'))
+                    <li>
+                        <a href="{{ route('buyerRegister.view') }}" class="text-[#E9EEDC] hover:underline">Sign
+                            Up</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('buyerLogin.view') }}" class="text-[#E9EEDC] hover:underline">Login
 
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('home.view') }}" class="text-[#E9EEDC] hover:underline"
-                        aria-current="page">Home</a>
-                </li>
-                <li>
-                    <a href="{{ route('shop.view') }}" class="text-[#E9EEDC] hover:underline">Shop</a>
-                </li>
-                <li>
-                    <a href="{{ route('ecoforum.index') }}" class="text-[#E9EEDC] hover:underline">EcoForum</a>
-                </li>
-                <li>
-                    <a href="#" class="text-[#E9EEDC] hover:underline">EcoLearning</a>
-                </li>
-                <li>
-                    <a href="{{ route('profile') }}" class="text-[#E9EEDC] hover:underline">Profile</a>
-                </li>
+                        </a>
+                    </li>
+                @elseif (session('buyer'))
+                    <li>
+                        <a href="{{ route('home.view') }}" class="text-[#E9EEDC] hover:underline"
+                            aria-current="page">Home</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('shop.view') }}" class="text-[#E9EEDC] hover:underline">Shop</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('ecoforum.index') }}" class="text-[#E9EEDC] hover:underline">EcoForum</a>
+                    </li>
+                    <li>
+                        <a href="#" class="text-[#E9EEDC] hover:underline">EcoLearning</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('profile') }}" class="text-[#E9EEDC] hover:underline">Profile</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('cart') }}" class="text-[#E9EEDC] hover:underline">Cart</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('logout_buyer') }}" class="text-[#E9EEDC] hover:underline">Logout</a>
+                    </li>
+                @elseif (session('seller'))
+                    <li>
+                        <a href="{{ route('home.view') }}" class="text-[#E9EEDC] hover:underline"
+                            aria-current="page">Home</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('shop.index') }}" class="text-[#E9EEDC] hover:underline">My Shop</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('logout_seller') }}" class="text-[#E9EEDC] hover:underline">Logout</a>
+                    </li>
+                @endif
             </ul>
         </div>
     </div>

@@ -8,7 +8,7 @@
         }
     </style>
     <div class="p-4">
-        <div class="block m-auto w-[100%] max-w-[1200px]">
+        <div class="block m-auto w-[100%] max-w-[1200px] px-4">
             <h2 class="font-bold text-2xl text-[#5c5c5c] mb-4">My Shop</h2>
             <div class="flex justify-end mb-4">
                 <button

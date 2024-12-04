@@ -41,7 +41,7 @@
                             class="me-2 rounded bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900 dark:text-green-300">
                             Origin: {{ $product->description->origin }}
                         </span>
-                        <div class="mt-4 flex items-center justify-between gap-4">
+                        <div class="mt-4 flex items-center justify-between gap-4 flex-wrap">
                             <p class="text-2xl font-extrabold leading-tight text-gray-900 dark:text-white">Rp.
                                 {{ number_format($product->price, 0, ',', '.') }}</p>
 
@@ -57,7 +57,7 @@
                                     ADD TO CART
                                 </button>
                             @elseif (session('seller'))
-                                <div class="flex gap-5">
+                                <div class="flex gap-5 flex-wrap">
                                     <form id="delete-form-{{ $product->id }}"
                                         action="{{ route('shop.destroy', $product->id) }}" method="POST">
                                         @csrf
