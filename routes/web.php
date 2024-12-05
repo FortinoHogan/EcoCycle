@@ -12,8 +12,11 @@ use App\Http\Controllers\EcoLearningController;
 use App\Http\Controllers\ShopController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home.view');
-Route::get('/login', [HomeController::class, 'index_login'])->name('login.view');
-Route::get('/register', [HomeController::class, 'index_register'])->name('register.view');
+
+Route::middleware([CheckAuth::class])->group(function () {
+    Route::get('/login', [HomeController::class, 'index_login'])->name('login.view');
+    Route::get('/register', [HomeController::class, 'index_register'])->name('register.view');
+});
 
 Route::resource('ecoforum', EcoForumController::class);
 

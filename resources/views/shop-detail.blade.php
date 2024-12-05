@@ -64,8 +64,7 @@
                                         @method('DELETE')
                                         <button style="background: #76b743"
                                             class="hover:opacity-80 bg-[#76b743] border border-[#76b743] py-[10px] px-[24px] text-white rounded-md min-w-[100px] font-bold align-middle transition-all ease-in-out duration-500"
-                                            onclick="confirmDelete({{ $product->id }})"
-                                            type="button">
+                                            onclick="confirmDelete({{ $product->id }})" type="button">
                                             DELETE
                                         </button>
                                     </form>
@@ -87,7 +86,8 @@
         <div class="bg-white rounded-lg shadow-lg max-w-[640px] w-[90%] p-8 h-5/6 overflow-y-auto scrollbar-hidden"
             onclick="stopPropagation(event)">
             <h2 class="font-bold text-xl text-[#5c5c5c] text-center p-8">Edit Product</h2>
-            <form action="{{ route('shop.update', $product->id) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('shop.update', $product->id) }}" method="POST" enctype="multipart/form-data"
+                onsubmit="showSpinner()">
                 @csrf
                 @method('PUT')
                 <div class="mb-6">
@@ -185,6 +185,41 @@
             </form>
         </div>
     </div>
+    <div id="spinner"
+        class="bg-[rgb(189,236,211)] opacity-70 hidden fixed top-0 min-h-[100%] w-[100%] z-[99] justify-center items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24">
+            <rect width="2.8" height="12" x="1" y="6" fill="currentColor">
+                <animate id="svgSpinnersBarsScale0" attributeName="y" begin="0;svgSpinnersBarsScale1.end-0.1s"
+                    calcMode="spline" dur="0.6s" keySplines=".36,.61,.3,.98;.36,.61,.3,.98" values="6;1;6" />
+                <animate attributeName="height" begin="0;svgSpinnersBarsScale1.end-0.1s" calcMode="spline"
+                    dur="0.6s" keySplines=".36,.61,.3,.98;.36,.61,.3,.98" values="12;22;12" />
+            </rect>
+            <rect width="2.8" height="12" x="5.8" y="6" fill="currentColor">
+                <animate attributeName="y" begin="svgSpinnersBarsScale0.begin+0.1s" calcMode="spline" dur="0.6s"
+                    keySplines=".36,.61,.3,.98;.36,.61,.3,.98" values="6;1;6" />
+                <animate attributeName="height" begin="svgSpinnersBarsScale0.begin+0.1s" calcMode="spline"
+                    dur="0.6s" keySplines=".36,.61,.3,.98;.36,.61,.3,.98" values="12;22;12" />
+            </rect>
+            <rect width="2.8" height="12" x="10.6" y="6" fill="currentColor">
+                <animate attributeName="y" begin="svgSpinnersBarsScale0.begin+0.2s" calcMode="spline" dur="0.6s"
+                    keySplines=".36,.61,.3,.98;.36,.61,.3,.98" values="6;1;6" />
+                <animate attributeName="height" begin="svgSpinnersBarsScale0.begin+0.2s" calcMode="spline"
+                    dur="0.6s" keySplines=".36,.61,.3,.98;.36,.61,.3,.98" values="12;22;12" />
+            </rect>
+            <rect width="2.8" height="12" x="15.4" y="6" fill="currentColor">
+                <animate attributeName="y" begin="svgSpinnersBarsScale0.begin+0.3s" calcMode="spline" dur="0.6s"
+                    keySplines=".36,.61,.3,.98;.36,.61,.3,.98" values="6;1;6" />
+                <animate attributeName="height" begin="svgSpinnersBarsScale0.begin+0.3s" calcMode="spline"
+                    dur="0.6s" keySplines=".36,.61,.3,.98;.36,.61,.3,.98" values="12;22;12" />
+            </rect>
+            <rect width="2.8" height="12" x="20.2" y="6" fill="currentColor">
+                <animate id="svgSpinnersBarsScale1" attributeName="y" begin="svgSpinnersBarsScale0.begin+0.4s"
+                    calcMode="spline" dur="0.6s" keySplines=".36,.61,.3,.98;.36,.61,.3,.98" values="6;1;6" />
+                <animate attributeName="height" begin="svgSpinnersBarsScale0.begin+0.4s" calcMode="spline"
+                    dur="0.6s" keySplines=".36,.61,.3,.98;.36,.61,.3,.98" values="12;22;12" />
+            </rect>
+        </svg>
+    </div>
 @endsection
 
 @section('scripts')
@@ -213,6 +248,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     document.getElementById(`delete-form-${productId}`).submit();
+                    showSpinner();
                 }
             });
         }
@@ -252,6 +288,11 @@
 
         function stopPropagation(event) {
             event.stopPropagation();
+        }
+
+        function showSpinner() {
+            document.getElementById("spinner").classList.remove("hidden");
+            document.getElementById("spinner").classList.add("flex");
         }
 
         function addToCart(productId) {
@@ -304,6 +345,7 @@
                     `;
                 });
         }
+
         @if (session('updateSuccess'))
             Swal.fire({
                 title: 'Update Success',
