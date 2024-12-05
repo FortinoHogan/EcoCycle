@@ -16,7 +16,7 @@ class SellerController extends Controller
 
     public function register_personal(Request $request)
     {
-        session(['sellerRegis' => 'true']);
+        session(['sellerRegis' => true]);
         $request->validate([
             'floating_email' => 'required|email|unique:sellers,email',
             'floating_storeName' => 'required|unique:sellers,name',

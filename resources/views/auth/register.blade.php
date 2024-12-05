@@ -12,8 +12,39 @@
         input:focus {
             outline: none;
         }
-    </style>
 
+        @keyframes slideDown {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(0);
+                opacity: 1;
+            }
+
+            to {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+        }
+
+        .slide-down {
+            animation: slideDown 0.2s ease-out forwards;
+        }
+
+        .slide-up {
+            animation: slideUp 0.2s ease-in forwards;
+        }
+    </style>
     <section class="bg-gradient-scrollable fixed w-full h-full overflow-auto">
         <div class="py-4 mx-auto max-w-[340px] w-full">
             <div class="bg-white rounded-md overflow-hidden">
@@ -26,7 +57,7 @@
                             id="errorMsg">
                             <span>{{ $errors->first() }}</span>
                             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
-                                id="close" fill="#e8eaed">
+                                id="closeError" fill="#e8eaed" class="cursor-pointer">
                                 <path
                                     d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
                             </svg>
@@ -35,11 +66,12 @@
                     <div id="register-buyer-header" class="flex justify-between items-center mb-4">
                         <h2 class="font-bold text-2xl text-[#5c5c5c]">Register as Buyer</h2>
                         <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 -960 960 960" width="36px"
-                            fill="#5c5c5c">
+                            fill="#5c5c5c" id="buyerDropdownIcon">
                             <path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z" />
                         </svg>
                     </div>
-                    <div id="register-buyer-form" class="{{ session('buyerRegis') ? '' : 'hidden' }} transition-transform duration-500 transform">
+                    <div id="register-buyer-form"
+                        class="{{ session('buyerRegis') ? '' : 'hidden' }} transition-transform duration-500 transform">
                         <form action="{{ route('register_buyer.post') }}" class="pt-4" method="POST"
                             onsubmit="showSpinner()">
                             @csrf
@@ -47,7 +79,8 @@
                             <div class="mb-6">
                                 <label for="" class="text-[#5c5c5c] mb-1">EMAIL</label>
                                 <input type="email" name="floating_email"
-                                    class="w-full border border-black/10 outline-none h-10" required value="{{ old('floating_email') }}">
+                                    class="w-full border border-black/10 outline-none h-10" required
+                                    value="{{ old('floating_email') }}">
                             </div>
                             <div class="mb-6">
                                 <label for="password" class="text-[#5c5c5c] mb-1">PASSWORD</label>
@@ -63,7 +96,8 @@
                             <div class="mb-6">
                                 <label for="" class="text-[#5c5c5c] mb-1">USERNAME</label>
                                 <input type="text" name="floating_username"
-                                    class="w-full border border-black/10 outline-none h-10" required value="{{ old('floating_username') }}">
+                                    class="w-full border border-black/10 outline-none h-10" required
+                                    value="{{ old('floating_username') }}">
                             </div>
                             <div class="mb-6">
                                 <label for="" class="text-[#5c5c5c] mb-1">PHONE NUMBER</label>
@@ -82,11 +116,12 @@
                     <div id="register-seller-header" class="flex justify-between items-center mb-4">
                         <h2 class="font-bold text-2xl text-[#5c5c5c]">Register as Seller</h2>
                         <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 -960 960 960" width="36px"
-                            fill="#5c5c5c">
+                            fill="#5c5c5c" id="sellerDropdownIcon">
                             <path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z" />
                         </svg>
                     </div>
-                    <div id="register-seller-form" class="{{ session('sellerRegis') ? '' : 'hidden' }} transition-transform duration-500 transform">
+                    <div id="register-seller-form"
+                        class="{{ session('sellerRegis') ? '' : 'hidden' }} transition-transform duration-500 transform">
                         <form action="{{ route('register_seller.post') }}" class="pt-4" method="POST"
                             onsubmit="showSpinner()">
                             @csrf
@@ -94,7 +129,8 @@
                             <div class="mb-6">
                                 <label for="" class="text-[#5c5c5c] mb-1">EMAIL</label>
                                 <input type="email" name="floating_email"
-                                    class="w-full border border-black/10 outline-none h-10" required value="{{ old('floating_email') }}">
+                                    class="w-full border border-black/10 outline-none h-10" required
+                                    value="{{ old('floating_email') }}">
                             </div>
                             <div class="mb-6">
                                 <label for="password" class="text-[#5c5c5c] mb-1">PASSWORD</label>
@@ -110,7 +146,8 @@
                             <div class="mb-6">
                                 <label for="" class="text-[#5c5c5c] mb-1">STORE NAME</label>
                                 <input type="text" name="floating_storeName"
-                                    class="w-full border border-black/10 outline-none h-10" required value="{{ old('floating_storeName') }}">
+                                    class="w-full border border-black/10 outline-none h-10" required
+                                    value="{{ old('floating_storeName') }}">
                             </div>
                             <div class="mb-6">
                                 <label for="" class="text-[#5c5c5c] mb-1">PHONE NUMBER</label>
@@ -121,7 +158,8 @@
                             <div class="mb-6">
                                 <label for="" class="text-[#5c5c5c] mb-1">REGION</label>
                                 <input type="text" name="floating_region"
-                                    class="w-full border border-black/10 outline-none h-10" required value="{{ old('floating_region') }}">
+                                    class="w-full border border-black/10 outline-none h-10" required
+                                    value="{{ old('floating_region') }}">
                             </div>
                             <button type="submit" class="w-full py-2 bg-[#76b743] text-white h-10">
                                 <span class="button__label">SIGN UP</span>
@@ -180,43 +218,54 @@
 
 @section('scripts')
     <script>
-        document.getElementById("register-buyer-header").addEventListener("click", function() {
-            const form = document.getElementById("register-buyer-form");
-            if (form.classList.contains("hidden")) {
-                form.classList.remove("hidden");
-                form.style.transform = "translateY(-15%)";
-                setTimeout(() => {
-                    form.style.transform = "translateY(0)";
-                }, 10);
-            } else {
-                form.style.transform = "translateY(-15%)";
-                setTimeout(() => {
-                    form.classList.add("hidden");
-                    form.style.transform = "translateY(0)";
-                }, 200);
-            }
-        });
+        document.addEventListener("DOMContentLoaded", function() {
+            const buyerHeader = document.getElementById("register-buyer-header");
+            const buyerForm = document.getElementById("register-buyer-form");
+            const buyerDropdownIcon = document.getElementById("buyerDropdownIcon");
+            const sellerHeader = document.getElementById("register-seller-header");
+            const sellerForm = document.getElementById("register-seller-form");
+            const sellerDropdownIcon = document.getElementById(
+                "sellerDropdownIcon");
+            const closeError = document.getElementById("closeError");
+            const errorMsg = document.getElementById("errorMsg");
 
-        document.getElementById("register-seller-header").addEventListener("click", function() {
-            const form = document.getElementById("register-seller-form");
-            if (form.classList.contains("hidden")) {
-                form.classList.remove("hidden");
-                form.style.transform = "translateY(-15%)";
-                setTimeout(() => {
-                    form.style.transform = "translateY(0)";
-                }, 10);
-            } else {
-                form.style.transform = "translateY(-15%)";
-                setTimeout(() => {
-                    form.classList.add("hidden");
-                    form.style.transform = "translateY(0)";
-                }, 200);
-            }
-        });
+            buyerHeader.addEventListener("click", function() {
+                if (buyerForm.classList.contains("hidden")) {
+                    buyerForm.classList.remove("hidden", "slide-up");
+                    buyerForm.classList.add("slide-down");
+                    buyerDropdownIcon.style.transform = "rotate(180deg)";
+                } else {
+                    buyerForm.classList.remove("slide-down");
+                    buyerForm.classList.add("slide-up");
+                    buyerDropdownIcon.style.transform = "rotate(0deg)";
 
-        document.getElementById("close").addEventListener("click", function() {
-            const error = document.getElementById("errorMsg");
-            error.classList.add("hidden");
+                    setTimeout(() => {
+                        buyerForm.classList.add("hidden");
+                    }, 300);
+                }
+            });
+
+            sellerHeader.addEventListener("click", function() {
+                if (sellerForm.classList.contains("hidden")) {
+                    sellerForm.classList.remove("hidden", "slide-up");
+                    sellerForm.classList.add("slide-down");
+                    sellerDropdownIcon.style.transform = "rotate(180deg)";
+                } else {
+                    sellerForm.classList.remove("slide-down");
+                    sellerForm.classList.add("slide-up");
+                    sellerDropdownIcon.style.transform = "rotate(0deg)";
+
+                    setTimeout(() => {
+                        sellerForm.classList.add("hidden");
+                    }, 300);
+                }
+            });
+            
+            if (closeError) {
+                closeError.addEventListener("click", function() {
+                    errorMsg.style.display = "none";
+                });
+            }
         });
 
         function togglePasswordBuyer() {

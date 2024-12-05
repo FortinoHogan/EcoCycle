@@ -12,6 +12,38 @@
         input:focus {
             outline: none;
         }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(0);
+                opacity: 1;
+            }
+
+            to {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+        }
+
+        .slide-down {
+            animation: slideDown 0.2s ease-out forwards;
+        }
+
+        .slide-up {
+            animation: slideUp 0.2s ease-in forwards;
+        }
     </style>
 
     <section class="bg-gradient-scrollable fixed w-full h-full overflow-auto">
@@ -26,31 +58,33 @@
                             id="errorMsg">
                             <span>{{ session('error') }}</span>
                             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
-                                id="close" fill="#e8eaed">
+                                id="closeError" fill="#e8eaed" class="cursor-pointer">
                                 <path
                                     d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
                             </svg>
                         </div>
                     @endif
-                    <div id="login-buyer-header" class="flex justify-between items-center mb-4">
+
+                    <div id="login-buyer-header" class="flex justify-between items-center mb-4 cursor-pointer">
                         <h2 class="font-bold text-2xl text-[#5c5c5c]">Login as Buyer</h2>
                         <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 -960 960 960" width="36px"
-                            fill="#5c5c5c">
+                            fill="#5c5c5c" id="buyerDropdownIcon">
                             <path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z" />
                         </svg>
                     </div>
-                    <div id="login-buyer-form" class="{{ session('buyerLogin') ? '' : 'hidden' }} transition-transform duration-500 transform">
+
+                    <div id="login-buyer-form"
+                        class="{{ session('buyerLogin') ? '' : 'hidden' }} transition-transform duration-500 transform">
                         <form action="{{ route('login_buyer.post') }}" class="pt-4" method="POST"
                             onsubmit="showSpinner()">
                             @csrf
-                            @method('POST')
                             <div class="mb-6">
-                                <label for="" class="text-[#5c5c5c] mb-1">EMAIL</label>
-                                <input type="email" name="floating_email"
+                                <label for="floating_email" class="text-[#5c5c5c] mb-1">EMAIL</label>
+                                <input id="floating_email" type="email" name="floating_email"
                                     class="w-full border border-black/10 outline-none h-10" required>
                             </div>
                             <div class="mb-6">
-                                <label for="password" class="text-[#5c5c5c] mb-1">PASSWORD</label>
+                                <label for="passwordBuyer" class="text-[#5c5c5c] mb-1">PASSWORD</label>
                                 <div class="relative flex justify-between">
                                     <input id="passwordBuyer" type="password" name="floating_password"
                                         class="w-full border border-black/10 outline-none h-10" required>
@@ -67,15 +101,17 @@
                     </div>
                     <hr class="border-b mt-6">
                 </section>
+
                 <section class="pb-8 px-6">
                     <div id="login-seller-header" class="flex justify-between items-center mb-4">
                         <h2 class="font-bold text-2xl text-[#5c5c5c]">Login as Seller</h2>
                         <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 -960 960 960" width="36px"
-                            fill="#5c5c5c">
+                            fill="#5c5c5c" id="sellerDropdownIcon">
                             <path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z" />
                         </svg>
                     </div>
-                    <div id="login-seller-form" class="{{ session('sellerLogin') ? '' : 'hidden' }} transition-transform duration-500 transform">
+                    <div id="login-seller-form"
+                        class="{{ session('sellerLogin') ? '' : 'hidden' }} transition-transform duration-500 transform">
                         <form action="{{ route('login_seller.post') }}" class="pt-4" method="POST"
                             onsubmit="showSpinner()">
                             @csrf
@@ -153,43 +189,54 @@
 
 @section('scripts')
     <script>
-        document.getElementById("login-buyer-header").addEventListener("click", function() {
-            const form = document.getElementById("login-buyer-form");
-            if (form.classList.contains("hidden")) {
-                form.classList.remove("hidden");
-                form.style.transform = "translateY(-15%)";
-                setTimeout(() => {
-                    form.style.transform = "translateY(0)";
-                }, 10);
-            } else {
-                form.style.transform = "translateY(-15%)";
-                setTimeout(() => {
-                    form.classList.add("hidden");
-                    form.style.transform = "translateY(0)";
-                }, 200);
-            }
-        });
+        document.addEventListener("DOMContentLoaded", function() {
+            const buyerHeader = document.getElementById("login-buyer-header");
+            const buyerForm = document.getElementById("login-buyer-form");
+            const buyerDropdownIcon = document.getElementById("buyerDropdownIcon");
+            const sellerHeader = document.getElementById("login-seller-header");
+            const sellerForm = document.getElementById("login-seller-form");
+            const sellerDropdownIcon = document.getElementById(
+                "sellerDropdownIcon");
+            const closeError = document.getElementById("closeError");
+            const errorMsg = document.getElementById("errorMsg");
 
-        document.getElementById("login-seller-header").addEventListener("click", function() {
-            const form = document.getElementById("login-seller-form");
-            if (form.classList.contains("hidden")) {
-                form.classList.remove("hidden");
-                form.style.transform = "translateY(-15%)";
-                setTimeout(() => {
-                    form.style.transform = "translateY(0)";
-                }, 10);
-            } else {
-                form.style.transform = "translateY(-15%)";
-                setTimeout(() => {
-                    form.classList.add("hidden");
-                    form.style.transform = "translateY(0)";
-                }, 200);
-            }
-        });
+            buyerHeader.addEventListener("click", function() {
+                if (buyerForm.classList.contains("hidden")) {
+                    buyerForm.classList.remove("hidden", "slide-up");
+                    buyerForm.classList.add("slide-down");
+                    buyerDropdownIcon.style.transform = "rotate(180deg)";
+                } else {
+                    buyerForm.classList.remove("slide-down");
+                    buyerForm.classList.add("slide-up");
+                    buyerDropdownIcon.style.transform = "rotate(0deg)";
 
-        document.getElementById("close").addEventListener("click", function() {
-            const error = document.getElementById("errorMsg");
-            error.classList.add("hidden");
+                    setTimeout(() => {
+                        buyerForm.classList.add("hidden");
+                    }, 300);
+                }
+            });
+
+            sellerHeader.addEventListener("click", function() {
+                if (sellerForm.classList.contains("hidden")) {
+                    sellerForm.classList.remove("hidden", "slide-up");
+                    sellerForm.classList.add("slide-down");
+                    sellerDropdownIcon.style.transform = "rotate(180deg)";
+                } else {
+                    sellerForm.classList.remove("slide-down");
+                    sellerForm.classList.add("slide-up");
+                    sellerDropdownIcon.style.transform = "rotate(0deg)";
+
+                    setTimeout(() => {
+                        sellerForm.classList.add("hidden");
+                    }, 300);
+                }
+            });
+
+            if (closeError) {
+                closeError.addEventListener("click", function() {
+                    errorMsg.style.display = "none";
+                });
+            }
         });
 
         function togglePasswordBuyer() {
