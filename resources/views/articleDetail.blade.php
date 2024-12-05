@@ -6,7 +6,7 @@
         <div class="mt-10">
             <img src="data:image/jpeg;base64,{{ base64_encode($article->image) }}"
                  alt=""
-                 class="rounded-2xl object-contain">
+                 class="rounded-2xl h-60 w-full object-contain">
         </div>
         <p class="text-lg mt-6 text-justify">{{ $article->description }}</p>
     </div>

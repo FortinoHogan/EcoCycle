@@ -421,7 +421,7 @@
                                         class="text-[#E9EEDC] hover:underline">EcoForum</a>
                                 </li>
                                 <li>
-                                    <a href="#" class="text-[#E9EEDC] hover:underline">EcoLearning</a>
+                                    <a href="{{ route('ecolearning') }}" class="text-[#E9EEDC] hover:underline">EcoLearning</a>
                                 </li>
                                 <li>
                                     <a href="{{ route('profile') }}"

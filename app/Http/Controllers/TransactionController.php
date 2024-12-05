@@ -174,9 +174,8 @@ class TransactionController extends Controller
 
         TransactionHeader::where('id', $transaction_id)->update(['status' => 'paid']);
 
-        return redirect()->route('success', ['transaction_id' => $transaction_id, 'midtrans_data' => $midtrans_data]);
-    }   
-
+        return view('success', compact('transaction_id', 'midtrans_data'));
+    }
     public function success($transaction_id, $midtrans_data) {
         dd($transaction_id, $midtrans_data);        
         return view('success');

@@ -37,6 +37,7 @@ Route::prefix('/buyer')->group(function(){
     Route::get('/checkout/{transaction_id}', [TransactionController::class, 'checkout'])->name('checkout');
     
     Route::post('/process-success', [TransactionController::class, 'process_success'])->name('process-success');
+    Route::get('/success', [TransactionController::class, 'success'])->name('success');
 
     Route::get('/ecolearning', [EcoLearningController::class, 'index'])->name('ecolearning');
     Route::get('/articleDetail/{id}', [EcoLearningController::class, 'detail'])->name('articleDetail');
