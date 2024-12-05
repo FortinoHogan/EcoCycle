@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Description;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\Seller;
+use App\Models\TransactionDetail;
+use App\Models\TransactionHeader;
 use Illuminate\Http\Request;
 
 class ShopController extends Controller
@@ -18,7 +21,7 @@ class ShopController extends Controller
     public function index()
     {
         $seller = Seller::where('id', session('seller')->id)->first();
-        $products = Product::where('seller_id', session('seller')->id)->paginate(5);
+        $products = Product::where('seller_id', session('seller')->id)->paginate(6);
         $categories = Category::all();
 
         return view('seller.shop', compact('seller', 'products', 'categories'));
@@ -75,7 +78,7 @@ class ShopController extends Controller
                 'product_id' => $product->id
             ]);
         }
-        return redirect()->route('shop.index');
+        return redirect()->route('shop.index')->with('insertSuccess', 'Product created successfully');
     }
 
     /**
@@ -99,7 +102,46 @@ class ShopController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'price' => 'required',
+            'stock' => 'required',
+            'ingredients' => 'required',
+            'origin' => 'required',
+            'description' => 'required',
+            'categories' => 'required|array',
+        ]);
+
+        if ($request->hasFile('image')) {
+            $request->validate([
+                'image' => 'image|mimes:jpeg,png,jpg|max:2048',
+            ]);
+            $image = file_get_contents($request->file('image')->getRealPath());
+        } else {
+            $image = Product::where('id', $id)->first()->image;
+        }
+        Product::where('id', $id)->update([
+            'name' => $request->name,
+            'price' => $request->price,
+            'stock' => $request->stock,
+            'image' => $image,
+        ]);
+
+        Description::where('product_id', $id)->update([
+            'ingredient' => $request->ingredients,
+            'origin' => $request->origin,
+            'description' => $request->description,
+        ]);
+
+        ProductCategory::where('product_id', $id)->delete();
+
+        foreach ($request->categories as $category) {
+            ProductCategory::where('product_id', $id)->create([
+                'category_id' => $category,
+                'product_id' => $id
+            ]);
+        }
+        return redirect()->route('detail_seller', $id)->with('updateSuccess', 'Product updated successfully');
     }
 
     /**
@@ -107,6 +149,13 @@ class ShopController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $transactionHeaderIds = TransactionDetail::where('product_id', $id)->pluck('transaction_id');
+        TransactionDetail::where('product_id', $id)->delete();
+        TransactionHeader::whereIn('id', $transactionHeaderIds)->delete();
+        Cart::where('product_id', $id)->delete();
+        Description::where('product_id', $id)->delete();
+        ProductCategory::where('product_id', $id)->delete();
+        Product::where('id', $id)->delete();
+        return redirect()->route('shop.index')->with('deleteSuccess', 'Product deleted successfully');
     }
 }

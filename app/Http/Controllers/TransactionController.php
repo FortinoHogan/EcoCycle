@@ -6,6 +6,9 @@ use App\Models\Address;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Cart;
+use App\Models\Category;
+use App\Models\Description;
+use App\Models\ProductCategory;
 use App\Models\TransactionHeader;
 use App\Models\TransactionDetail;
 use Midtrans\Config;
@@ -16,8 +19,11 @@ class TransactionController extends Controller
     public function detail_product($product_id)
     {
         $product = Product::with(['description'])->where('id', $product_id)->first();
+        $description = Description::where('product_id', $product_id)->first();
+        $categoriesSelected = ProductCategory::where('product_id', $product_id)->get();
+        $categories = Category::all();
 
-        return view('shop-detail', compact('product'));
+        return view('shop-detail', compact('product', 'description', 'categoriesSelected', 'categories'));
     }
 
     public function add_to_cart(Request $request)

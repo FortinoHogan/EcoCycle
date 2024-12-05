@@ -22,11 +22,7 @@ EcoCycle merupakan website marketplace yang mendukung produk ramah lingkungan ya
 3. Sistem Reward Berkelanjutan
     - Green Points: Pengguna akan mendapatkan poin setiap kali mereka membeli produk ramah lingkungan. Poin ini bisa ditukar dengan diskon, donasi untuk proyek pelestarian lingkungan, atau produk eksklusif.
 4. Edukasi Konsumen
-   - Learning Hub: Bagian khusus yang menyediakan artikel, video, dan panduan praktis tentang konsumsi dan produksi berkelanjutan, serta cara untuk mengurangi jejak karbon dalam kehidupan sehari-hari.
-   - EcoChallenge: Fitur ini mengajak pengguna untuk mengikuti tantangan bulanan yang berkaitan dengan gaya hidup ramah lingkungan, seperti mengurangi penggunaan plastik atau beralih ke produk daur ulang.
-5. Partnership dengan Produsen dan NGO
-   - Producer Profiles: Halaman khusus untuk setiap produsen yang menjual produk di marketplace, menampilkan visi mereka terhadap keberlanjutan dan inisiatif ramah lingkungan yang mereka terapkan.
-   - NGO Collaboration: Marketplace ini bekerja sama dengan organisasi lingkungan dan NGO untuk memberikan dukungan finansial atau logistik bagi proyek-proyek keberlanjutan melalui sebagian keuntungan yang dihasilkan.
+   - Ecolearning: Bagian khusus yang menyediakan artikel, video, dan panduan praktis tentang konsumsi dan produksi berkelanjutan, serta cara untuk mengurangi jejak karbon dalam kehidupan sehari-hari.
 
 Dengan fitur-fitur ini, website marketplace ini berfungsi sebagai platform yang tidak hanya mendukung perdagangan berkelanjutan, tetapi juga mendidik konsumen dan produsen tentang pentingnya konsumsi dan produksi yang bertanggung jawab, sejalan dengan tujuan SDG 12. 
 

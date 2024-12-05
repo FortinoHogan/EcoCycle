@@ -15,6 +15,7 @@
     <title>EcoCycle</title>
 </head>
 <body>
+
     @yield('konten')
 
     <script>
@@ -42,5 +43,7 @@
             /* Matches the auto-hide duration */
         }
     </style>
+
+    @yield('scripts')
 </body>
 </html>
