@@ -49,7 +49,7 @@ Route::prefix('/buyer')->group(function () {
 
 
     Route::get('/ecolearning', [EcoLearningController::class, 'index'])->name('ecolearning');
-    Route::get('/articleDetail/{id}', [EcoLearningController::class, 'detail'])->name('articleDetail');
+    Route::get('/article-detail/{id}', [EcoLearningController::class, 'detail'])->name('article_detail');
 
     Route::get('/profile', [BuyerController::class, 'index'])->name('profile');
 });
