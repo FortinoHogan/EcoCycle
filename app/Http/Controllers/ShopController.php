@@ -42,13 +42,29 @@ class ShopController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'price' => 'required',
-            'stock' => 'required',
+            'price' => 'required|numeric',
+            'stock' => 'required|numeric',
             'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'ingredients' => 'required',
             'origin' => 'required',
             'description' => 'required',
             'categories' => 'required|array',
+        ], [
+            'name.required' => 'Product name is required',
+            'price.required' => 'Product price is required',
+            'price.numeric' => 'Product price must be a number',
+            'stock.required' => 'Product stock is required',
+            'stock.numeric' => 'Product stock must be a number',
+
+            'image.required' => 'Product image is required',
+            'image.image' => 'Product image must be an image file',
+            'image.mimes' => 'Product image must be a JPEG, PNG, or JPG file',
+            'image.max' => 'Product image size must be less than 2MB',
+
+            'ingredients.required' => 'Product ingredients is required',
+            'origin.required' => 'Product origin is required',
+            'description.required' => 'Product description is required',
+            'categories.required' => 'Product categories is required',
         ]);
 
         if ($request->hasFile('image')) {
@@ -78,6 +94,7 @@ class ShopController extends Controller
                 'product_id' => $product->id
             ]);
         }
+
         return redirect()->route('shop.index')->with('insertSuccess', 'Product created successfully');
     }
 
@@ -104,17 +121,32 @@ class ShopController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'price' => 'required',
-            'stock' => 'required',
+            'price' => 'required|numeric',
+            'stock' => 'required|numeric',
             'ingredients' => 'required',
             'origin' => 'required',
             'description' => 'required',
             'categories' => 'required|array',
+        ], [
+            'name.required' => 'Product name is required',
+            'price.required' => 'Product price is required',
+            'price.numeric' => 'Product price must be a number',
+            'stock.required' => 'Product stock is required',
+            'stock.numeric' => 'Product stock must be a number',
+
+            'ingredients.required' => 'Product ingredients is required',
+            'origin.required' => 'Product origin is required',
+            'description.required' => 'Product description is required',
+            'categories.required' => 'Product categories is required',
         ]);
 
         if ($request->hasFile('image')) {
             $request->validate([
                 'image' => 'image|mimes:jpeg,png,jpg|max:2048',
+            ], [
+                'image.image' => 'Product image must be an image file',
+                'image.mimes' => 'Product image must be a JPEG, PNG, or JPG file',
+                'image.max' => 'Product image size must be less than 2MB',
             ]);
             $image = file_get_contents($request->file('image')->getRealPath());
         } else {
