@@ -169,9 +169,11 @@ class TransactionController extends Controller
     public function checkout($transaction_id)
     {
         $cart = TransactionDetail::with(['product'])->where('transaction_id', $transaction_id)->get();
+        $selected_address = Address::with(['buyer'])->where('buyer_id', session('buyer')->id)->where('main', true)->first();
+        $addresses = Address::with(['buyer'])->where('buyer_id', session('buyer')->id)->get();
         $transaction = TransactionHeader::where('id', $transaction_id)->first();
 
-        return view('checkout', ['cart' => $cart, 'transaction' => $transaction]);
+        return view('checkout', ['cart' => $cart, 'transaction' => $transaction, 'selected_address' => $selected_address, 'addresses' => $addresses]);
     }
 
     public function process_success(Request $request) {
@@ -180,10 +182,13 @@ class TransactionController extends Controller
 
         TransactionHeader::where('id', $transaction_id)->update(['status' => 'paid']);
 
-        return view('success', compact('transaction_id', 'midtrans_data'));
+        return redirect()->route('success', ['transaction' => $midtrans_data]);
     }
-    public function success($transaction_id, $midtrans_data) {
-        dd($transaction_id, $midtrans_data);        
-        return view('success');
+
+    public function success(Request $request) {
+        $transaction = (object) $request->input('transaction');
+        $address = Address::where('buyer_id', session('buyer')->id)->where('main', true)->first();
+
+        return view('success', ['transaction' => $transaction, 'address' => $address]);
     }
 }

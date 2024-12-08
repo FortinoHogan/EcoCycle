@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AddressController;
 use App\Http\Middleware\CheckAuth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -47,6 +48,8 @@ Route::prefix('/buyer')->group(function () {
 
     Route::get('/cart', [TransactionController::class, 'cart'])->name("cart");
 
+    Route::post('/address', [AddressController::class, 'set_address'])->name('set-address');
+    Route::post('/change-address', [AddressController::class, 'change_address'])->name('change-address');
 
     Route::get('/ecolearning', [EcoLearningController::class, 'index'])->name('ecolearning');
     Route::get('/articleDetail/{id}', [EcoLearningController::class, 'detail'])->name('articleDetail');

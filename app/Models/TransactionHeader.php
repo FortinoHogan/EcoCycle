@@ -27,4 +27,9 @@ class TransactionHeader extends Model
     {
         return $this->hasMany(TransactionDetail::class, 'transaction_id');
     }
+
+    public function address()
+    {
+        return $this->hasMany(Address::class, 'address_id');
+    }
 }
