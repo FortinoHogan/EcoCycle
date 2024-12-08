@@ -81,11 +81,21 @@
             </div>
         </div>
     </section>
-    <div id="modalWrapper" style="display: none;"
+    <div id="modalWrapper" style="{{ $errors->any() ? 'display: flex;' : 'display: none;' }}"
         class="bg-black bg-opacity-40 fixed inset-0 z-50 items-center justify-center" onclick="closeModal()">
         <div class="bg-white rounded-lg shadow-lg max-w-[640px] w-[90%] p-8 h-5/6 overflow-y-auto scrollbar-hidden"
             onclick="stopPropagation(event)">
             <h2 class="font-bold text-xl text-[#5c5c5c] text-center p-8">Edit Product</h2>
+            @if ($errors->any())
+                <div class="bg-[#d73930] py-3 px-4 text-white mb-3 flex items-center justify-between" id="errorMsg">
+                    <span>{{ $errors->first() }}</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                        id="closeError" fill="#e8eaed" class="cursor-pointer">
+                        <path
+                            d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
+                    </svg>
+                </div>
+            @endif
             <form action="{{ route('shop.update', $product->id) }}" method="POST" enctype="multipart/form-data"
                 onsubmit="showSpinner()">
                 @csrf
@@ -235,6 +245,12 @@
         dropdownButtonDone.addEventListener('click', () => {
             dropdownMenu.classList.toggle('hidden');
         });
+
+        if (document.getElementById("closeError")) {
+            document.getElementById("closeError").addEventListener("click", function() {
+                document.getElementById("errorMsg").style.display = "none";
+            });
+        }
 
         function confirmDelete(productId) {
             Swal.fire({

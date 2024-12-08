@@ -62,29 +62,42 @@
         </div>
     </div>
 
-    <div id="modalWrapper" style="display: none;"
+    <div id="modalWrapper" style="{{ $errors->any() ? 'display: flex;' : 'display: none;' }}"
         class="bg-black bg-opacity-40 fixed inset-0 z-50 items-center justify-center" onclick="closeModal()">
         <div class="bg-white rounded-lg shadow-lg max-w-[640px] w-[90%] p-8 h-5/6 overflow-y-auto scrollbar-hidden"
             onclick="stopPropagation(event)">
             <h2 class="font-bold text-xl text-[#5c5c5c] text-center p-8">Add Product</h2>
+            @if ($errors->any())
+                <div class="bg-[#d73930] py-3 px-4 text-white mb-3 flex items-center justify-between" id="errorMsg">
+                    <span>{{ $errors->first() }}</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                        id="closeError" fill="#e8eaed" class="cursor-pointer">
+                        <path
+                            d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
+                    </svg>
+                </div>
+            @endif
             <form action="{{ route('shop.store') }}" method="POST" enctype="multipart/form-data" onsubmit="showSpinner()">
                 @csrf
                 <div class="mb-6">
                     <label for="name" class="block text-sm font-medium text-gray-700">Product Name</label>
                     <input id="name" name="name"
-                        class="mt-1 p-2 w-full rounded-sm border border-[#5c5c5c] border-opacity-30 focus:outline-none outline-none">
+                        class="mt-1 p-2 w-full rounded-sm border border-[#5c5c5c] border-opacity-30 focus:outline-none outline-none"
+                        required value="{{ old('name') }}">
                 </div>
 
                 <div class="mb-6">
                     <label for="price" class="block text-sm font-medium text-gray-700">Price</label>
                     <input id="price" name="price"
-                        class="mt-1 p-2 w-full rounded-sm border border-[#5c5c5c] border-opacity-30 focus:outline-none outline-none">
+                        class="mt-1 p-2 w-full rounded-sm border border-[#5c5c5c] border-opacity-30 focus:outline-none outline-none"
+                        required value="{{ old('price') }}">
                 </div>
 
                 <div class="mb-6">
                     <label for="stock" class="block text-sm font-medium text-gray-700">Stock</label>
                     <input id="stock" name="stock"
-                        class="mt-1 p-2 w-full rounded-sm border border-[#5c5c5c] border-opacity-30 focus:outline-none outline-none">
+                        class="mt-1 p-2 w-full rounded-sm border border-[#5c5c5c] border-opacity-30 focus:outline-none outline-none"
+                        required value="{{ old('stock') }}">
                 </div>
 
                 <div class="mb-6">
@@ -100,19 +113,21 @@
                 <div class="mb-6">
                     <label for="ingredients" class="block text-sm font-medium text-gray-700">Ingredients</label>
                     <input id="ingredients" name="ingredients"
-                        class="mt-1 p-2 w-full rounded-sm border border-[#5c5c5c] border-opacity-30 focus:outline-none outline-none">
+                        class="mt-1 p-2 w-full rounded-sm border border-[#5c5c5c] border-opacity-30 focus:outline-none outline-none"
+                        required value="{{ old('ingredients') }}">
                 </div>
 
                 <div class="mb-6">
                     <label for="origin" class="block text-sm font-medium text-gray-700">Origin</label>
                     <input id="origin" name="origin"
-                        class="mt-1 p-2 w-full rounded-sm border border-[#5c5c5c] border-opacity-30 focus:outline-none outline-none">
+                        class="mt-1 p-2 w-full rounded-sm border border-[#5c5c5c] border-opacity-30 focus:outline-none outline-none"
+                        required value="{{ old('origin') }}">
                 </div>
 
                 <div class="mb-6">
                     <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
                     <textarea id="description" name="description" rows="4"
-                        class="mt-1 p-2 w-full rounded-sm border border-[#5c5c5c] border-opacity-30 focus:outline-none outline-none resize-none"></textarea>
+                        class="mt-1 p-2 w-full rounded-sm border border-[#5c5c5c] border-opacity-30 focus:outline-none outline-none resize-none">{{ old('description') }}</textarea>
                 </div>
 
                 <div class="mb-6">
@@ -195,6 +210,7 @@
         const dropdownButtonDone = document.getElementById('dropdownButtonDone');
         const dropdownMenu = document.getElementById('dropdownMenu');
 
+
         dropdownButton.addEventListener('click', () => {
             dropdownMenu.classList.toggle('hidden');
         });
@@ -202,6 +218,12 @@
         dropdownButtonDone.addEventListener('click', () => {
             dropdownMenu.classList.toggle('hidden');
         });
+
+        if (document.getElementById("closeError")) {
+            document.getElementById("closeError").addEventListener("click", function() {
+                document.getElementById("errorMsg").style.display = "none";
+            });
+        }
 
         function previewImage(event) {
             const previewContainer = document.getElementById('imagePreview');
