@@ -10,6 +10,7 @@ use App\Http\Controllers\EcoForumController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\EcoLearningController;
+use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\ShopController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home.view');
@@ -55,6 +56,9 @@ Route::prefix('/buyer')->group(function () {
     Route::get('/article-detail/{id}', [EcoLearningController::class, 'detail'])->name('article_detail');
 
     Route::get('/profile', [BuyerController::class, 'index'])->name('profile');
+
+    Route::get('/history', [HistoryController::class, 'index'])->name('history');
+
 });
 
 Route::prefix('/seller')->group(function () {

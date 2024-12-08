@@ -19,11 +19,13 @@
                                 src="data:image/jpeg;base64,{{ base64_encode($product->image) }}" alt="" />
                         </a>
                     </div>
-                    <div class="mt-6 flex items-center justify-between gap-4">
-                        <span
-                            class="me-2 rounded bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900 dark:text-green-300">
-                            Organik
-                        </span>
+                    <div class="mt-6 flex items-center gap-1">
+                        @foreach ($categoriesSelected as $category)
+                            <span
+                                class="me-2 rounded bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900 dark:text-green-300">
+                                {{ $category->category->category }}
+                            </span>
+                        @endforeach
                     </div>
                     <div class="mt-4">
                         <a href="#"

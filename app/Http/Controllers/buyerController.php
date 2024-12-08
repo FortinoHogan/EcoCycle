@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Buyer;
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Support\Facades\Hash;
 
@@ -16,7 +17,7 @@ class BuyerController extends Controller
     }
 
     public function shop() {
-        $product = Product::with(['description'])->get();
+        $product = Product::with(['description', 'product_categories.category'])->get();
 
         return view('shop', compact('product'));
     }
