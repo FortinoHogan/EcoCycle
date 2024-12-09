@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Description;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\Seller;
+use App\Models\TransactionDetail;
+use App\Models\TransactionHeader;
 use Illuminate\Http\Request;
 
 class ShopController extends Controller
@@ -18,7 +21,7 @@ class ShopController extends Controller
     public function index()
     {
         $seller = Seller::where('id', session('seller')->id)->first();
-        $products = Product::where('seller_id', session('seller')->id)->paginate(5);
+        $products = Product::where('seller_id', session('seller')->id)->paginate(6);
         $categories = Category::all();
 
         return view('seller.shop', compact('seller', 'products', 'categories'));
@@ -39,13 +42,29 @@ class ShopController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'price' => 'required',
-            'stock' => 'required',
+            'price' => 'required|numeric',
+            'stock' => 'required|numeric',
             'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'ingredients' => 'required',
             'origin' => 'required',
             'description' => 'required',
             'categories' => 'required|array',
+        ], [
+            'name.required' => 'Product name is required',
+            'price.required' => 'Product price is required',
+            'price.numeric' => 'Product price must be a number',
+            'stock.required' => 'Product stock is required',
+            'stock.numeric' => 'Product stock must be a number',
+
+            'image.required' => 'Product image is required',
+            'image.image' => 'Product image must be an image file',
+            'image.mimes' => 'Product image must be a JPEG, PNG, or JPG file',
+            'image.max' => 'Product image size must be less than 2MB',
+
+            'ingredients.required' => 'Product ingredients is required',
+            'origin.required' => 'Product origin is required',
+            'description.required' => 'Product description is required',
+            'categories.required' => 'Product categories is required',
         ]);
 
         if ($request->hasFile('image')) {
@@ -75,7 +94,8 @@ class ShopController extends Controller
                 'product_id' => $product->id
             ]);
         }
-        return redirect()->route('shop.index');
+
+        return redirect()->route('shop.index')->with('insertSuccess', 'Product created successfully');
     }
 
     /**
@@ -99,7 +119,61 @@ class ShopController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'price' => 'required|numeric',
+            'stock' => 'required|numeric',
+            'ingredients' => 'required',
+            'origin' => 'required',
+            'description' => 'required',
+            'categories' => 'required|array',
+        ], [
+            'name.required' => 'Product name is required',
+            'price.required' => 'Product price is required',
+            'price.numeric' => 'Product price must be a number',
+            'stock.required' => 'Product stock is required',
+            'stock.numeric' => 'Product stock must be a number',
+
+            'ingredients.required' => 'Product ingredients is required',
+            'origin.required' => 'Product origin is required',
+            'description.required' => 'Product description is required',
+            'categories.required' => 'Product categories is required',
+        ]);
+
+        if ($request->hasFile('image')) {
+            $request->validate([
+                'image' => 'image|mimes:jpeg,png,jpg|max:2048',
+            ], [
+                'image.image' => 'Product image must be an image file',
+                'image.mimes' => 'Product image must be a JPEG, PNG, or JPG file',
+                'image.max' => 'Product image size must be less than 2MB',
+            ]);
+            $image = file_get_contents($request->file('image')->getRealPath());
+        } else {
+            $image = Product::where('id', $id)->first()->image;
+        }
+        Product::where('id', $id)->update([
+            'name' => $request->name,
+            'price' => $request->price,
+            'stock' => $request->stock,
+            'image' => $image,
+        ]);
+
+        Description::where('product_id', $id)->update([
+            'ingredient' => $request->ingredients,
+            'origin' => $request->origin,
+            'description' => $request->description,
+        ]);
+
+        ProductCategory::where('product_id', $id)->delete();
+
+        foreach ($request->categories as $category) {
+            ProductCategory::where('product_id', $id)->create([
+                'category_id' => $category,
+                'product_id' => $id
+            ]);
+        }
+        return redirect()->route('detail_seller', $id)->with('updateSuccess', 'Product updated successfully');
     }
 
     /**
@@ -107,6 +181,13 @@ class ShopController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $transactionHeaderIds = TransactionDetail::where('product_id', $id)->pluck('transaction_id');
+        TransactionDetail::where('product_id', $id)->delete();
+        TransactionHeader::whereIn('id', $transactionHeaderIds)->delete();
+        Cart::where('product_id', $id)->delete();
+        Description::where('product_id', $id)->delete();
+        ProductCategory::where('product_id', $id)->delete();
+        Product::where('id', $id)->delete();
+        return redirect()->route('shop.index')->with('deleteSuccess', 'Product deleted successfully');
     }
 }

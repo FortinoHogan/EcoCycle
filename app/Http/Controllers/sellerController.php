@@ -14,40 +14,33 @@ class SellerController extends Controller
         return view('sellerProfile', compact('seller'));
     }
 
-    public function index_login_personal()
-    {
-        return view('auth.sellerLogin');
-    }
-
-    public function index_register_personal()
-    {
-        return view('auth.sellerRegister');
-    }
-
     public function register_personal(Request $request)
     {
+        session(['sellerRegis' => true]);
         $request->validate([
             'floating_email' => 'required|email|unique:sellers,email',
             'floating_storeName' => 'required|unique:sellers,name',
             'floating_password' => 'required|min:8',
-            'floating_phone' => 'required|numeric',
+            'floating_phone' => 'required|regex:/^[0-9]{8,15}$/',
             'floating_region' => 'required|string',
         ], [
             'floating_email.unique' => 'The email address has already been taken.',
             'floating_email.required' => 'The email address is required.',
             'floating_email.email' => 'Please enter a valid email address.',
 
-            'floating_storeName.unique' => 'The store name is already taken.',
-            'floating_storeName.required' => 'The store name is required.',
-
             'floating_password.required' => 'The password is required.',
             'floating_password.min' => 'The password must be at least 8 characters.',
 
-            'floating_phone.required' => 'The phone number is required.',
-            'floating_phone.numeric' => 'Please enter a valid phone number.',
+            'floating_storeName.unique' => 'The store name is already taken.',
+            'floating_storeName.required' => 'The store name is required.',
+
+            'floating_phone.required' => 'Phone number is required.',
+            'floating_phone.regex' => 'Phone number must be between 8 and 15 digits.',
 
             'floating_region.required' => 'The region is required.',
+            'floating_region.string' => 'Please enter a valid region.',
         ]);
+
 
         Seller::create([
             'email' => $request->floating_email,
@@ -60,7 +53,7 @@ class SellerController extends Controller
             'profileImage' => null,
         ]);
 
-        return redirect()->route('sellerLogin.view')->with('success', 'Registration successful');
+        return redirect()->route('login.view')->with('success', 'Registration successful');
 
     }
 
@@ -78,7 +71,7 @@ class SellerController extends Controller
             return redirect()->route('home.view')->with('success', 'Login successful');
         }
 
-        return redirect()->route('sellerLogin.view')->with('error', 'Invalid email or password');
+        return redirect()->route('login.view')->with(['error' => 'Invalid email or password', 'sellerLogin' => true]);
     }
 
     public function logout_personal()

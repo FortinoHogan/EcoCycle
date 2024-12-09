@@ -118,10 +118,10 @@
             @if (!session('buyer') && !session('seller'))
                 <div class="sm:flex hidden gap-6">
                     <div class="flex justify-end items-center w-80 gap-6">
-                        <a href="{{ route('buyerRegister.view') }}"
+                        <a href="{{ route('register.view') }}"
                             class="text-sm text-[#E9EEDC] font-medium border py-2 px-[18px] border-[#3C552D] rounded-md bg-[#3C552D]">Sign
                             Up</a>
-                        <a href="{{ route('buyerLogin.view') }}"
+                        <a href="{{ route('login.view') }}"
                             class="text-sm text-[#3C552D] font-medium border py-2 px-[25px] border-[#3C552D] rounded-md">Login</a>
                     </div>
 
@@ -214,12 +214,12 @@
 
             @if (session('buyer'))
                 <div class="flex gap-6">
-                    <div class="flex justify-end items-center w-80 gap-6">
+                    <div class="sm:flex hidden justify-end items-center w-80 gap-6">
                         <a href="{{ route('logout_buyer') }}"
                             class="text-sm text-[#3C552D] font-medium border py-2 px-[25px] border-[#3C552D] rounded-md hover:bg-[#3C552D] hover:text-white transition-all duration-500">Logout</a>
                     </div>
 
-                    <div class="flex items-center md:order-2 space-x-1 md:space-x-0 rtl:space-x-reverse">
+                    <div class="max-sm:pr-10 flex items-center md:order-2 space-x-1 md:space-x-0 rtl:space-x-reverse">
                         <button type="button" data-dropdown-toggle="language-dropdown-menu"
                             class="inline-flex items-center font-medium justify-center px-4 py-2 text-sm text-gray-900 dark:text-white rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
                             <svg class="w-5 h-5 rounded-full me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -305,12 +305,12 @@
                 </div>
             @elseif (session('seller'))
                 <div class="flex gap-6">
-                    <div class="flex justify-end items-center w-80 gap-6">
+                    <div class="sm:flex hidden justify-end items-center w-80 gap-6">
                         <a href="{{ route('logout_seller') }}"
                             class="text-sm text-[#3C552D] font-medium border py-2 px-[25px] border-[#3C552D] rounded-md hover:bg-[#3C552D] hover:text-white transition-all duration-500">Logout</a>
                     </div>
 
-                    <div class="flex items-center md:order-2 space-x-1 md:space-x-0 rtl:space-x-reverse">
+                    <div class="max-sm:pr-10 flex items-center md:order-2 space-x-1 md:space-x-0 rtl:space-x-reverse">
                         <button type="button" data-dropdown-toggle="language-dropdown-menu"
                             class="inline-flex items-center font-medium justify-center px-4 py-2 text-sm text-gray-900 dark:text-white rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
                             <svg class="w-5 h-5 rounded-full me-3" aria-hidden="true"
@@ -405,7 +405,7 @@
     <nav class="bg-[#3C552D] sm:flex hidden">
         <div class="px-8 py-3 w-full">
             <div class="flex items-center w-full">
-                <ul class="flex flex-row font-medium space-x-8 rtl:space-x-reverse text-sm w-full">
+                <ul class="flex items-center flex-row font-medium space-x-8 rtl:space-x-reverse text-sm w-full">
                     <li>
                         <a href="{{ route('home.view') }}" class="text-[#E9EEDC] hover:underline"
                             aria-current="page">Home</a>
@@ -421,7 +421,8 @@
                                         class="text-[#E9EEDC] hover:underline">EcoForum</a>
                                 </li>
                                 <li>
-                                    <a href="#" class="text-[#E9EEDC] hover:underline">EcoLearning</a>
+                                    <a href="{{ route('ecolearning') }}"
+                                        class="text-[#E9EEDC] hover:underline">EcoLearning</a>
                                 </li>
                                 <li>
                                     <a href="{{ route('profile') }}"
@@ -429,18 +430,32 @@
                                 </li>
                             </div>
 
-                            <li>
-                                <div onclick="window.location.href='{{ route('cart') }}'" class="inline-flex text-[#E9EEDC] cursor-pointer hover:underline px-4">
-                                    <svg class="-ms-2 me-2 h-5 w-5" aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        fill="none" viewBox="0 0 24 24">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="2"
-                                            d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6" />
-                                    </svg>
-                                    CART
-                                </div>
-                            </li>
+                            <div class="flex items-center justify-center">
+                                <li>
+                                    <div onclick="window.location.href='{{ route('cart') }}'"
+                                        class="inline-flex items-center justify-center text-[#E9EEDC] cursor-pointer hover:underline px-4">
+                                        <svg class="-ms-2 me-2 h-5 w-5" aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            fill="none" viewBox="0 0 24 24">
+                                            <path stroke="currentColor" stroke-linecap="round"
+                                                stroke-linejoin="round" stroke-width="2"
+                                                d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6" />
+                                        </svg>
+                                        CART
+                                    </div>
+                                </li>
+                                <li>
+                                    <div onclick="window.location.href='{{ route('history') }}'"
+                                        class="inline-flex gap-1 items-center justify-center text-[#E9EEDC] cursor-pointer hover:underline px-4">
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="24px"
+                                            viewBox="0 -1060 1060 1060" width="24px" fill="#E9EEDC">
+                                            <path
+                                                d="M480-120q-138 0-240.5-91.5T122-440h82q14 104 92.5 172T480-200q117 0 198.5-81.5T760-480q0-117-81.5-198.5T480-760q-69 0-129 32t-101 88h110v80H120v-240h80v94q51-64 124.5-99T480-840q75 0 140.5 28.5t114 77q48.5 48.5 77 114T840-480q0 75-28.5 140.5t-77 114q-48.5 48.5-114 77T480-120Zm112-192L440-464v-216h80v184l128 128-56 56Z" />
+                                        </svg>
+                                        HISTORY
+                                    </div>
+                                </li>
+                            </div>
                         </div>
                     @endif
                     @if (session('seller'))
@@ -459,31 +474,51 @@
     <div class="px-8 py-3">
         <div class="flex items-center">
             <ul class="flex flex-col gap-5 mt-5 font-medium text-sm">
-                <li>
-                    <a href="{{ route('buyerRegister.view') }}" class="text-[#E9EEDC] hover:underline">Sign
-                        Up</a>
-                </li>
-                <li>
-                    <a href="{{ route('buyerLogin.view') }}" class="text-[#E9EEDC] hover:underline">Login
+                @if (!session('buyer') && !session('seller'))
+                    <li>
+                        <a href="{{ route('register.view') }}" class="text-[#E9EEDC] hover:underline">Sign
+                            Up</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('login.view') }}" class="text-[#E9EEDC] hover:underline">Login
 
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('home.view') }}" class="text-[#E9EEDC] hover:underline"
-                        aria-current="page">Home</a>
-                </li>
-                <li>
-                    <a href="{{ route('shop.view') }}" class="text-[#E9EEDC] hover:underline">Shop</a>
-                </li>
-                <li>
-                    <a href="{{ route('ecoforum.index') }}" class="text-[#E9EEDC] hover:underline">EcoForum</a>
-                </li>
-                <li>
-                    <a href="#" class="text-[#E9EEDC] hover:underline">EcoLearning</a>
-                </li>
-                <li>
-                    <a href="{{ route('profile') }}" class="text-[#E9EEDC] hover:underline">Profile</a>
-                </li>
+                        </a>
+                    </li>
+                @elseif (session('buyer'))
+                    <li>
+                        <a href="{{ route('home.view') }}" class="text-[#E9EEDC] hover:underline"
+                            aria-current="page">Home</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('shop.view') }}" class="text-[#E9EEDC] hover:underline">Shop</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('ecoforum.index') }}" class="text-[#E9EEDC] hover:underline">EcoForum</a>
+                    </li>
+                    <li>
+                        <a href="#" class="text-[#E9EEDC] hover:underline">EcoLearning</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('profile') }}" class="text-[#E9EEDC] hover:underline">Profile</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('cart') }}" class="text-[#E9EEDC] hover:underline">Cart</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('logout_buyer') }}" class="text-[#E9EEDC] hover:underline">Logout</a>
+                    </li>
+                @elseif (session('seller'))
+                    <li>
+                        <a href="{{ route('home.view') }}" class="text-[#E9EEDC] hover:underline"
+                            aria-current="page">Home</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('shop.index') }}" class="text-[#E9EEDC] hover:underline">My Shop</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('logout_seller') }}" class="text-[#E9EEDC] hover:underline">Logout</a>
+                    </li>
+                @endif
             </ul>
         </div>
     </div>

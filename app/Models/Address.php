@@ -23,4 +23,8 @@ class Address extends Model
     {
         return $this->belongsTo(Buyer::class, 'buyer_id');
     }
+
+    public function transaction_header() {
+        return $this->belongsTo(TransactionHeader::class, 'transaction_id');
+    }
 }

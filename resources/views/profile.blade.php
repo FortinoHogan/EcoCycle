@@ -19,7 +19,7 @@
         }
     </style>
 
-    <div class="max-w-4xl mx-auto mt-10 bg-white rounded-lg shadow-md page-transition">
+    <div class="max-w-4xl mx-auto my-10 pb-6 bg-white rounded-lg shadow-md page-transition">
         <div class="flex justify-between items-center px-6 py-4 border-b border-[#3C552D]">
             <h1 class="text-xl font-bold text-[#3C552D]">Hi, {{ $buyer->name }}</h1>
         </div>

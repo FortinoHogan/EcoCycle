@@ -44,8 +44,8 @@ class EcoForumController extends Controller
             $validated['image'] = $request->file('image')->store('public/images');
         }
 
-         // Simpan postingan ke database
-         $post = Post::create($validated);
+        // Simpan postingan ke database
+        $post = Post::create($validated);
 
         // Kirimkan response JSON ke frontend
         return response()->json([
@@ -86,5 +86,4 @@ class EcoForumController extends Controller
     {
         //
     }
-
 }
