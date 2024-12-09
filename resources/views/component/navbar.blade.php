@@ -216,7 +216,7 @@
                 <div class="flex gap-6">
                     <div class="flex justify-end items-center w-80 gap-6">
                         <a href="{{ route('logout_buyer') }}"
-                            class="text-sm text-[#3C552D] font-medium border py-2 px-[25px] border-[#3C552D] rounded-md">Logout</a>
+                            class="text-sm text-[#3C552D] font-medium border py-2 px-[25px] border-[#3C552D] rounded-md hover:bg-[#3C552D] hover:text-white transition-all duration-500">Logout</a>
                     </div>
 
                     <div class="flex items-center md:order-2 space-x-1 md:space-x-0 rtl:space-x-reverse">
@@ -307,7 +307,7 @@
                 <div class="flex gap-6">
                     <div class="flex justify-end items-center w-80 gap-6">
                         <a href="{{ route('logout_seller') }}"
-                            class="text-sm text-[#3C552D] font-medium border py-2 px-[25px] border-[#3C552D] rounded-md">Logout</a>
+                            class="text-sm text-[#3C552D] font-medium border py-2 px-[25px] border-[#3C552D] rounded-md hover:bg-[#3C552D] hover:text-white transition-all duration-500">Logout</a>
                     </div>
 
                     <div class="flex items-center md:order-2 space-x-1 md:space-x-0 rtl:space-x-reverse">

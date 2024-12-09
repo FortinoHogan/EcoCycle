@@ -16,7 +16,7 @@ class EcoForumController extends Controller
         $posts = Post::with('buyer')->latest()->get();
 
         // Kirim data postingan ke view
-        return view('ecoforum.ecoforumhome', compact('posts'));
+        return view('ecoforumhome', compact('posts'));
     }
 
     /**

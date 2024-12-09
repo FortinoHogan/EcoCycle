@@ -118,12 +118,10 @@
 
         <div class="flex justify-center items-center">
             <button
-                class="px-4 py-2 text-center rounded-full text-[#3C552D] bg-white border-2 border-[#3C552D] shadow-lg hover:bg-[#2a4120] hover:text-white">
+                class="px-8 py-1 mt-4 mb-10 text-center rounded-full text-[#3C552D] bg-white border-2 border-[#3C552D] shadow-lg hover:bg-[#2a4120] hover:text-white transition-all duration-500">
                 Save
             </button>
         </div>
-
-
     </div>
 
     <script>
