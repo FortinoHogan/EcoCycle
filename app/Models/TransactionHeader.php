@@ -30,6 +30,6 @@ class TransactionHeader extends Model
 
     public function address()
     {
-        return $this->hasMany(Address::class, 'address_id');
+        return $this->hasMany(Address::class, 'id');
     }
 }

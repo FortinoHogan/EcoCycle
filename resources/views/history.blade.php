@@ -1,4 +1,6 @@
 @extends('layout.master')
 @section('konten')
-    <div>history</div>
+    @foreach ($transaction as $item)
+        <p>{{ $item->status }}</p>
+    @endforeach
 @endsection
