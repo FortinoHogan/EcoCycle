@@ -83,21 +83,23 @@ class BuyerController extends Controller
 
     public function change_password(Request $request)
     {
-        if (session('buyer')->password != $request->old_password) {
-            return redirect()->route('buyerProfile.view')->with('error', 'Old password is incorrect');
+        if (!Hash::check($request->old_password, session('buyer')->password)) {
+            return redirect()->route('profile')->with('changePasswordError', 'Old password is incorrect');
         }
 
-        if ($request->new_password != $request->confirm_password) {
-            return redirect()->route('buyerProfile.view')->with('error', 'Password confirmation is incorrect');
-        }
-
+        $request->validate([
+            'new_password' => 'required|min:8',
+        ], [
+            'new_password.required' => 'Password is required.',
+            'new_password.min' => 'Password must be at least 8 characters.',
+        ]);
         $buyer = Buyer::find(session('buyer')->id);
-        $buyer->password = $request->new_password;
+        $buyer->password = Hash::make($request->new_password);
         $buyer->save();
 
         session(['buyer' => $buyer]);
 
-        return redirect()->route('buyerProfile.view')->with('success', 'Password changed successfully');
+        return redirect()->route('profile')->with('changePasswordSuccess', 'Password changed successfully');
     }
 
     /**
@@ -137,7 +139,28 @@ class BuyerController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'username' => 'required|min:4',
+            'email' => 'required|email',
+            'phone' => 'required|regex:/^[0-9]{8,15}$/',
+        ], [
+            'username.required' => 'Username is required.',
+            'username.min' => 'Username must be at least 4 characters.',
+            'email.required' => 'The email address is required.',
+            'email.email' => 'Please enter a valid email address.',
+            'phone.required' => 'Phone number is required.',
+            'phone.regex' => 'Phone number must be between 8 and 15 digits.',
+        ]);
+
+        $buyer = Buyer::find($id);
+        $buyer->email = $request->email;
+        $buyer->name = $request->username;
+        $buyer->phone = $request->phone;
+        $buyer->save();
+
+        session(['buyer' => $buyer]);
+
+        return redirect()->route('profile')->with('updateSuccess', 'Profile updated successfully');
     }
 
     /**

@@ -31,7 +31,9 @@ Route::prefix('/buyer')->group(function () {
         Route::post('/register', [BuyerController::class, 'register_personal'])->name('register_buyer.post');
     });
 
-    Route::get('/profile', [BuyerController::class, 'index'])->name('buyerProfile');
+    Route::get('/profile', [BuyerController::class, 'index'])->name('profile');
+    Route::post('/profile/{id}', [BuyerController::class, 'update'])->name('profile.update');
+    Route::post('/change-password', [BuyerController::class, 'change_password'])->name('change-password');
 
     Route::get('/shop', [BuyerController::class, 'shop'])->name('shop.view');
     Route::get('/detail/{product_id}', [TransactionController::class, 'detail_product'])->name("detail");
@@ -54,8 +56,6 @@ Route::prefix('/buyer')->group(function () {
 
     Route::get('/ecolearning', [EcoLearningController::class, 'index'])->name('ecolearning');
     Route::get('/article-detail/{id}', [EcoLearningController::class, 'detail'])->name('article_detail');
-
-    Route::get('/profile', [BuyerController::class, 'index'])->name('profile');
 
     Route::get('/history', [HistoryController::class, 'index'])->name('history');
 

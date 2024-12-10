@@ -505,6 +505,9 @@
                         <a href="{{ route('cart') }}" class="text-[#E9EEDC] hover:underline">Cart</a>
                     </li>
                     <li>
+                        <a href="{{ route('history') }}" class="text-[#E9EEDC] hover:underline">History</a>
+                    </li>
+                    <li>
                         <a href="{{ route('logout_buyer') }}" class="text-[#E9EEDC] hover:underline">Logout</a>
                     </li>
                 @elseif (session('seller'))

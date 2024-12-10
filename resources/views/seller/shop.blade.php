@@ -44,7 +44,7 @@
                             <p class="mt-2 text-sm font-medium text-gray-900">
                                 {{ Str::limit($prod->description->description, 50) }}</p>
 
-                            <div class="mt-4 flex items-center justify-between gap-4">
+                            <div class="mt-4 flex justify-between gap-4 max-sm:flex-col sm:items-center max-sm:items-start">
                                 <p class="text-2xl font-extrabold leading-tight text-gray-900 dark:text-white">Rp.
                                     {{ number_format($prod->price, 0, ',', '.') }}</p>
 
