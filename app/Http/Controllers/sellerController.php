@@ -18,7 +18,12 @@ class SellerController extends Controller
     {
         session(['sellerRegis' => true]);
         $request->validate([
-            'floating_email' => 'required|email|unique:sellers,email',
+            'floating_email' => [
+                'required',
+                'email',
+                'unique:sellers,email',
+                'regex:/^.+@gmail\.com$/',
+            ],
             'floating_storeName' => 'required|unique:sellers,name',
             'floating_password' => 'required|min:8',
             'floating_phone' => 'required|regex:/^[0-9]{8,15}$/',
@@ -44,7 +49,7 @@ class SellerController extends Controller
 
         Seller::create([
             'email' => $request->floating_email,
-            'password' => Hash::make($request->floating_password),  // Hash the password
+            'password' => Hash::make($request->floating_password),
             'name' => $request->floating_storeName,
             'phone' => $request->floating_phone,
             'region' => $request->floating_region,
@@ -60,7 +65,11 @@ class SellerController extends Controller
     public function login_personal(Request $request)
     {
         $request->validate([
-            'floating_email' => 'required|email',
+            'floating_email' => [
+                'required',
+                'email',
+                'regex:/^.+@gmail\.com$/',
+            ],
             'floating_password' => 'required',
         ]);
 

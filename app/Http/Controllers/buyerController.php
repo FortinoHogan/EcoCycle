@@ -16,8 +16,9 @@ class BuyerController extends Controller
         return view('profile', compact('buyer'));
     }
 
-    public function shop() {
-        $product = Product::with(['description', 'product_categories.category'])->get();
+    public function shop()
+    {
+        $product = Product::with(['description'])->get();
 
         return view('shop', compact('product'));
     }
@@ -26,7 +27,12 @@ class BuyerController extends Controller
     {
         session(['buyerRegis' => true]);
         $request->validate([
-            'floating_email' => 'required|email|unique:buyers,email',
+            'floating_email' => [
+                'required',
+                'email',
+                'unique:buyers,email',
+                'regex:/^.+@gmail\.com$/',
+            ],
             'floating_password' => 'required|min:8',
             'floating_username' => 'required|min:4',
             'floating_phone' => 'required|regex:/^[0-9]{8,15}$/',
@@ -34,6 +40,7 @@ class BuyerController extends Controller
             'floating_email.required' => 'The email address is required.',
             'floating_email.email' => 'Please enter a valid email address.',
             'floating_email.unique' => 'This email is already registered. Please choose another one.',
+            'floating_email.regex' => 'The email must be a gmail.com address.',
             'floating_password.required' => 'Password is required.',
             'floating_password.min' => 'Password must be at least 8 characters.',
             'floating_username.required' => 'Username is required.',
@@ -59,7 +66,11 @@ class BuyerController extends Controller
     public function login_personal(Request $request)
     {
         $request->validate([
-            'floating_email' => 'required|email',
+            'floating_email' => [
+                'required',
+                'email',
+                'regex:/^.+@gmail\.com$/',
+            ],
             'floating_password' => 'required',
         ]);
 

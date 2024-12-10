@@ -8,6 +8,8 @@ class Comment extends Model
 {
     protected $table = 'comments';
 
+    protected $guarded = [];
+
     public function post(){
         return $this->belongsTo(Post::class, 'post_id');
     }

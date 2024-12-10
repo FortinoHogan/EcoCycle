@@ -13,6 +13,11 @@ class Post extends Model
         'buyer_id',
         'content',
         'image',
+        'like'
+    ];
+
+    protected $attributes = [
+        'like' => 0,
     ];
 
     public function comment()
@@ -23,5 +28,9 @@ class Post extends Model
     public function buyer()
     {
         return $this->belongsTo(Buyer::class, 'buyer_id');
+    }
+    public function likes()
+    {
+        return $this->hasMany(Likes::class);
     }
 }

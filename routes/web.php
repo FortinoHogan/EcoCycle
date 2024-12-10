@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AddressController;
 use App\Http\Middleware\CheckAuth;
+use App\Http\Middleware\CheckBuyer;
+use App\Http\Middleware\CheckSeller;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\BuyerController;
@@ -20,7 +22,14 @@ Route::middleware([CheckAuth::class])->group(function () {
     Route::get('/register', [HomeController::class, 'index_register'])->name('register.view');
 });
 
+Route::get('/404', function () {
+    return view('auth.404');
+})->name('404');
+
 Route::resource('ecoforum', EcoForumController::class);
+Route::post('/ecoforum/{post}/toggle-like', [EcoForumController::class, 'toggleLike'])->name('ecoforum.toggle-like');
+Route::get('/ecoforum/{post}/get-like-count', [EcoForumController::class, 'getLikeCount'])->name('ecoforum.get-like-count');
+Route::post('/ecoforum/{postId}/comments', [EcoForumController::class, 'storeReply'])->name('ecoforum.reply');
 
 Route::prefix('/buyer')->group(function () {
     Route::get('/logout', [BuyerController::class, 'logout_personal'])->name('logout_buyer');
@@ -44,11 +53,9 @@ Route::prefix('/buyer')->group(function () {
     Route::post('/cart/update-quantity', [TransactionController::class, 'update_quantity'])->name('update-quantity');
     Route::post('/cart/remove', [TransactionController::class, 'remove_from_cart'])->name('remove-from-cart');
 
-    Route::post('/process-checkout', [TransactionController::class, 'process_checkout'])->name('process-checkout');
-    Route::get('/checkout/{transaction_id}', [TransactionController::class, 'checkout'])->name('checkout');
-    Route::post('/process-success', [TransactionController::class, 'process_success'])->name('process-success');
-    Route::get('/success', [TransactionController::class, 'success'])->name('success');
+    Route::post('/checkout', [TransactionController::class, 'checkout'])->name('checkout');
 
+    Route::get('/success', [PaymentController::class, 'success'])->name("checkout-success");
     Route::get('/cart', [TransactionController::class, 'cart'])->name("cart");
 
     Route::post('/address', [AddressController::class, 'set_address'])->name('set-address');
