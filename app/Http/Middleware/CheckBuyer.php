@@ -15,11 +15,10 @@ class CheckBuyer
      */
     public function handle(Request $request, Closure $next)
     {
-        // If the session doesn't have 'buyer', show 404
-        if (!session('buyer')) {
-            return redirect()->route('404');
+        if (session()->has('buyer')) {
+            return $next($request);
+        } else {
+            return redirect() - route('404');
         }
-
-        return $next($request);
     }
 }

@@ -40,31 +40,34 @@ Route::prefix('/buyer')->group(function () {
         Route::post('/register', [BuyerController::class, 'register_personal'])->name('register_buyer.post');
     });
 
-    Route::get('/profile', [BuyerController::class, 'index'])->name('profile');
-    Route::post('/profile/{id}', [BuyerController::class, 'update'])->name('profile.update');
-    Route::post('/change-password', [BuyerController::class, 'change_password'])->name('change-password');
+    Route::middleware([CheckBuyer::class])->group(function () {
+        Route::get('/profile', [BuyerController::class, 'index'])->name('profile');
+        Route::post('/profile/{id}', [BuyerController::class, 'update'])->name('profile.update');
+        Route::post('/change-password', [BuyerController::class, 'change_password'])->name('change-password');
 
-    Route::get('/shop', [BuyerController::class, 'shop'])->name('shop.view');
-    Route::get('/detail/{product_id}', [TransactionController::class, 'detail_product'])->name("detail");
-    Route::get('/cart', [TransactionController::class, 'cart'])->name("cart");
-    Route::post('/detail/{product_id}', [TransactionController::class, 'detail_product'])->name("detail");
+        Route::get('/shop', [BuyerController::class, 'shop'])->name('shop.view');
+        Route::get('/detail/{product_id}', [TransactionController::class, 'detail_product'])->name("detail");
+        Route::get('/cart', [TransactionController::class, 'cart'])->name("cart");
+        Route::post('/detail/{product_id}', [TransactionController::class, 'detail_product'])->name("detail");
 
-    Route::post('/cart/add', [TransactionController::class, 'add_to_cart'])->name('add-to-cart');
-    Route::post('/cart/update-quantity', [TransactionController::class, 'update_quantity'])->name('update-quantity');
-    Route::post('/cart/remove', [TransactionController::class, 'remove_from_cart'])->name('remove-from-cart');
+        Route::post('/cart/add', [TransactionController::class, 'add_to_cart'])->name('add-to-cart');
+        Route::post('/cart/update-quantity', [TransactionController::class, 'update_quantity'])->name('update-quantity');
+        Route::post('/cart/remove', [TransactionController::class, 'remove_from_cart'])->name('remove-from-cart');
 
-    Route::post('/checkout', [TransactionController::class, 'checkout'])->name('checkout');
+        Route::post('/checkout', [TransactionController::class, 'checkout'])->name('checkout');
 
-    Route::get('/success', [PaymentController::class, 'success'])->name("checkout-success");
-    Route::get('/cart', [TransactionController::class, 'cart'])->name("cart");
+        Route::get('/success', [PaymentController::class, 'success'])->name("checkout-success");
+        Route::get('/cart', [TransactionController::class, 'cart'])->name("cart");
 
-    Route::post('/address', [AddressController::class, 'set_address'])->name('set-address');
-    Route::post('/change-address', [AddressController::class, 'change_address'])->name('change-address');
+        Route::post('/address', [AddressController::class, 'set_address'])->name('set-address');
+        Route::post('/change-address', [AddressController::class, 'change_address'])->name('change-address');
 
-    Route::get('/ecolearning', [EcoLearningController::class, 'index'])->name('ecolearning');
-    Route::get('/article-detail/{id}', [EcoLearningController::class, 'detail'])->name('article_detail');
+        Route::get('/ecolearning', [EcoLearningController::class, 'index'])->name('ecolearning');
+        Route::get('/article-detail/{id}', [EcoLearningController::class, 'detail'])->name('article_detail');
 
-    Route::get('/history', [HistoryController::class, 'index'])->name('history');
+        Route::get('/history', [HistoryController::class, 'index'])->name('history');
+    });
+
 
 });
 
@@ -77,8 +80,10 @@ Route::prefix('/seller')->group(function () {
         Route::post('/register', [SellerController::class, 'register_personal'])->name('register_seller.post');
     });
 
-    Route::resource('/shop', ShopController::class);
+    Route::middleware([CheckSeller::class])->group(function () {
+        Route::resource('/shop', ShopController::class);
 
-    Route::get('/detail/{product_id}', [TransactionController::class, 'detail_product'])->name("detail_seller");
-    Route::post('/detail/{product_id}', [ShopController::class, 'update'])->name("update_seller");
+        Route::get('/detail/{product_id}', [TransactionController::class, 'detail_product'])->name("detail_seller");
+        Route::post('/detail/{product_id}', [ShopController::class, 'update'])->name("update_seller");
+    });
 });

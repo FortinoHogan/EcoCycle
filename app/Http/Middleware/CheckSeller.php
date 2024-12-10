@@ -16,10 +16,12 @@ class CheckSeller
     public function handle(Request $request, Closure $next)
     {
         // If the session doesn't have 'seller', show 404
-        if (!session('seller')) {
+        if (session()->has('seller')) {
+            return $next($request);
+        } else {
             return redirect()->route('404');
         }
+        return redirect()->route('home.view');
 
-        return $next($request);
     }
 }
