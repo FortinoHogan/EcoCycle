@@ -1,51 +1,58 @@
 @extends('layout.master')
 
 @section('konten')
-    <div class="container mx-auto">
-        <h1 class="font-bold text-5xl my-10">CART</h1>
-        @if (empty($cart))
-            <p>Your cart is empty!</p>
-        @else
-            <div>
-                @foreach ($cart as $item)
-                    <hr class="mt-5">
-                    <div class="flex my-5 items-center justify-between">
-                        <div class="flex gap-5 items-center">
-                            <input class="appearance-none accent-green-700 product-checkbox" type="checkbox"
-                                data-id="{{ $item->product_id }}" />
-                            <img class="size-20 object-cover"
-                                src="data:image/jpeg;base64,{{ base64_encode($item->product->image) }}" alt="">
-                            <p>{{ $item->product->name }}</p>
-                        </div>
-                        <p class="cursor-pointer remove-item" data-id="{{ $item->product_id }}">x</p>
-                    </div>
-                    <div class="w-full h-20 bg-[#EAEAEA]">
-                        <div class="flex justify-between items-center h-full px-5">
-                            <div class="flex">
-                                <span class="px-2 font-semibold border-black border bg-[#F7FAF7] cursor-pointer update-cart"
-                                    data-id="{{ $item->product_id }}" data-action="decrement">-</span>
-                                <span class="px-3 border-y-black border bg-[#F7FAF7]">{{ $item->quantity }}</span>
-                                <span class="px-2 font-semibold border-black border bg-[#F7FAF7] cursor-pointer update-cart"
-                                    data-id="{{ $item->product_id }}" data-action="increment">+</span>
+    <div class="p-4 mb-32">
+        <div class="block m-auto w-full max-w-[1200px] px-4">
+            <div class="container mx-auto">
+                <h1 class="font-bold text-5xl my-10">CART</h1>
+                @if (empty($cart))
+                    <p>Your cart is empty!</p>
+                @else
+                    <div>
+                        @foreach ($cart as $item)
+                            <hr class="mt-5">
+                            <div class="flex my-5 items-center justify-between">
+                                <div class="flex gap-5 items-center">
+                                    <input class="appearance-none accent-green-700 product-checkbox" type="checkbox"
+                                        data-id="{{ $item->product_id }}" />
+                                    <img class="size-20 object-cover"
+                                        src="data:image/jpeg;base64,{{ base64_encode($item->product->image) }}"
+                                        alt="">
+                                    <p>{{ $item->product->name }}</p>
+                                </div>
+                                <p class="cursor-pointer remove-item" data-id="{{ $item->product_id }}">x</p>
                             </div>
-                            <p>IDR {{ number_format($item->product->price, 0, ',', '.') }}</p>
-                        </div>
+                            <div class="w-full h-20 bg-[#EAEAEA]">
+                                <div class="flex justify-between items-center h-full px-5">
+                                    <div class="flex">
+                                        <span
+                                            class="px-2 font-semibold border-black border bg-[#F7FAF7] cursor-pointer update-cart"
+                                            data-id="{{ $item->product_id }}" data-action="decrement">-</span>
+                                        <span class="px-3 border-y-black border bg-[#F7FAF7]">{{ $item->quantity }}</span>
+                                        <span
+                                            class="px-2 font-semibold border-black border bg-[#F7FAF7] cursor-pointer update-cart"
+                                            data-id="{{ $item->product_id }}" data-action="increment">+</span>
+                                    </div>
+                                    <p>IDR {{ number_format($item->product->price, 0, ',', '.') }}</p>
+                                </div>
+                            </div>
+                            <div class="flex justify-between font-semibold mt-5">
+                                <p>Total ({{ $item->quantity }} item)</p>
+                                <p>IDR {{ number_format($item->product->price * $item->quantity, 0, ',', '.') }}</p>
+                            </div>
+                        @endforeach
                     </div>
-                    <div class="flex justify-between font-semibold mt-5">
-                        <p>Total ({{ $item->quantity }} item)</p>
-                        <p>IDR {{ number_format($item->product->price * $item->quantity, 0, ',', '.') }}</p>
+                    <hr class="my-5">
+                    <div class="w-full">
+                        <button
+                            class="btn-checkout float-right inline-flex items-center rounded-lg bg-green-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-green-800 focus:outline-none focus:ring-4  focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                            Check Out
+                        </button>
                     </div>
-                @endforeach
+                    {{-- <a href="{{ route('checkout.confirm') }}" class="btn btn-primary">Proceed to Payment</a> --}}
+                @endif
             </div>
-            <hr class="my-5">
-            <div class="w-full">
-                <button
-                    class="btn-checkout float-right inline-flex items-center rounded-lg bg-green-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-green-800 focus:outline-none focus:ring-4  focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
-                    Check Out
-                </button>
-            </div>
-            {{-- <a href="{{ route('checkout.confirm') }}" class="btn btn-primary">Proceed to Payment</a> --}}
-        @endif
+        </div>
     </div>
 @endsection
 

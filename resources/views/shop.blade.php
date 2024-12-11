@@ -1,7 +1,7 @@
 @extends('layout.master')
 @section('konten')
-    <section class="bg-gray-50 py-8 antialiased dark:bg-gray-900 md:py-12">
-        <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
+    <section class="bg-gray-50 antialiased dark:bg-gray-900 md:py-12">
+        <div class="mx-40 mt-4 mb-20 2xl:px-0">
             <div class="mb-4 grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-4">
                 @foreach ($product as $prod)
                     <div
@@ -36,10 +36,8 @@
                                     {{ number_format($prod->price, 0, ',', '.') }}</p>
 
                                 <button onclick="window.location.href='{{ route('detail', $product_id = $prod->id) }}'" id="pay-button" type="submit"
-                                    class="inline-flex items-center rounded-2xl bg-[#3C552D] px-5 py-2.5 text-sm font-medium text-white hover:opacity-45 focus:outline-none focus:ring-4  focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
-                                    See more...
-
-                                </button>
+                                    class="inline-flex items-center rounded-lg px-4 py-2 text-sm font-medium text-white hover:opacity-45 focus:outline-none focus:ring-4  focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800" style="background-color: #3C552D">
+                                    See more...</button>
                             </div>
                         </div>
                     </div>

@@ -1,7 +1,7 @@
 @extends('layout.master')
 
 @section('konten')
-    <div class="mx-auto bg-white rounded-lg shadow-md p-6 animate__animated animate__fadeIn">
+    <div class="mx-40 mt-14 mb-20 bg-white rounded-lg shadow-md p-6 animate__animated animate__fadeIn">
         <!-- Input Section -->
         <div class="p-4 border-b border-gray-200">
             <div class="flex items-start space-x-4">

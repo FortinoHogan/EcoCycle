@@ -104,6 +104,7 @@ class TransactionController extends Controller
 
     public function process_checkout(Request $request)
     {
+        
         Config::$serverKey = config('midtrans.server_key');
         Config::$isProduction = config('midtrans.is_production');
         Config::$isSanitized = config('midtrans.is_sanitized');

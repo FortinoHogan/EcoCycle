@@ -47,17 +47,17 @@ Route::prefix('/buyer')->group(function () {
 
         Route::get('/shop', [BuyerController::class, 'shop'])->name('shop.view');
         Route::get('/detail/{product_id}', [TransactionController::class, 'detail_product'])->name("detail");
-        Route::get('/cart', [TransactionController::class, 'cart'])->name("cart");
         Route::post('/detail/{product_id}', [TransactionController::class, 'detail_product'])->name("detail");
 
+        Route::get('/cart', [TransactionController::class, 'cart'])->name("cart");
         Route::post('/cart/add', [TransactionController::class, 'add_to_cart'])->name('add-to-cart');
         Route::post('/cart/update-quantity', [TransactionController::class, 'update_quantity'])->name('update-quantity');
         Route::post('/cart/remove', [TransactionController::class, 'remove_from_cart'])->name('remove-from-cart');
 
-        Route::post('/checkout', [TransactionController::class, 'checkout'])->name('checkout');
-
-        Route::get('/success', [PaymentController::class, 'success'])->name("checkout-success");
-        Route::get('/cart', [TransactionController::class, 'cart'])->name("cart");
+        Route::post('/process-checkout', [TransactionController::class, 'process_checkout'])->name('process-checkout');
+        Route::get('/checkout/{transaction_id}', [TransactionController::class, 'checkout'])->name('checkout');
+        Route::post('/process-success', [TransactionController::class, 'process_success'])->name('process-success');
+        Route::get('/success', [TransactionController::class, 'success'])->name('success');
 
         Route::post('/address', [AddressController::class, 'set_address'])->name('set-address');
         Route::post('/change-address', [AddressController::class, 'change_address'])->name('change-address');

@@ -20,12 +20,12 @@
         }
     </style>
 
-    <div class="max-w-4xl mx-auto my-10 pb-6 bg-white rounded-lg shadow-md page-transition">
-        <div class="flex justify-between items-center px-6 py-4 border-b border-[#3C552D]">
+    <div class="mx-40 mt-14 mb-32 pb-10 bg-white rounded-lg shadow-md page-transition">
+        <div class="flex justify-between items-center px-10 py-4 border-b border-[#3C552D]">
             <h1 class="text-xl font-bold text-[#3C552D]">Hi, {{ $buyer->name }}</h1>
         </div>
 
-        <div class="p-6">
+        <div class="p-10">
             <div class="flex flex-col items-center">
                 <!-- Avatar Section -->
                 <div class="relative group">
@@ -112,20 +112,21 @@
                 </div>
 
                 <!-- Password -->
-                <button type="button" onclick="toggleModal(true)"
+                {{-- <button type="button" onclick="toggleModal(true)"
                     class="block text-sm font-medium text-gray-700 hover:text-blue-500 hover:underline">Change
-                    Password</button>
+                    Password</button> --}}
 
                 <div class="flex justify-center items-center">
                     <button
-                        class="px-8 py-1 mt-4 text-center rounded-full text-[#3C552D] bg-white border-2 border-[#3C552D] shadow-lg hover:bg-[#2a4120] hover:text-white transition-all duration-500">
+                        class="px-8 py-1 mt-8 text-center rounded-full text-[#3C552D] bg-white border-2 border-[#3C552D] shadow-lg hover:bg-[#2a4120] hover:text-white transition-all duration-500">
                         Save
                     </button>
                 </div>
             </form>
         </div>
     </div>
-    <div id="modalWrapper" style="{{ session('changePasswordError') || $errors->has('new_password') ? 'display: flex;' : 'display: none;' }}"
+    <div id="modalWrapper"
+        style="{{ session('changePasswordError') || $errors->has('new_password') ? 'display: flex;' : 'display: none;' }}"
         class="bg-black bg-opacity-40 fixed inset-0 z-50 items-center justify-center" onclick="closeModal()">
         <div class="bg-white rounded-lg shadow-lg max-w-[640px] w-[90%] p-8 h-fit overflow-y-auto scrollbar-hidden"
             onclick="stopPropagation(event)">
