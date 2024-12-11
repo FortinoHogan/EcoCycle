@@ -7,7 +7,7 @@
             }
         }
     </style>
-    <div class="p-4">
+    <div class="p-4 mb-16">
         <div class="block m-auto w-full max-w-[1200px] px-4">
             @foreach ($articles as $a)
                 <div class="flex flex-row justify-center my-10 p-3 border border-[#3C552D] rounded-2xl gap-5" id="card">
