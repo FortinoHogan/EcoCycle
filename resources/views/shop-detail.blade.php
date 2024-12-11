@@ -7,9 +7,9 @@
             display: none;
         }
     </style>
-    <section class=" bg-gray-50 antialiased dark:bg-gray-900 md:py-12">
-        <div class="mx-40 mt-4 mb-20 max-w-screen-xl 2xl:px-0">
-            <div class="mb-4">
+    <section class="bg-gray-50 antialiased dark:bg-gray-900 md:py-12">
+        <div class="p-4">
+            <div class="block m-auto w-full max-w-[1200px] px-4">
                 <div class="rounded-lg border border-gray-200 bg-white p-8 shadow-sm dark:border-gray-700 dark:bg-gray-800">
                     <div class="h-56 w-full">
                         <a href="#">
@@ -31,7 +31,8 @@
                         <a href="#"
                             class="text-lg font-semibold leading-tight text-gray-900 hover:underline dark:text-white">{{ $product->name }}</a>
 
-                        <p class="mt-2 text-sm font-medium text-gray-500 dark:text-gray-400">Stock: {{ $product->stock }}
+                        <p class="mt-2 text-sm font-medium text-gray-500 dark:text-gray-400">Stock:
+                            {{ $product->stock }}
                             left</p>
                         <p class="my-2 text-sm font-medium text-gray-900">{{ $product->description->description }}</p>
                         <span
