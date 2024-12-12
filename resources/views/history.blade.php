@@ -50,8 +50,7 @@
                     </div>
                     <div id="display-first-{{ $t->id }}">
                         <div class="flex gap-2 items-center mt-4">
-                            <img class="w-16 h-16 rounded-full" src="{{ asset('asset/profile.webp') }}"
-                                alt="profile" />
+                            <img class="w-16 h-16 rounded-full" src="{{ asset('asset/profile.webp') }}" alt="profile" />
                             <div>
                                 <p class="font-medium">{{ $t->details->first()->product->seller->name }}</p>
                                 <p>{{ $t->details->first()->product->seller->region }}</p>
@@ -116,7 +115,11 @@
                         </div>
                     </div>
 
-                    <div class="flex justify-end mt-4">
+                    <div class="flex items-center gap-4 justify-end mt-4">
+                        <a href="{{ route('order_detail', $t->id) }}"
+                            class="hover:opacity-80 bg-[#76b743] border border-[#76b743] py-[10px] px-[24px] text-white rounded-md min-w-[100px] font-bold align-middle transition-all ease-in-out duration-500">
+                            VIEW DETAIL
+                        </a>
                         <p>Total {{ $t->details->sum('quantity') }} products: <span class="font-semibold">IDR
                                 {{ number_format($t->total_price, 0, ',', '.') }}</span></p>
                     </div>

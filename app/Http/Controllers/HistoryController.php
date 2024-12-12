@@ -24,4 +24,11 @@ class HistoryController extends Controller
 
         return view('history', compact('ths', 'tds'));
     }
+
+    public function orderDetail($id)
+    {
+        $t = TransactionHeader::where('id', $id)->first();
+        dd($t);
+        return view('buyer.order-detail', compact('t'));
+    }
 }

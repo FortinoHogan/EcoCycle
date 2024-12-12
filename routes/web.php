@@ -66,9 +66,9 @@ Route::prefix('/buyer')->group(function () {
         Route::get('/article-detail/{id}', [EcoLearningController::class, 'detail'])->name('article_detail');
 
         Route::get('/history', [HistoryController::class, 'index'])->name('history');
+
+        Route::get('/order-detail/{id}', [HistoryController::class, 'orderDetail'])->name('order_detail');
     });
-
-
 });
 
 Route::prefix('/seller')->group(function () {
