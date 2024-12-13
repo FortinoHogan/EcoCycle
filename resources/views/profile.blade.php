@@ -112,9 +112,9 @@
                 </div>
 
                 <!-- Password -->
-                {{-- <button type="button" onclick="toggleModal(true)"
+                <button type="button" onclick="toggleModal(true)"
                     class="block text-sm font-medium text-gray-700 hover:text-blue-500 hover:underline">Change
-                    Password</button> --}}
+                    Password</button>
 
                 <div class="flex justify-center items-center">
                     <button

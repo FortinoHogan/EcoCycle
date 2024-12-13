@@ -16,6 +16,7 @@ class TransactionHeader extends Model
         'grand_total',
         'snap_token',
         'address_id',
+        'payment_method',
     ];
 
     public function buyer()
@@ -30,6 +31,6 @@ class TransactionHeader extends Model
 
     public function address()
     {
-        return $this->hasMany(Address::class, 'id');
+        return $this->belongsTo(Address::class, 'address_id');
     }
 }

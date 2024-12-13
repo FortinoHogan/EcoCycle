@@ -1,9 +1,14 @@
 @extends('layout.master')
 
-@section('konten')feafea
+@section('konten')
     <div class="p-4">
         <div class="block m-auto w-full max-w-[1200px] px-4">
-            <h2 class="font-bold text-[50px] text-[#3C552D] mb-10">Order Details</h2>
+            <a href="{{ route('history') }}" class="my-5">
+                <svg xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 -960 960 960" width="32px" fill="#3C552D">
+                    <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z" />
+                </svg>
+            </a>
+            <h2 class="font-bold text-[50px] text-[#3C552D] mb-5">Order Details</h2>
             <div class="border-b border-[#3C552D] pb-6 mb-6">
                 <div class="flex justify-between border-b-2 pb-2 mb-2">
                     <div class="">

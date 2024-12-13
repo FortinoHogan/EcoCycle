@@ -7,9 +7,14 @@
             display: none;
         }
     </style>
-    <section class="bg-gray-50 antialiased dark:bg-gray-900 md:py-12">
+    <section class="bg-gray-50 antialiased dark:bg-gray-900">
         <div class="p-4">
-            <div class="block m-auto w-full max-w-[1200px] px-4">
+            <div class="flex flex-col gap-5 m-auto w-full max-w-[1200px] px-4">
+                <a href="{{ session('buyer') ? route('shop.view') : route('shop.index') }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 -960 960 960" width="32px" fill="#3C552D">
+                        <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z" />
+                    </svg>
+                </a>
                 <div class="rounded-lg border border-gray-200 bg-white p-8 shadow-sm dark:border-gray-700 dark:bg-gray-800">
                     <div class="h-56 w-full">
                         <a href="#">
