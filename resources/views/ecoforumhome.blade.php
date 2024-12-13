@@ -58,7 +58,7 @@
                         <div>
                             <h4 class="text-lg text-gray-800 mb-2">{{ $post->buyer->name }}</h4>
                             <p class="text-gray-600 text-sm mb-4">{{ $post->content }}</p>
-                            <img src="{{ asset($post->image) }}" alt="">
+                            <img src="data:image/jpeg;base64,{{ base64_encode($post->image) }}" alt="">
                             <div class="flex items-center gap-4 text-sm text-gray-500 mb-5">
                                 <a href="#" class="hover:text-gray-700"
                                     onclick="openCommentsModal('{{ $post->id }}')">

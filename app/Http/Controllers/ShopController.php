@@ -20,11 +20,18 @@ class ShopController extends Controller
      */
     public function index()
     {
-        $seller = Seller::where('id', session('seller')->id)->first();
-        $products = Product::where('seller_id', session('seller')->id)->paginate(6);
-        $categories = Category::all();
+        $searchQuery = request('search');
 
-        return view('seller.shop', compact('seller', 'products', 'categories'));
+        $query = Product::where('seller_id', session('seller')->id);
+
+        if ($searchQuery) {
+            $query->where('name', 'like', "%{$searchQuery}%");
+        }
+    
+        $products = $query->paginate(6)->appends(['search' => $searchQuery]);
+    
+        $categories = Category::all();
+        return view('seller.shop', compact('products', 'categories', 'searchQuery'));
     }
 
     /**
@@ -101,10 +108,7 @@ class ShopController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        //
-    }
+    public function show(string $id) {}
 
     /**
      * Show the form for editing the specified resource.

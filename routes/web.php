@@ -81,7 +81,7 @@ Route::prefix('/seller')->group(function () {
     });
 
     Route::middleware([CheckSeller::class])->group(function () {
-        Route::resource('/shop', ShopController::class);
+        Route::resource('shop', ShopController::class);
 
         Route::get('/detail/{product_id}', [TransactionController::class, 'detail_product'])->name("detail_seller");
         Route::post('/detail/{product_id}', [ShopController::class, 'update'])->name("update_seller");

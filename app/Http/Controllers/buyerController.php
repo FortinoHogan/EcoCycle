@@ -18,9 +18,17 @@ class BuyerController extends Controller
 
     public function shop()
     {
-        $product = Product::with(['description'])->get();
+        $searchQuery = request('search');
+        
+        $query = Product::query();
+        
+        if ($searchQuery) {
+            $query->where('name', 'like', "%{$searchQuery}%");
+        }
 
-        return view('shop', compact('product'));
+        $products = $query->paginate(6)->appends(['search' => $searchQuery]);
+
+        return view('shop', compact('products', 'searchQuery'));
     }
 
     public function register_personal(Request $request)

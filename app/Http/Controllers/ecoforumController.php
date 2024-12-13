@@ -15,6 +15,7 @@ class EcoForumController extends Controller
     {
         // Ambil semua postingan dari database (termasuk relasi, jika ada)
         $posts = Post::with(['buyer', 'comment'])->latest()->get();
+        // dd($posts);
 
         // Kirim data postingan ke view
         return view('ecoforumhome', compact('posts'));
@@ -48,19 +49,14 @@ class EcoForumController extends Controller
         // If an image is provided, store it manually in the public/images folder
         if ($request->hasFile('image')) {
             // Get the uploaded image
-            $image = $request->file('image');
-
-            // Generate a unique name for the image
-            $imageName = time() . '_' . $image->getClientOriginalName();
-
-            // Move the image to the public/images directory
-            $image->move(public_path('images'), $imageName);
-
-            // Save the image path to the database
-            $validated['image'] = 'images/' . $imageName;
+            $image = file_get_contents($validated['image']->getRealPath());
         }
-
-        Post::create($validated);
+        Post::create([
+            'buyer_id' => $buyer_id,
+            'content' => $validated['content'],
+            'image' => $image,
+            'like' => 0
+        ]);
 
         return redirect()->route('ecoforum.index')->with('success', 'Post Created Successfully');
     }

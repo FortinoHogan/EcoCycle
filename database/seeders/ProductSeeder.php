@@ -32,7 +32,37 @@ class ProductSeeder extends Seeder
                 'price' => 100000,
                 'stock' => 110,
                 'image' => 'chair.jpg',
-            ]
+            ],
+            [
+                'name' => 'Piggy Bank',
+                'price' => 30000,
+                'stock' => 10,
+                'image' => 'piggybank.jpg',
+            ],
+            [
+                'name' => 'Flower Vase',
+                'price' => 25000,
+                'stock' => 50,
+                'image' => 'vase.jpg',
+            ],
+            [
+                'name' => 'Chair',
+                'price' => 100000,
+                'stock' => 110,
+                'image' => 'chair.jpg',
+            ],
+            [
+                'name' => 'Piggy Bank',
+                'price' => 30000,
+                'stock' => 10,
+                'image' => 'piggybank.jpg',
+            ],
+            [
+                'name' => 'Flower Vase',
+                'price' => 25000,
+                'stock' => 50,
+                'image' => 'vase.jpg',
+            ],
         ];
 
         foreach($products as $p){
