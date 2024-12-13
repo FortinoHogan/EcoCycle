@@ -4,9 +4,9 @@
     <div class="p-4 mb-32">
         <div class="block m-auto w-full max-w-[1200px] px-4">
             <div class="container mx-auto">
-                <h1 class="font-bold text-5xl my-10">CART</h1>
-                @if (empty($cart))
-                    <p>Your cart is empty!</p>
+                <h1 class="font-bold text-[50px] text-[#3C552D] mb-10">CART</h1>
+                @if ($cart->isEmpty())
+                    <p class="font-medium">Your cart is empty!</p>
                 @else
                     <div>
                         @foreach ($cart as $item)

@@ -28,6 +28,9 @@ class HistoryController extends Controller
     public function orderDetail($id)
     {
         $t = TransactionHeader::where('id', $id)->first();
+        if (!$t) {
+            return redirect()->route('404');
+        }
         return view('buyer.order-detail', compact('t'));
     }
 }

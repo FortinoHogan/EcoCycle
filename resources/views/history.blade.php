@@ -36,7 +36,10 @@
     </style>
     <div class="p-4">
         <div class="block m-auto w-full max-w-[1200px] px-4">
-            <p class="font-bold text-[50px] text-[#3C552D] mb-10">My Orders</p>
+            <h1 class="font-bold text-[50px] text-[#3C552D] mb-10">MY ORDERS</h1>
+            @if ($ths->isEmpty())
+                <p class="font-medium mb-10">You have no orders</p>
+            @endif
             @foreach ($ths as $t)
                 <div class="border-b border-[#3C552D] pb-6 mb-6">
                     <div class="flex justify-between border-b-2 pb-2 mb-2">

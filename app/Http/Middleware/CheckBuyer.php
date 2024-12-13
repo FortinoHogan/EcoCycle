@@ -18,7 +18,7 @@ class CheckBuyer
         if (session()->has('buyer')) {
             return $next($request);
         } else {
-            return redirect() - route('404');
+            return redirect()->route('404');
         }
     }
 }
