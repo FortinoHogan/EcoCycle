@@ -32,5 +32,35 @@ class ProductCategorySeeder extends Seeder
             "category_id" => 3,
             "product_id" => 2
         ]);
+
+        ProductCategory::create([
+            "category_id" => 1,
+            "product_id" => 3
+        ]);
+
+        ProductCategory::create([
+            "category_id" => 2,
+            "product_id" => 4
+        ]);
+
+        ProductCategory::create([
+            "category_id" => 3,
+            "product_id" => 5
+        ]);
+
+        ProductCategory::create([
+            "category_id" => 1,
+            "product_id" => 6
+        ]);
+
+        ProductCategory::create([
+            "category_id" => 2,
+            "product_id" => 7
+        ]);
+
+        ProductCategory::create([
+            "category_id" => 3,
+            "product_id" => 8
+        ]);
     }
 }

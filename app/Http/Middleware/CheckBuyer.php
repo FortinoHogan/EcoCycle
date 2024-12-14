@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class CheckBuyer
@@ -15,10 +16,10 @@ class CheckBuyer
      */
     public function handle(Request $request, Closure $next)
     {
-        if (session()->has('buyer')) {
+        if (session()->has('buyer') || Auth::check() && Auth::user()->role === 'buyer') {
             return $next($request);
-        } else {
-            return redirect()->route('404');
         }
+
+        return redirect()->route('404');
     }
 }

@@ -9,7 +9,6 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\BuyerController;
 use App\Http\Controllers\SellerController;
 use App\Http\Controllers\EcoForumController;
-use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\EcoLearningController;
 use App\Http\Controllers\HistoryController;
@@ -17,7 +16,7 @@ use App\Http\Controllers\ShopController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home.view');
 
-Route::middleware([CheckAuth::class])->group(function () {
+Route::middleware(['CheckAuth'])->group(function () {
     Route::get('/login', [HomeController::class, 'index_login'])->name('login.view');
     Route::get('/register', [HomeController::class, 'index_register'])->name('register.view');
 });
@@ -34,13 +33,13 @@ Route::post('/ecoforum/{postId}/comments', [EcoForumController::class, 'storeRep
 Route::prefix('/buyer')->group(function () {
     Route::get('/logout', [BuyerController::class, 'logout_personal'])->name('logout_buyer');
 
-    Route::middleware([CheckAuth::class])->group(function () {
+    Route::middleware(['CheckAuth'])->group(function () {
         Route::post('/login', [BuyerController::class, 'login_personal'])->name('login_buyer.post');
 
         Route::post('/register', [BuyerController::class, 'register_personal'])->name('register_buyer.post');
     });
 
-    Route::middleware([CheckBuyer::class])->group(function () {
+    Route::middleware(['CheckBuyer'])->group(function () {
         Route::get('/profile', [BuyerController::class, 'index'])->name('profile');
         Route::post('/profile/{id}', [BuyerController::class, 'update'])->name('profile.update');
         Route::post('/change-password', [BuyerController::class, 'change_password'])->name('change-password');
@@ -74,13 +73,13 @@ Route::prefix('/buyer')->group(function () {
 Route::prefix('/seller')->group(function () {
     Route::get('/logout', [SellerController::class, 'logout_personal'])->name('logout_seller');
 
-    Route::middleware([CheckAuth::class])->group(function () {
+    Route::middleware(['CheckAuth'])->group(function () {
         Route::post('/login', [SellerController::class, 'login_personal'])->name('login_seller.post');
 
         Route::post('/register', [SellerController::class, 'register_personal'])->name('register_seller.post');
     });
 
-    Route::middleware([CheckSeller::class])->group(function () {
+    Route::middleware(['CheckSeller'])->group(function () {
         Route::resource('shop', ShopController::class);
 
         Route::get('/detail/{product_id}', [TransactionController::class, 'detail_product'])->name("detail_seller");

@@ -6,6 +6,8 @@ use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\Seller;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class SellerController extends Controller
@@ -48,8 +50,12 @@ class SellerController extends Controller
             'floating_region.string' => 'Please enter a valid region.',
         ]);
 
+        $user = User::create([
+            'role' => 'seller',
+        ]);
 
         Seller::create([
+            'user_id' => $user->id,
             'email' => $request->floating_email,
             'password' => Hash::make($request->floating_password),
             'name' => $request->floating_storeName,
@@ -79,6 +85,13 @@ class SellerController extends Controller
 
         if ($seller && Hash::check($request->floating_password, $seller->password)) {
             session(['seller' => $seller]);
+            
+            $user = User::where('id', $seller->user_id)->first();
+
+            Auth::login($user);
+
+            $request->session()->regenerate();
+
             return redirect()->route('home.view')->with('success', 'Login successful');
         }
 
@@ -88,6 +101,8 @@ class SellerController extends Controller
     public function logout_personal()
     {
         session()->forget('seller');
+
+        Auth::logout();
 
         return redirect()->route('home.view')->with('success', 'Logout successful');
     }

@@ -9,6 +9,7 @@ class Buyer extends Model
     protected $table = 'buyers';
     protected $guarded = [];
     protected $fillable = [
+        'user_id',
         'email',
         'password',
         'name',
@@ -41,5 +42,10 @@ class Buyer extends Model
     public function comment ()
     {
         return $this->hasMany(Comment::class, 'buyer_id');
+    }
+
+    public function user ()
+    {
+        return $this->belongsTo(User::class);
     }
 }

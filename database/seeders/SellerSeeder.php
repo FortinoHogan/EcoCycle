@@ -16,6 +16,7 @@ class SellerSeeder extends Seeder
     {
         //
         Seller::create([
+            'user_id' => '2',
             'email' => 'tino@gmail.com',
             'password' => Hash::make('asdasdasd'),
             'name' => 'Tino',

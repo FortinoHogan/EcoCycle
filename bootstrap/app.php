@@ -12,6 +12,11 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->trustProxies(at: '*');
+        $middleware->alias([
+            'CheckBuyer' => \App\Http\Middleware\CheckBuyer::class,
+            'CheckSeller' => \App\Http\Middleware\CheckSeller::class,
+            'CheckAuth' => \App\Http\Middleware\CheckAuth::class
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

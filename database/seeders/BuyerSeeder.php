@@ -15,6 +15,7 @@ class BuyerSeeder extends Seeder
     public function run(): void
     {
         Buyer::create([
+            'user_id' => '1',
             'email' => 'hendri@gmail.com',
             'password' => Hash::make('hendri123'),
             'name' => 'Hendri',

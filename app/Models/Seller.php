@@ -9,6 +9,7 @@ class Seller extends Model
     protected $table = 'sellers';
     protected $guarded = [];
     protected $fillable = [
+        'user_id',
         'email',
         'password',
         'name',
@@ -22,5 +23,10 @@ class Seller extends Model
     public function product ()
     {
         return $this->hasMany(Product::class, 'seller_id');
+    }
+
+    public function user ()
+    {
+        return $this->belongsTo(User::class);
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class CheckSeller
@@ -15,13 +16,11 @@ class CheckSeller
      */
     public function handle(Request $request, Closure $next)
     {
-        // If the session doesn't have 'seller', show 404
-        if (session()->has('seller')) {
+        if (session()->has('seller') || Auth::check() && Auth::user()->role === 'seller') {
             return $next($request);
-        } else {
-            return redirect()->route('404');
         }
-        return redirect()->route('home.view');
+
+        return redirect()->route('404');
 
     }
 }

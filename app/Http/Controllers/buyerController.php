@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Buyer;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class BuyerController extends Controller
@@ -79,7 +81,13 @@ class BuyerController extends Controller
             'floating_phone.regex' => 'Phone number must be between 8 and 15 digits.',
         ]);
 
+        $user = User::create([
+            'role' => 'buyer',
+        ]);
+        echo '<script>console.log("'.$user->id.'"); </script>';  
+
         Buyer::create([
+            'user_id' => $user->id,
             'email' => $request->floating_email,
             'password' => Hash::make($request->floating_password),
             'name' => $request->floating_username,
@@ -88,6 +96,7 @@ class BuyerController extends Controller
             'role' => 'Buyer',
             'profileImage' => null,
         ]);
+
 
         return redirect()->route('login.view')->with('success', 'Registration successful');
     }
@@ -107,6 +116,13 @@ class BuyerController extends Controller
 
         if ($buyer && Hash::check($request->floating_password, $buyer->password)) {
             session(['buyer' => $buyer]);
+
+            $user = User::where('id', $buyer->user_id)->first();
+
+            Auth::login($user);
+
+            $request->session()->regenerate();
+
             return redirect()->route('home.view')->with('success', 'Login successful');
         }
 
@@ -117,6 +133,8 @@ class BuyerController extends Controller
     public function logout_personal()
     {
         session()->forget('buyer');
+
+        Auth::logout();
 
         return redirect()->route('home.view')->with('success', 'Logout successful');
     }

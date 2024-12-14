@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class CheckAuth
@@ -15,11 +16,7 @@ class CheckAuth
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (session()->has('buyer')) {
-            return redirect()->route('home.view')->with('error', 'You are Logged In!');
-        }
-
-        if (session()->has('seller')) {
+        if (Auth::check()) {
             return redirect()->route('home.view')->with('error', 'You are Logged In!');
         }
 
