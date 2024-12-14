@@ -3,12 +3,12 @@
     <section class="bg-gray-50 antialiased dark:bg-gray-900 md:py-12">
         <div class="p-4">
             <div class="block m-auto w-full max-w-[1200px] px-4">
-                <div class="flex justify-end items-center w-full mb-4">
+                <div class="flex flex-col justify-center items-end w-full mb-4 gap-4">
                     <form action="{{ route('shop.view') }}" class="relative text-gray-600">
-                        <input
-                            class="border-2 border-gray-300 bg-white h-10 w-[200px] rounded-lg text-sm focus:outline-none"
+                        <input class="border-2 border-gray-300 bg-white h-10 w-[200px] rounded-lg text-sm focus:outline-none"
                             type="text" name="search" placeholder="Search" style="padding-right: 2.5rem"
                             value="{{ request('search') }}">
+                        <input type="hidden" name="sort" value="{{ request('sort') }}">
                         <button type="submit" class="absolute right-0 top-0 mt-3 mr-4">
                             <svg class="text-gray-600 h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg"
                                 xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px"
@@ -19,9 +19,33 @@
                             </svg>
                         </button>
                     </form>
-
+                    <form action="{{ route('shop.view') }}" class="flex items-center gap-3">
+                        <label for="sort" class="text-sm font-medium text-gray-900 dark:text-white">Sort by:</label>
+                        <select id="sort" name="sort"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            onchange="this.form.submit()">
+                            <option value="release-date" {{ request('sort') == 'release-date' ? 'selected' : '' }}>Release
+                                Date</option>
+                            <option value="alphabetical-ascending"
+                                {{ request('sort') == 'alphabetical-ascending' ? 'selected' : '' }}>
+                                Alphabetical Ascending
+                            </option>
+                            <option value="alphabetical-descending"
+                                {{ request('sort') == 'alphabetical-descending' ? 'selected' : '' }}>
+                                Alphabetical Descending
+                            </option>
+                            <option value="most-price" {{ request('sort') == 'most-price' ? 'selected' : '' }}>Most Price
+                            </option>
+                            <option value="least-price" {{ request('sort') == 'least-price' ? 'selected' : '' }}>Least Price
+                            </option>
+                        </select>
+                        <input type="hidden" name="search" value="{{ request('search') }}">
+                    </form>
                 </div>
                 <div class="mb-4 grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-4">
+                    @if (count($products) == 0)
+                        <p class="text-2xl font-bold text-[#3C552D]">No product found</p>
+                    @endif
                     @foreach ($products as $prod)
                         <div
                             class="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
@@ -66,7 +90,7 @@
                     @endforeach
                 </div>
                 <div class="flex justify-center">
-                    {{ $products->appends(['search' => request('search')])->links('vendor.pagination.custom') }}
+                    {{ $products->appends(['search' => request('search'), 'sort' => request('sort')])->links('vendor.pagination.custom') }}
                 </div>
             </div>
         </div>

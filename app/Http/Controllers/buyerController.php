@@ -19,16 +19,38 @@ class BuyerController extends Controller
     public function shop()
     {
         $searchQuery = request('search');
-        
+        $sortOption = request('sort');
+
         $query = Product::query();
-        
+
         if ($searchQuery) {
             $query->where('name', 'like', "%{$searchQuery}%");
         }
 
-        $products = $query->paginate(6)->appends(['search' => $searchQuery]);
+        switch ($sortOption) {
+            case 'alphabetical-ascending':
+                $query->orderBy('name', 'asc');
+                break;
+            case 'alphabetical-descending':
+                $query->orderBy('name', 'desc');
+                break;
+            case 'most-price':
+                $query->orderBy('price', 'desc');
+                break;
+            case 'least-price':
+                $query->orderBy('price', 'asc');
+                break;
+            default:
+                $query->orderBy('created_at', 'desc');
+                break;
+        }
 
-        return view('shop', compact('products', 'searchQuery'));
+        $products = $query->paginate(6)->appends([
+            'search' => $searchQuery,
+            'sort' => $sortOption,
+        ]);
+
+        return view('shop', compact('products', 'searchQuery', 'sortOption'));
     }
 
     public function register_personal(Request $request)
@@ -68,7 +90,6 @@ class BuyerController extends Controller
         ]);
 
         return redirect()->route('login.view')->with('success', 'Registration successful');
-
     }
 
     public function login_personal(Request $request)

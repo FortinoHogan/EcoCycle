@@ -9,8 +9,33 @@ class EcoLearningController extends Controller
 {
     //
     public function index(){
-        $articles = Article::all();
-        return view('ecoLearning', compact('articles'));
+        $searchQuery = request('search');
+        $sortOption = request('sort');
+
+        $query = Article::query();
+
+        if ($searchQuery) {
+            $query->where('title', 'like', "%{$searchQuery}%");
+        }
+
+        switch ($sortOption) {
+            case 'alphabetical-ascending':
+                $query->orderBy('title', 'asc');
+                break;
+            case 'alphabetical-descending':
+                $query->orderBy('title', 'desc');
+                break;
+            default:
+                $query->orderBy('created_at', 'desc');
+                break;
+        }
+
+        $articles = $query->paginate(5)->appends([
+            'search' => $searchQuery,
+            'sort' => $sortOption,
+        ]);
+
+        return view('ecoLearning', compact('articles', 'searchQuery', 'sortOption'));
     }
 
     public function detail($id){

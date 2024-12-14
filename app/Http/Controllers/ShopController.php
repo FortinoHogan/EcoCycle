@@ -21,17 +21,39 @@ class ShopController extends Controller
     public function index()
     {
         $searchQuery = request('search');
+        $sortOption = request('sort');
 
         $query = Product::where('seller_id', session('seller')->id);
 
         if ($searchQuery) {
             $query->where('name', 'like', "%{$searchQuery}%");
         }
-    
-        $products = $query->paginate(6)->appends(['search' => $searchQuery]);
-    
+
+        switch ($sortOption) {
+            case 'alphabetical-ascending':
+                $query->orderBy('name', 'asc');
+                break;
+            case 'alphabetical-descending':
+                $query->orderBy('name', 'desc');
+                break;
+            case 'most-price':
+                $query->orderBy('price', 'desc');
+                break;
+            case 'least-price':
+                $query->orderBy('price', 'asc');
+                break;
+            default:
+                $query->orderBy('created_at', 'desc');
+                break;
+        }
+
+        $products = $query->paginate(6)->appends([
+            'search' => $searchQuery, 
+            'sort' => $sortOption
+        ]);
+
         $categories = Category::all();
-        return view('seller.shop', compact('products', 'categories', 'searchQuery'));
+        return view('seller.shop', compact('products', 'categories', 'searchQuery', 'sortOption'));
     }
 
     /**
