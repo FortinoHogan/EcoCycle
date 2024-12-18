@@ -500,8 +500,8 @@
                     @endif
                     @if (session('seller'))
                         <li>
-                            <a href="{{ route('shop.index') }}" class="text-[#E9EEDC] hover:underline">My
-                                @lang('lang.shop')</a>
+                            <a href="{{ route('shop.index') }}" class="text-[#E9EEDC] hover:underline">
+                                @lang('lang.myshop')</a>
                         </li>
                     @endif
                 </ul>
