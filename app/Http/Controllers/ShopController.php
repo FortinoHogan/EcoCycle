@@ -48,7 +48,7 @@ class ShopController extends Controller
         }
 
         $products = $query->paginate(6)->appends([
-            'search' => $searchQuery, 
+            'search' => $searchQuery,
             'sort' => $sortOption
         ]);
 
@@ -79,21 +79,21 @@ class ShopController extends Controller
             'description' => 'required',
             'categories' => 'required|array',
         ], [
-            'name.required' => 'Product name is required',
-            'price.required' => 'Product price is required',
-            'price.numeric' => 'Product price must be a number',
-            'stock.required' => 'Product stock is required',
-            'stock.numeric' => 'Product stock must be a number',
+            'name.required' => __('lang.name_required'),
+            'price.required' => __('lang.price_required'),
+            'price.numeric' => __('lang.price_numeric'),
+            'stock.required' => __('lang.stock_required'),
+            'stock.numeric' => __('lang.stock_numeric'),
 
-            'image.required' => 'Product image is required',
-            'image.image' => 'Product image must be an image file',
-            'image.mimes' => 'Product image must be a JPEG, PNG, or JPG file',
-            'image.max' => 'Product image size must be less than 2MB',
+            'image.required' => __('lang.image_required'),
+            'image.image' => __('lang.image_image'),
+            'image.mimes' => __('lang.image_mimes'),
+            'image.max' => __('lang.image_max'),
 
-            'ingredients.required' => 'Product ingredients is required',
-            'origin.required' => 'Product origin is required',
-            'description.required' => 'Product description is required',
-            'categories.required' => 'Product categories is required',
+            'ingredients.required' => __('lang.ingredients_required'),
+            'origin.required' => __('lang.origin_required'),
+            'description.required' => __('lang.description_required'),
+            'categories.required' => __('lang.categories_required'),
         ]);
 
         if ($request->hasFile('image')) {
@@ -130,7 +130,9 @@ class ShopController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id) {}
+    public function show(string $id)
+    {
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -154,25 +156,25 @@ class ShopController extends Controller
             'description' => 'required',
             'categories' => 'required|array',
         ], [
-            'name.required' => 'Product name is required',
-            'price.required' => 'Product price is required',
-            'price.numeric' => 'Product price must be a number',
-            'stock.required' => 'Product stock is required',
-            'stock.numeric' => 'Product stock must be a number',
+            'name.required' => __('lang.name_required'),
+            'price.required' => __('lang.price_required'),
+            'price.numeric' => __('lang.price_numeric'),
+            'stock.required' => __('lang.stock_required'),
+            'stock.numeric' => __('lang.stock_numeric'),
 
-            'ingredients.required' => 'Product ingredients is required',
-            'origin.required' => 'Product origin is required',
-            'description.required' => 'Product description is required',
-            'categories.required' => 'Product categories is required',
+            'ingredients.required' => __('lang.ingredients_required'),
+            'origin.required' => __('lang.origin_required'),
+            'description.required' => __('lang.description_required'),
+            'categories.required' => __('lang.categories_required')
         ]);
 
         if ($request->hasFile('image')) {
             $request->validate([
                 'image' => 'image|mimes:jpeg,png,jpg|max:2048',
             ], [
-                'image.image' => 'Product image must be an image file',
-                'image.mimes' => 'Product image must be a JPEG, PNG, or JPG file',
-                'image.max' => 'Product image size must be less than 2MB',
+                'image.image' => __('lang.image_image'),
+                'image.mimes' => __('lang.image_mimes'),
+                'image.max' => __('lang.image_max'),
             ]);
             $image = file_get_contents($request->file('image')->getRealPath());
         } else {

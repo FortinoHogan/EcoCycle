@@ -33,21 +33,22 @@ class SellerController extends Controller
             'floating_phone' => 'required|regex:/^[0-9]{8,15}$/',
             'floating_region' => 'required|string',
         ], [
-            'floating_email.unique' => 'The email address has already been taken.',
-            'floating_email.required' => 'The email address is required.',
-            'floating_email.email' => 'Please enter a valid email address.',
+            'floating_email.unique' => __('lang.email_unique'),
+            'floating_email.required' => __('lang.email_required'),
+            'floating_email.email' => __('lang.email_email'),
+            'floating_email.regex' => __('lang.email_regex'),
 
-            'floating_password.required' => 'The password is required.',
-            'floating_password.min' => 'The password must be at least 8 characters.',
+            'floating_password.required' => __('lang.password_required'),
+            'floating_password.min' => __('lang.password_min'),
 
-            'floating_storeName.unique' => 'The store name is already taken.',
-            'floating_storeName.required' => 'The store name is required.',
+            'floating_storeName.unique' => __('lang.store_unique'),
+            'floating_storeName.required' => __('lang.store_required'),
 
-            'floating_phone.required' => 'Phone number is required.',
-            'floating_phone.regex' => 'Phone number must be between 8 and 15 digits.',
+            'floating_phone.required' => __('lang.phone_required'),
+            'floating_phone.regex' => __('lang.phone_regex'),
 
-            'floating_region.required' => 'The region is required.',
-            'floating_region.string' => 'Please enter a valid region.',
+            'floating_region.required' => __('lang.region_required'),
+            'floating_region.string' => __('lang.region_string'),
         ]);
 
         $user = User::create([
@@ -85,7 +86,7 @@ class SellerController extends Controller
 
         if ($seller && Hash::check($request->floating_password, $seller->password)) {
             session(['seller' => $seller]);
-            
+
             $user = User::where('id', $seller->user_id)->first();
 
             Auth::login($user);

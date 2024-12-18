@@ -69,22 +69,23 @@ class BuyerController extends Controller
             'floating_username' => 'required|min:4',
             'floating_phone' => 'required|regex:/^[0-9]{8,15}$/',
         ], [
-            'floating_email.required' => 'The email address is required.',
-            'floating_email.email' => 'Please enter a valid email address.',
-            'floating_email.unique' => 'This email is already registered. Please choose another one.',
-            'floating_email.regex' => 'The email must be a gmail.com address.',
-            'floating_password.required' => 'Password is required.',
-            'floating_password.min' => 'Password must be at least 8 characters.',
-            'floating_username.required' => 'Username is required.',
-            'floating_username.min' => 'Username must be at least 4 characters.',
-            'floating_phone.required' => 'Phone number is required.',
-            'floating_phone.regex' => 'Phone number must be between 8 and 15 digits.',
+            'floating_email.unique' => __('lang.email_unique'),
+            'floating_email.required' => __('lang.email_required'),
+            'floating_email.email' => __('lang.email_email'),
+            'floating_email.regex' => __('lang.email_regex'),
+
+            'floating_password.required' => __('lang.password_required'),
+            'floating_password.min' => __('lang.password_min'),
+            'floating_username.required' => __('lang.username_required'),
+            'floating_username.min' => __('lang.username_min'),
+            'floating_phone.required' => __('lang.phone_required'),
+            'floating_phone.regex' => __('lang.phone_regex'),
         ]);
 
         $user = User::create([
             'role' => 'buyer',
         ]);
-        echo '<script>console.log("'.$user->id.'"); </script>';  
+        echo '<script>console.log("' . $user->id . '"); </script>';
 
         Buyer::create([
             'user_id' => $user->id,
@@ -148,8 +149,8 @@ class BuyerController extends Controller
         $request->validate([
             'new_password' => 'required|min:8',
         ], [
-            'new_password.required' => 'Password is required.',
-            'new_password.min' => 'Password must be at least 8 characters.',
+            'new_password.required' => __('lang.password_required'),
+            'new_password.min' => __('lang.password_min'),
         ]);
         $buyer = Buyer::find(session('buyer')->id);
         $buyer->password = Hash::make($request->new_password);
@@ -202,12 +203,12 @@ class BuyerController extends Controller
             'email' => 'required|email',
             'phone' => 'required|regex:/^[0-9]{8,15}$/',
         ], [
-            'username.required' => 'Username is required.',
-            'username.min' => 'Username must be at least 4 characters.',
-            'email.required' => 'The email address is required.',
-            'email.email' => 'Please enter a valid email address.',
-            'phone.required' => 'Phone number is required.',
-            'phone.regex' => 'Phone number must be between 8 and 15 digits.',
+            'username.required' => __('lang.username_required'),
+            'username.min' => __('lang.username_min'),
+            'email.required' => __('lang.email_required'),
+            'email.email' => __('lang.email_email'),
+            'phone.required' => __('lang.phone_required'),
+            'phone.regex' => __('lang.phone_regex')
         ]);
 
         $buyer = Buyer::find($id);
