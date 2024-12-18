@@ -10,7 +10,7 @@
     <div class="p-4">
         <div class="block m-auto w-full max-w-[1200px] px-4">
             <div class="flex justify-between items-center w-full flex-wrap">
-                <h2 class="font-bold text-[50px] text-[#3C552D] mb-5">My Shop</h2>
+                <h2 class="font-bold text-[50px] text-[#3C552D] mb-5">@lang('lang.myshop')</h2>
                 <div class="flex flex-col justify-center items-end w-full mb-4 gap-4">
                     <form action="{{ route('shop.index') }}" class="relative text-gray-600">
                         <input class="border-2 border-gray-300 bg-white h-10 w-[200px] rounded-lg text-sm focus:outline-none"
@@ -28,23 +28,26 @@
                         </button>
                     </form>
                     <form action="{{ route('shop.index') }}" class="flex items-center gap-3">
-                        <label for="sort" class="text-sm font-medium text-gray-900 dark:text-white">Sort by:</label>
+                        <label for="sort"
+                            class="text-sm font-medium text-gray-900 dark:text-white">@lang('lang.sort_by'):</label>
                         <select id="sort" name="sort"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             onchange="this.form.submit()">
-                            <option value="release-date" {{ request('sort') == 'release-date' ? 'selected' : '' }}>Release
-                                Date</option>
+                            <option value="release-date" {{ request('sort') == 'release-date' ? 'selected' : '' }}>
+                                @lang('lang.release_date')</option>
                             <option value="alphabetical-ascending"
                                 {{ request('sort') == 'alphabetical-ascending' ? 'selected' : '' }}>
-                                Alphabetical Ascending
+                                @lang('lang.alphabet_asc')
                             </option>
                             <option value="alphabetical-descending"
                                 {{ request('sort') == 'alphabetical-descending' ? 'selected' : '' }}>
-                                Alphabetical Descending
+                                @lang('lang.alphabet_desc')
                             </option>
-                            <option value="most-price" {{ request('sort') == 'most-price' ? 'selected' : '' }}>Most Price
+                            <option value="most-price" {{ request('sort') == 'most-price' ? 'selected' : '' }}>
+                                @lang('lang.most_price')
                             </option>
-                            <option value="least-price" {{ request('sort') == 'least-price' ? 'selected' : '' }}>Least Price
+                            <option value="least-price" {{ request('sort') == 'least-price' ? 'selected' : '' }}>
+                                @lang('lang.least_price')
                             </option>
                         </select>
                         <input type="hidden" name="search" value="{{ request('search') }}">
@@ -55,12 +58,12 @@
                 <button
                     class="hover:opacity-80 bg-[#76b743] border border-[#76b743] py-[10px] px-[24px] text-white rounded-md min-w-[100px] font-bold align-middle transition-all ease-in-out duration-500"
                     onclick="toggleModal(true)">
-                    ADD
+                    @lang('lang.add')
                 </button>
             </div>
             <div class="mb-4 grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-4">
                 @if (count($products) == 0)
-                    <p class="text-2xl font-bold text-[#3C552D]">No product found</p>
+                    <p class="text-2xl font-bold text-[#3C552D]">@lang('lang.no_product_found')</p>
                 @endif
                 @foreach ($products as $prod)
                     <div
@@ -76,15 +79,16 @@
                         <div class="mt-6 flex items-center justify-between gap-4">
                             <span
                                 class="me-2 rounded bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900 dark:text-green-300">
-                                Organik
+                                @lang('lang.organic')
                             </span>
                         </div>
                         <div class="mt-4">
                             <a href="#"
                                 class="text-lg font-semibold leading-tight text-gray-900 hover:underline dark:text-white">{{ $prod->name }}</a>
 
-                            <p class="mt-2 text-sm font-medium text-gray-500 dark:text-gray-400">Stock: {{ $prod->stock }}
-                                left</p>
+                            <p class="mt-2 text-sm font-medium text-gray-500 dark:text-gray-400">@lang('lang.stock'):
+                                {{ $prod->stock }}
+                                @lang('lang.stock_left')</p>
                             <p class="mt-2 text-sm font-medium text-gray-900">
                                 {{ Str::limit($prod->description->description, 50) }}</p>
 
@@ -93,8 +97,7 @@
                                     {{ number_format($prod->price, 0, ',', '.') }}</p>
 
                                 <a href="{{ route('detail_seller', $product_id = $prod->id) }}"
-                                    class="inline-flex items-center rounded-lg bg-green-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-green-800 focus:outline-none focus:ring-4  focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">SEE
-                                    MORE</a>
+                                    class="inline-flex items-center rounded-lg bg-green-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-green-800 focus:outline-none focus:ring-4  focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">@lang('lang.see_more')</a>
                             </div>
                         </div>
                     </div>
@@ -110,7 +113,7 @@
         class="bg-black bg-opacity-40 fixed inset-0 z-50 items-center justify-center" onclick="closeModal()">
         <div class="bg-white rounded-lg shadow-lg max-w-[640px] w-[90%] p-8 h-5/6 overflow-y-auto scrollbar-hidden"
             onclick="stopPropagation(event)">
-            <h2 class="font-bold text-xl text-[#5c5c5c] text-center p-8">Add Product</h2>
+            <h2 class="font-bold text-xl text-[#5c5c5c] text-center p-8">@lang('lang.add_product')</h2>
             @if ($errors->any())
                 <div class="bg-[#d73930] py-3 px-4 text-white mb-3 flex items-center justify-between" id="errorMsg">
                     <span>{{ $errors->first() }}</span>
@@ -124,28 +127,28 @@
             <form action="{{ route('shop.store') }}" method="POST" enctype="multipart/form-data" onsubmit="showSpinner()">
                 @csrf
                 <div class="mb-6">
-                    <label for="name" class="block text-sm font-medium text-gray-700">Product Name</label>
+                    <label for="name" class="block text-sm font-medium text-gray-700">@lang('lang.product_name')</label>
                     <input id="name" name="name"
                         class="mt-1 p-2 w-full rounded-sm border border-[#5c5c5c] border-opacity-30 focus:outline-none outline-none"
                         required value="{{ old('name') }}">
                 </div>
 
                 <div class="mb-6">
-                    <label for="price" class="block text-sm font-medium text-gray-700">Price</label>
+                    <label for="price" class="block text-sm font-medium text-gray-700">@lang('lang.price')</label>
                     <input id="price" name="price"
                         class="mt-1 p-2 w-full rounded-sm border border-[#5c5c5c] border-opacity-30 focus:outline-none outline-none"
                         required value="{{ old('price') }}">
                 </div>
 
                 <div class="mb-6">
-                    <label for="stock" class="block text-sm font-medium text-gray-700">Stock</label>
+                    <label for="stock" class="block text-sm font-medium text-gray-700">@lang('lang.stock')</label>
                     <input id="stock" name="stock"
                         class="mt-1 p-2 w-full rounded-sm border border-[#5c5c5c] border-opacity-30 focus:outline-none outline-none"
                         required value="{{ old('stock') }}">
                 </div>
 
                 <div class="mb-6">
-                    <label for="picture" class="block text-sm font-medium text-gray-700">Image</label>
+                    <label for="picture" class="block text-sm font-medium text-gray-700">@lang('lang.image')</label>
                     <input type="file" id="image" name="image"
                         class="mt-1 w-full rounded-sm border border-[#5c5c5c] border-opacity-30 focus:outline-none outline-none"
                         onchange="previewImage(event)">
@@ -155,31 +158,31 @@
                 </div>
 
                 <div class="mb-6">
-                    <label for="ingredients" class="block text-sm font-medium text-gray-700">Ingredients</label>
+                    <label for="ingredients" class="block text-sm font-medium text-gray-700">@lang('lang.ingredients')</label>
                     <input id="ingredients" name="ingredients"
                         class="mt-1 p-2 w-full rounded-sm border border-[#5c5c5c] border-opacity-30 focus:outline-none outline-none"
                         required value="{{ old('ingredients') }}">
                 </div>
 
                 <div class="mb-6">
-                    <label for="origin" class="block text-sm font-medium text-gray-700">Origin</label>
+                    <label for="origin" class="block text-sm font-medium text-gray-700">@lang('lang.origin')</label>
                     <input id="origin" name="origin"
                         class="mt-1 p-2 w-full rounded-sm border border-[#5c5c5c] border-opacity-30 focus:outline-none outline-none"
                         required value="{{ old('origin') }}">
                 </div>
 
                 <div class="mb-6">
-                    <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+                    <label for="description" class="block text-sm font-medium text-gray-700">@lang('lang.description')</label>
                     <textarea id="description" name="description" rows="4"
                         class="mt-1 p-2 w-full rounded-sm border border-[#5c5c5c] border-opacity-30 focus:outline-none outline-none resize-none">{{ old('description') }}</textarea>
                 </div>
 
                 <div class="mb-6">
-                    <label for="categories" class="block text-sm font-medium text-gray-700">Categories</label>
+                    <label for="categories" class="block text-sm font-medium text-gray-700">@lang('lang.category')</label>
                     <div
                         class="relative mt-1 p-2 w-full rounded-sm border border-[#5c5c5c] border-opacity-30 focus:outline-none focus:border-transparent flex justify-between items-center">
                         <button id="dropdownButton" type="button" class="flex items-center justify-between w-full">
-                            Select Categories
+                            @lang('lang.select_categories')
                             <span class="ml-2 text-xs text-gray-500">+</span>
                         </button>
                         <div id="dropdownMenu"
@@ -195,7 +198,7 @@
                             </div>
                             <button style="background-color: #76b743" id="dropdownButtonDone"
                                 class="hover:opacity-80 border border-[#76b743] py-[10px] px-[24px] text-white rounded-md min-w-[100px] font-bold align-middle transition-all ease-in-out duration-500 ml-2 mb-2"
-                                type="button">Done</button>
+                                type="button">@lang('lang.done')</button>
                         </div>
                     </div>
                 </div>
@@ -203,9 +206,9 @@
                 <div class="flex justify-end gap-5">
                     <button type="button"
                         class="hover:opacity-80 py-[10px] px-[24px] text-white rounded-md min-w-[100px] font-bold align-middle transition-all ease-in-out duration-500 bg-gray-500"
-                        onclick="closeModal()">CANCEL</button>
+                        onclick="closeModal()">@lang('lang.cancel')</button>
                     <button
-                        class="hover:opacity-80 bg-[#76b743] border border-[#76b743] py-[10px] px-[24px] text-white rounded-md min-w-[100px] font-bold align-middle transition-all ease-in-out duration-500">ADD
+                        class="hover:opacity-80 bg-[#76b743] border border-[#76b743] py-[10px] px-[24px] text-white rounded-md min-w-[100px] font-bold align-middle transition-all ease-in-out duration-500">@lang('lang.add')
                     </button>
                 </div>
             </form>
@@ -250,6 +253,11 @@
 
 @section('scripts')
     <script>
+        const translate = {
+            insert_success: @json(__('lang.insert_success')),
+            delete_success: @json(__('lang.delete_success'))
+        }
+
         const dropdownButton = document.getElementById('dropdownButton');
         const dropdownButtonDone = document.getElementById('dropdownButtonDone');
         const dropdownMenu = document.getElementById('dropdownMenu');
@@ -311,9 +319,11 @@
             document.getElementById("spinner").classList.add("flex");
         }
 
+
+
         @if (session('insertSuccess'))
             Swal.fire({
-                title: 'Insert Success',
+                title: translate.insert_success,
                 text: '{{ session('success') }}',
                 icon: 'success',
                 confirmButtonText: 'OK',
@@ -323,7 +333,7 @@
 
         @if (session('deleteSuccess'))
             Swal.fire({
-                title: 'Delete Success',
+                title: translate.delete_success,
                 text: '{{ session('success') }}',
                 icon: 'success',
                 confirmButtonText: 'OK',

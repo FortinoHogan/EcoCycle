@@ -16,7 +16,7 @@
                     <p class="font-bold text-3xl mt-5">Your order</p>
                 </div>
                 @if (empty($cart))
-                    <p>Your cart is empty!</p>
+                    <p>@lang('lang.cart_empty')</p>
                 @else
                     @foreach ($cart as $item)
                         <div class="mt-5 flex justify-between">
@@ -33,7 +33,7 @@
                     @endforeach
                     <hr class="my-5">
                     <div class="flex text-lg justify-between font-semibold">
-                        <p>Total ({{ $cart->count() }} item)</p>
+                        <p>Total ({{ $cart->count() }} @lang("lang.item"))</p>
                         <p>IDR {{ number_format($transaction->total_price, 0, ',', '.') }}</p>
                     </div>
                     <div class="flex mt-10 gap-5 items-center">

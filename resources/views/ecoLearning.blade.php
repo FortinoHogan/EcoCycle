@@ -26,19 +26,18 @@
                     </button>
                 </form>
                 <form action="{{ route('ecolearning') }}" class="flex items-center gap-3">
-                    <label for="sort" class="text-sm font-medium text-gray-900 dark:text-white">Sort by:</label>
+                    <label for="sort" class="text-sm font-medium text-gray-900 dark:text-white">@lang('lang.sort_by'):</label>
                     <select id="sort" name="sort"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         onchange="this.form.submit()">
-                        <option value="release-date" {{ request('sort') == 'release-date' ? 'selected' : '' }}>Release
-                            Date</option>
+                        <option value="release-date" {{ request('sort') == 'release-date' ? 'selected' : '' }}>@lang('lang.release_date')</option>
                         <option value="alphabetical-ascending"
                             {{ request('sort') == 'alphabetical-ascending' ? 'selected' : '' }}>
-                            Alphabetical Ascending
+                            @lang('lang.alphabet_asc')
                         </option>
                         <option value="alphabetical-descending"
                             {{ request('sort') == 'alphabetical-descending' ? 'selected' : '' }}>
-                            Alphabetical Descending
+                            @lang('lang.alphabet_desc')
                         </option>
                     </select>
                     <input type="hidden" name="search" value="{{ request('search') }}">
@@ -59,8 +58,7 @@
                         </div>
                         <div class="flex justify-end">
                             <a href="{{ route('article_detail', ['id' => $a->id]) }}"
-                                class="font-medium border border-black mb-1 py-1 px-5 rounded-2xl hover:bg-[#3C552D] hover:text-white transition-all duration-500">See
-                                more...</a>
+                                class="font-medium border border-black mb-1 py-1 px-5 rounded-2xl hover:bg-[#3C552D] hover:text-white transition-all duration-500">@lang('lang.see_more')</a>
                         </div>
                     </div>
                 </div>

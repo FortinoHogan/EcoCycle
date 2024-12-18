@@ -37,7 +37,7 @@
                                 <!-- Post Button -->
                                 <button type="submit"
                                     class="bg-green-600 text-white px-4 py-2 rounded-full text-sm hover:bg-green-700 transition-colors">
-                                    Post
+                                    @lang('lang.post')
                                 </button>
                             </div>
                         </form>

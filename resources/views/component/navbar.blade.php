@@ -119,51 +119,65 @@
                 <div class="sm:flex hidden gap-6">
                     <div class="flex justify-end items-center w-80 gap-6">
                         <a href="{{ route('register.view') }}"
-                            class="text-sm text-[#E9EEDC] font-medium border py-2 px-[18px] border-[#3C552D] rounded-md bg-[#3C552D]">Sign
-                            Up</a>
+                            class="text-sm text-[#E9EEDC] font-medium border py-2 px-[18px] border-[#3C552D] rounded-md bg-[#3C552D]">@lang('lang.sign_up')</a>
+
                         <a href="{{ route('login.view') }}"
-                            class="text-sm text-[#3C552D] font-medium border py-2 px-[25px] border-[#3C552D] rounded-md">Login</a>
+                            class="text-sm text-[#3C552D] font-medium border py-2 px-[25px] border-[#3C552D] rounded-md">@lang('lang.login')</a>
                     </div>
 
                     <div class="flex items-center md:order-2 space-x-1 md:space-x-0 rtl:space-x-reverse">
-                        <button type="button" data-dropdown-toggle="language-dropdown-menu"
-                            class="inline-flex items-center font-medium justify-center px-4 py-2 text-sm text-gray-900 dark:text-white rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
-                            <svg class="w-5 h-5 rounded-full me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 3900 3900">
-                                <path fill="#b22234" d="M0 0h7410v3900H0z" />
-                                <path d="M0 450h7410m0 600H0m0 600h7410m0 600H0m0 600h7410m0 600H0" stroke="#fff"
-                                    stroke-width="300" />
-                                <path fill="#3c3b6e" d="M0 0h2964v2100H0z" />
-                                <g fill="#fff">
-                                    <g id="d">
-                                        <g id="c">
-                                            <g id="e">
-                                                <g id="b">
-                                                    <path id="a"
-                                                        d="M247 90l70.534 217.082-184.66-134.164h228.253L176.466 307.082z" />
-                                                    <use xlink:href="#a" y="420" />
-                                                    <use xlink:href="#a" y="840" />
-                                                    <use xlink:href="#a" y="1260" />
+                        @if (app()->getLocale() === 'en')
+                            <button type="button" data-dropdown-toggle="language-dropdown-menu"
+                                class="inline-flex items-center font-medium justify-center px-4 py-2 text-sm text-gray-900 dark:text-white rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
+                                <svg class="w-5 h-5 rounded-full me-3" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    viewBox="0 0 3900 3900">
+                                    <path fill="#b22234" d="M0 0h7410v3900H0z" />
+                                    <path d="M0 450h7410m0 600H0m0 600h7410m0 600H0m0 600h7410m0 600H0" stroke="#fff"
+                                        stroke-width="300" />
+                                    <path fill="#3c3b6e" d="M0 0h2964v2100H0z" />
+                                    <g fill="#fff">
+                                        <g id="d">
+                                            <g id="c">
+                                                <g id="e">
+                                                    <g id="b">
+                                                        <path id="a"
+                                                            d="M247 90l70.534 217.082-184.66-134.164h228.253L176.466 307.082z" />
+                                                        <use xlink:href="#a" y="420" />
+                                                        <use xlink:href="#a" y="840" />
+                                                        <use xlink:href="#a" y="1260" />
+                                                    </g>
+                                                    <use xlink:href="#a" y="1680" />
                                                 </g>
-                                                <use xlink:href="#a" y="1680" />
+                                                <use xlink:href="#b" x="247" y="210" />
                                             </g>
-                                            <use xlink:href="#b" x="247" y="210" />
+                                            <use xlink:href="#c" x="494" />
                                         </g>
-                                        <use xlink:href="#c" x="494" />
+                                        <use xlink:href="#d" x="988" />
+                                        <use xlink:href="#c" x="1976" />
+                                        <use xlink:href="#e" x="2470" />
                                     </g>
-                                    <use xlink:href="#d" x="988" />
-                                    <use xlink:href="#c" x="1976" />
-                                    <use xlink:href="#e" x="2470" />
-                                </g>
-                            </svg>
-                            English (US)
-                        </button>
+                                </svg>
+                                English (US)
+                            </button>
+                        @elseif(app()->getLocale() === 'id')
+                            <button type="button" data-dropdown-toggle="language-dropdown-menu"
+                                class="inline-flex items-center font-medium justify-center px-4 py-2 text-m text-gray-900 dark:text-white rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
+                                <svg class="h-3.5 w-3.5 rounded-full me-2" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" id="flag-icon-css-us" viewBox="0 0 512 512">
+                                    <path fill="#d00" d="M0 0h512v256H0z" />
+                                    <path fill="#fff" d="M0 256h512v256H0z" />
+                                </svg>
+                                Indonesia
+                            </button>
+                        @endif
+
                         <!-- Dropdown -->
                         <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700"
                             id="language-dropdown-menu">
                             <ul class="py-2 font-medium" role="none">
                                 <li>
-                                    <a href="#"
+                                    <a href="{{ route('set-locale', 'en') }}"
                                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
                                         role="menuitem">
                                         <div class="inline-flex items-center">
@@ -191,7 +205,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#"
+                                    <a href="{{ route('set-locale', 'id') }}"
                                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
                                         role="menuitem">
                                         <div class="inline-flex items-center">
@@ -216,48 +230,61 @@
                 <div class="flex gap-6">
                     <div class="sm:flex hidden justify-end items-center w-80 gap-6">
                         <a href="{{ route('logout_buyer') }}"
-                            class="text-sm text-[#3C552D] font-medium border py-2 px-[25px] border-[#3C552D] rounded-md hover:bg-[#3C552D] hover:text-white transition-all duration-500">Logout</a>
+                            class="text-sm text-[#3C552D] font-medium border py-2 px-[25px] border-[#3C552D] rounded-md hover:bg-[#3C552D] hover:text-white transition-all duration-500">@lang('lang.logout')</a>
                     </div>
 
                     <div class="max-sm:pr-10 flex items-center md:order-2 space-x-1 md:space-x-0 rtl:space-x-reverse">
-                        <button type="button" data-dropdown-toggle="language-dropdown-menu"
-                            class="inline-flex items-center font-medium justify-center px-4 py-2 text-sm text-gray-900 dark:text-white rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
-                            <svg class="w-5 h-5 rounded-full me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 3900 3900">
-                                <path fill="#b22234" d="M0 0h7410v3900H0z" />
-                                <path d="M0 450h7410m0 600H0m0 600h7410m0 600H0m0 600h7410m0 600H0" stroke="#fff"
-                                    stroke-width="300" />
-                                <path fill="#3c3b6e" d="M0 0h2964v2100H0z" />
-                                <g fill="#fff">
-                                    <g id="d">
-                                        <g id="c">
-                                            <g id="e">
-                                                <g id="b">
-                                                    <path id="a"
-                                                        d="M247 90l70.534 217.082-184.66-134.164h228.253L176.466 307.082z" />
-                                                    <use xlink:href="#a" y="420" />
-                                                    <use xlink:href="#a" y="840" />
-                                                    <use xlink:href="#a" y="1260" />
+                        @if (app()->getLocale() === 'en')
+                            <button type="button" data-dropdown-toggle="language-dropdown-menu"
+                                class="inline-flex items-center font-medium justify-center px-4 py-2 text-sm text-gray-900 dark:text-white rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
+                                <svg class="w-5 h-5 rounded-full me-3" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    viewBox="0 0 3900 3900">
+                                    <path fill="#b22234" d="M0 0h7410v3900H0z" />
+                                    <path d="M0 450h7410m0 600H0m0 600h7410m0 600H0m0 600h7410m0 600H0" stroke="#fff"
+                                        stroke-width="300" />
+                                    <path fill="#3c3b6e" d="M0 0h2964v2100H0z" />
+                                    <g fill="#fff">
+                                        <g id="d">
+                                            <g id="c">
+                                                <g id="e">
+                                                    <g id="b">
+                                                        <path id="a"
+                                                            d="M247 90l70.534 217.082-184.66-134.164h228.253L176.466 307.082z" />
+                                                        <use xlink:href="#a" y="420" />
+                                                        <use xlink:href="#a" y="840" />
+                                                        <use xlink:href="#a" y="1260" />
+                                                    </g>
+                                                    <use xlink:href="#a" y="1680" />
                                                 </g>
-                                                <use xlink:href="#a" y="1680" />
+                                                <use xlink:href="#b" x="247" y="210" />
                                             </g>
-                                            <use xlink:href="#b" x="247" y="210" />
+                                            <use xlink:href="#c" x="494" />
                                         </g>
-                                        <use xlink:href="#c" x="494" />
+                                        <use xlink:href="#d" x="988" />
+                                        <use xlink:href="#c" x="1976" />
+                                        <use xlink:href="#e" x="2470" />
                                     </g>
-                                    <use xlink:href="#d" x="988" />
-                                    <use xlink:href="#c" x="1976" />
-                                    <use xlink:href="#e" x="2470" />
-                                </g>
-                            </svg>
-                            English (US)
-                        </button>
+                                </svg>
+                                English (US)
+                            </button>
+                        @elseif(app()->getLocale() === 'id')
+                            <button type="button" data-dropdown-toggle="language-dropdown-menu"
+                                class="inline-flex items-center font-medium justify-center px-4 py-2 text-m text-gray-900 dark:text-white rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
+                                <svg class="h-3.5 w-3.5 rounded-full me-2" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" id="flag-icon-css-us" viewBox="0 0 512 512">
+                                    <path fill="#d00" d="M0 0h512v256H0z" />
+                                    <path fill="#fff" d="M0 256h512v256H0z" />
+                                </svg>
+                                Indonesia
+                            </button>
+                        @endif
                         <!-- Dropdown -->
                         <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700"
                             id="language-dropdown-menu">
                             <ul class="py-2 font-medium" role="none">
                                 <li>
-                                    <a href="#"
+                                    <a href="{{ route('set-locale', 'en') }}"
                                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
                                         role="menuitem">
                                         <div class="inline-flex items-center">
@@ -285,7 +312,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#"
+                                    <a href="{{ route('set-locale', 'id') }}"
                                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
                                         role="menuitem">
                                         <div class="inline-flex items-center">
@@ -307,49 +334,61 @@
                 <div class="flex gap-6">
                     <div class="sm:flex hidden justify-end items-center w-80 gap-6">
                         <a href="{{ route('logout_seller') }}"
-                            class="text-sm text-[#3C552D] font-medium border py-2 px-[25px] border-[#3C552D] rounded-md hover:bg-[#3C552D] hover:text-white transition-all duration-500">Logout</a>
+                            class="text-sm text-[#3C552D] font-medium border py-2 px-[25px] border-[#3C552D] rounded-md hover:bg-[#3C552D] hover:text-white transition-all duration-500">@lang('lang.logout')</a>
                     </div>
 
                     <div class="max-sm:pr-10 flex items-center md:order-2 space-x-1 md:space-x-0 rtl:space-x-reverse">
-                        <button type="button" data-dropdown-toggle="language-dropdown-menu"
-                            class="inline-flex items-center font-medium justify-center px-4 py-2 text-sm text-gray-900 dark:text-white rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
-                            <svg class="w-5 h-5 rounded-full me-3" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                viewBox="0 0 3900 3900">
-                                <path fill="#b22234" d="M0 0h7410v3900H0z" />
-                                <path d="M0 450h7410m0 600H0m0 600h7410m0 600H0m0 600h7410m0 600H0" stroke="#fff"
-                                    stroke-width="300" />
-                                <path fill="#3c3b6e" d="M0 0h2964v2100H0z" />
-                                <g fill="#fff">
-                                    <g id="d">
-                                        <g id="c">
-                                            <g id="e">
-                                                <g id="b">
-                                                    <path id="a"
-                                                        d="M247 90l70.534 217.082-184.66-134.164h228.253L176.466 307.082z" />
-                                                    <use xlink:href="#a" y="420" />
-                                                    <use xlink:href="#a" y="840" />
-                                                    <use xlink:href="#a" y="1260" />
+                        @if (app()->getLocale() === 'en')
+                            <button type="button" data-dropdown-toggle="language-dropdown-menu"
+                                class="inline-flex items-center font-medium justify-center px-4 py-2 text-sm text-gray-900 dark:text-white rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
+                                <svg class="w-5 h-5 rounded-full me-3" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    viewBox="0 0 3900 3900">
+                                    <path fill="#b22234" d="M0 0h7410v3900H0z" />
+                                    <path d="M0 450h7410m0 600H0m0 600h7410m0 600H0m0 600h7410m0 600H0" stroke="#fff"
+                                        stroke-width="300" />
+                                    <path fill="#3c3b6e" d="M0 0h2964v2100H0z" />
+                                    <g fill="#fff">
+                                        <g id="d">
+                                            <g id="c">
+                                                <g id="e">
+                                                    <g id="b">
+                                                        <path id="a"
+                                                            d="M247 90l70.534 217.082-184.66-134.164h228.253L176.466 307.082z" />
+                                                        <use xlink:href="#a" y="420" />
+                                                        <use xlink:href="#a" y="840" />
+                                                        <use xlink:href="#a" y="1260" />
+                                                    </g>
+                                                    <use xlink:href="#a" y="1680" />
                                                 </g>
-                                                <use xlink:href="#a" y="1680" />
+                                                <use xlink:href="#b" x="247" y="210" />
                                             </g>
-                                            <use xlink:href="#b" x="247" y="210" />
+                                            <use xlink:href="#c" x="494" />
                                         </g>
-                                        <use xlink:href="#c" x="494" />
+                                        <use xlink:href="#d" x="988" />
+                                        <use xlink:href="#c" x="1976" />
+                                        <use xlink:href="#e" x="2470" />
                                     </g>
-                                    <use xlink:href="#d" x="988" />
-                                    <use xlink:href="#c" x="1976" />
-                                    <use xlink:href="#e" x="2470" />
-                                </g>
-                            </svg>
-                            English (US)
-                        </button>
+                                </svg>
+                                English (US)
+                            </button>
+                        @elseif(app()->getLocale() === 'id')
+                            <button type="button" data-dropdown-toggle="language-dropdown-menu"
+                                class="inline-flex items-center font-medium justify-center px-4 py-2 text-m text-gray-900 dark:text-white rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
+                                <svg class="h-3.5 w-3.5 rounded-full me-2" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" id="flag-icon-css-us" viewBox="0 0 512 512">
+                                    <path fill="#d00" d="M0 0h512v256H0z" />
+                                    <path fill="#fff" d="M0 256h512v256H0z" />
+                                </svg>
+                                Indonesia
+                            </button>
+                        @endif
                         <!-- Dropdown -->
                         <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700"
                             id="language-dropdown-menu">
                             <ul class="py-2 font-medium" role="none">
                                 <li>
-                                    <a href="#"
+                                    <a href="{{ route('set-locale', 'en') }}"
                                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
                                         role="menuitem">
                                         <div class="inline-flex items-center">
@@ -377,7 +416,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#"
+                                    <a href="{{ route('set-locale', 'id') }}"
                                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
                                         role="menuitem">
                                         <div class="inline-flex items-center">
@@ -408,13 +447,14 @@
                 <ul class="flex items-center flex-row font-medium space-x-8 rtl:space-x-reverse text-sm w-full">
                     <li>
                         <a href="{{ route('home.view') }}" class="text-[#E9EEDC] hover:underline"
-                            aria-current="page">Home</a>
+                            aria-current="page">@lang('lang.home')</a>
                     </li>
                     @if (session('buyer'))
                         <div class="flex items-center justify-between w-full">
                             <div class="flex space-x-8 rtl:space-x-reverse">
                                 <li>
-                                    <a href="{{ route('shop.view') }}" class="text-[#E9EEDC] hover:underline">Shop</a>
+                                    <a href="{{ route('shop.view') }}"
+                                        class="text-[#E9EEDC] hover:underline">@lang('lang.shop')</a>
                                 </li>
                                 <li>
                                     <a href="{{ route('ecoforum.index') }}"
@@ -426,7 +466,7 @@
                                 </li>
                                 <li>
                                     <a href="{{ route('profile') }}"
-                                        class="text-[#E9EEDC] hover:underline">Profile</a>
+                                        class="text-[#E9EEDC] hover:underline">@lang('lang.profile')</a>
                                 </li>
                             </div>
 
@@ -441,7 +481,7 @@
                                                 stroke-linejoin="round" stroke-width="2"
                                                 d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6" />
                                         </svg>
-                                        Cart
+                                        @lang('lang.cart')
                                     </div>
                                 </li>
                                 <li>
@@ -452,7 +492,7 @@
                                             <path
                                                 d="M480-120q-138 0-240.5-91.5T122-440h82q14 104 92.5 172T480-200q117 0 198.5-81.5T760-480q0-117-81.5-198.5T480-760q-69 0-129 32t-101 88h110v80H120v-240h80v94q51-64 124.5-99T480-840q75 0 140.5 28.5t114 77q48.5 48.5 77 114T840-480q0 75-28.5 140.5t-77 114q-48.5 48.5-114 77T480-120Zm112-192L440-464v-216h80v184l128 128-56 56Z" />
                                         </svg>
-                                        History
+                                        @lang('lang.history')
                                     </div>
                                 </li>
                             </div>
@@ -460,7 +500,8 @@
                     @endif
                     @if (session('seller'))
                         <li>
-                            <a href="{{ route('shop.index') }}" class="text-[#E9EEDC] hover:underline">My Shop</a>
+                            <a href="{{ route('shop.index') }}" class="text-[#E9EEDC] hover:underline">My
+                                @lang('lang.shop')</a>
                         </li>
                     @endif
                 </ul>
@@ -473,24 +514,27 @@
 <nav id="sidebar" class="bg-[#3C552D] sm:hidden h-[100vh] w-[45%] fixed top-20 right-0 z-50">
     <div class="px-8 py-3">
         <div class="flex items-center">
+
             <ul class="flex flex-col gap-5 mt-5 font-medium text-sm">
                 @if (!session('buyer') && !session('seller'))
                     <li>
-                        <a href="{{ route('register.view') }}" class="text-[#E9EEDC] hover:underline">Sign
-                            Up</a>
+                        <a href="{{ route('register.view') }}"
+                            class="text-[#E9EEDC] hover:underline">@lang('lang.sign_up')</a>
+
                     </li>
                     <li>
-                        <a href="{{ route('login.view') }}" class="text-[#E9EEDC] hover:underline">Login
+                        <a href="{{ route('login.view') }}" class="text-[#E9EEDC] hover:underline">@lang('lang.login')
 
                         </a>
                     </li>
                 @elseif (session('buyer'))
                     <li>
                         <a href="{{ route('home.view') }}" class="text-[#E9EEDC] hover:underline"
-                            aria-current="page">Home</a>
+                            aria-current="page">@lang('lang.home')</a>
                     </li>
                     <li>
-                        <a href="{{ route('shop.view') }}" class="text-[#E9EEDC] hover:underline">Shop</a>
+                        <a href="{{ route('shop.view') }}"
+                            class="text-[#E9EEDC] hover:underline">@lang('lang.shop')</a>
                     </li>
                     <li>
                         <a href="{{ route('ecoforum.index') }}" class="text-[#E9EEDC] hover:underline">EcoForum</a>
@@ -499,27 +543,30 @@
                         <a href="#" class="text-[#E9EEDC] hover:underline">EcoLearning</a>
                     </li>
                     <li>
-                        <a href="{{ route('profile') }}" class="text-[#E9EEDC] hover:underline">Profile</a>
+                        <a href="{{ route('profile') }}"
+                            class="text-[#E9EEDC] hover:underline">@lang('lang.profile')</a>
                     </li>
                     <li>
-                        <a href="{{ route('cart') }}" class="text-[#E9EEDC] hover:underline">Cart</a>
+                        <a href="{{ route('cart') }}" class="text-[#E9EEDC] hover:underline">@lang('lang.cart')</a>
                     </li>
                     <li>
-                        <a href="{{ route('history') }}" class="text-[#E9EEDC] hover:underline">History</a>
+                        <a href="{{ route('history') }}" class="text-[#E9EEDC] hover:underline">@lang('lang.history')</a>
                     </li>
                     <li>
-                        <a href="{{ route('logout_buyer') }}" class="text-[#E9EEDC] hover:underline">Logout</a>
+                        <a href="{{ route('logout_buyer') }}"
+                            class="text-[#E9EEDC] hover:underline">@lang('lang.logout')</a>
                     </li>
                 @elseif (session('seller'))
                     <li>
                         <a href="{{ route('home.view') }}" class="text-[#E9EEDC] hover:underline"
-                            aria-current="page">Home</a>
+                            aria-current="page">@lang('lang.home')</a>
                     </li>
                     <li>
-                        <a href="{{ route('shop.index') }}" class="text-[#E9EEDC] hover:underline">My Shop</a>
+                        <a href="{{ route('shop.index') }}" class="text-[#E9EEDC] hover:underline">@lang('lang.myshop')</a>
                     </li>
                     <li>
-                        <a href="{{ route('logout_seller') }}" class="text-[#E9EEDC] hover:underline">Logout</a>
+                        <a href="{{ route('logout_seller') }}"
+                            class="text-[#E9EEDC] hover:underline">@lang('lang.logout')</a>
                     </li>
                 @endif
             </ul>

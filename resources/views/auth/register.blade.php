@@ -64,7 +64,7 @@
                         </div>
                     @endif
                     <div id="register-buyer-header" class="flex justify-between items-center mb-4">
-                        <h2 class="font-bold text-2xl text-[#5c5c5c]">Register as Buyer</h2>
+                        <h2 class="font-bold text-2xl text-[#5c5c5c]">@lang('lang.register_buyer')</h2>
                         <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 -960 960 960" width="36px"
                             fill="#5c5c5c" id="buyerDropdownIcon">
                             <path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z" />
@@ -83,7 +83,7 @@
                                     value="{{ old('floating_email') }}">
                             </div>
                             <div class="mb-6">
-                                <label for="password" class="text-[#5c5c5c] mb-1">PASSWORD</label>
+                                <label for="password" class="text-[#5c5c5c] mb-1">@lang('lang.password')</label>
                                 <div class="relative flex justify-between">
                                     <input id="passwordBuyer" type="password" name="floating_password"
                                         class="w-full border border-black/10 outline-none h-10" required>
@@ -94,19 +94,19 @@
                                 </div>
                             </div>
                             <div class="mb-6">
-                                <label for="" class="text-[#5c5c5c] mb-1">USERNAME</label>
+                                <label for="" class="text-[#5c5c5c] mb-1">@lang('lang.username')</label>
                                 <input type="text" name="floating_username"
                                     class="w-full border border-black/10 outline-none h-10" required
                                     value="{{ old('floating_username') }}">
                             </div>
                             <div class="mb-6">
-                                <label for="" class="text-[#5c5c5c] mb-1">PHONE NUMBER</label>
+                                <label for="" class="text-[#5c5c5c] mb-1">@lang('lang.phone_number')</label>
                                 <input type="tel" name="floating_phone"
                                     class="w-full border border-black/10 outline-none h-10" required
                                     placeholder="[08XXXXXXXXX]" value="{{ old('floating_phone') }}">
                             </div>
                             <button type="submit" class="w-full py-2 bg-[#76b743] text-white h-10">
-                                <span class="button__label">SIGN UP</span>
+                                <span class="button__label">@lang('lang.sign_up')</span>
                             </button>
                         </form>
                     </div>
@@ -114,7 +114,7 @@
                 </section>
                 <section class="pb-8 px-6">
                     <div id="register-seller-header" class="flex justify-between items-center mb-4">
-                        <h2 class="font-bold text-2xl text-[#5c5c5c]">Register as Seller</h2>
+                        <h2 class="font-bold text-2xl text-[#5c5c5c]">@lang('lang.register_seller')</h2>
                         <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 -960 960 960" width="36px"
                             fill="#5c5c5c" id="sellerDropdownIcon">
                             <path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z" />
@@ -133,7 +133,7 @@
                                     value="{{ old('floating_email') }}">
                             </div>
                             <div class="mb-6">
-                                <label for="password" class="text-[#5c5c5c] mb-1">PASSWORD</label>
+                                <label for="password" class="text-[#5c5c5c] mb-1">@lang('lang.password')</label>
                                 <div class="relative flex justify-between">
                                     <input id="passwordSeller" type="password" name="floating_password"
                                         class="w-full border border-black/10 outline-none h-10" required>
@@ -144,25 +144,25 @@
                                 </div>
                             </div>
                             <div class="mb-6">
-                                <label for="" class="text-[#5c5c5c] mb-1">STORE NAME</label>
+                                <label for="" class="text-[#5c5c5c] mb-1">@lang('lang.store_name')</label>
                                 <input type="text" name="floating_storeName"
                                     class="w-full border border-black/10 outline-none h-10" required
                                     value="{{ old('floating_storeName') }}">
                             </div>
                             <div class="mb-6">
-                                <label for="" class="text-[#5c5c5c] mb-1">PHONE NUMBER</label>
+                                <label for="" class="text-[#5c5c5c] mb-1">@lang('lang.phone_number')</label>
                                 <input type="tel" name="floating_phone"
                                     class="w-full border border-black/10 outline-none h-10" required
                                     placeholder="[08XXXXXXXXX]" value="{{ old('floating_phone') }}">
                             </div>
                             <div class="mb-6">
-                                <label for="" class="text-[#5c5c5c] mb-1">REGION</label>
+                                <label for="" class="text-[#5c5c5c] mb-1">@lang('lang.region')</label>
                                 <input type="text" name="floating_region"
                                     class="w-full border border-black/10 outline-none h-10" required
                                     value="{{ old('floating_region') }}">
                             </div>
                             <button type="submit" class="w-full py-2 bg-[#76b743] text-white h-10">
-                                <span class="button__label">SIGN UP</span>
+                                <span class="button__label">@lang('lang.sign_up')</span>
                             </button>
                         </form>
                     </div>
@@ -170,10 +170,10 @@
                 </section>
                 <footer>
                     <span class="border-t-2 p-3 flex justify-center items-center">
-                        <a href="{{ route('login.view') }}" class="text-center text-sm">LOGIN TO YOUR ACCOUNT</a>
+                        <a href="{{ route('login.view') }}" class="text-center text-sm">@lang('lang.login_account')</a>
                     </span>
                     <span class="border-t-2 p-3 flex justify-center items-center">
-                        <a href="{{ route('home.view') }}" class="text-center text-sm">BACK TO HOME</a>
+                        <a href="{{ route('home.view') }}" class="text-center text-sm">@lang('lang.back_home')</a>
                     </span>
                 </footer>
             </div>
@@ -260,7 +260,7 @@
                     }, 300);
                 }
             });
-            
+
             if (closeError) {
                 closeError.addEventListener("click", function() {
                     errorMsg.style.display = "none";

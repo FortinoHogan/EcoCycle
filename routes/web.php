@@ -86,3 +86,10 @@ Route::prefix('/seller')->group(function () {
         Route::post('/detail/{product_id}', [ShopController::class, 'update'])->name("update_seller");
     });
 });
+
+Route::get('/set-locale/{locale}', function ($locale) {
+    if (in_array($locale, ['en', 'id'])) {
+        session()->put('locale', $locale);
+    }
+    return redirect()->back();
+})->name('set-locale');

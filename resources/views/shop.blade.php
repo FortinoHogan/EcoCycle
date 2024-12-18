@@ -20,23 +20,22 @@
                         </button>
                     </form>
                     <form action="{{ route('shop.view') }}" class="flex items-center gap-3">
-                        <label for="sort" class="text-sm font-medium text-gray-900 dark:text-white">Sort by:</label>
+                        <label for="sort" class="text-sm font-medium text-gray-900 dark:text-white">@lang('lang.sort_by'):</label>
                         <select id="sort" name="sort"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             onchange="this.form.submit()">
-                            <option value="release-date" {{ request('sort') == 'release-date' ? 'selected' : '' }}>Release
-                                Date</option>
+                            <option value="release-date" {{ request('sort') == 'release-date' ? 'selected' : '' }}>@lang('lang.release_date')</option>
                             <option value="alphabetical-ascending"
                                 {{ request('sort') == 'alphabetical-ascending' ? 'selected' : '' }}>
-                                Alphabetical Ascending
+                                @lang('lang.alphabet_asc')
                             </option>
                             <option value="alphabetical-descending"
                                 {{ request('sort') == 'alphabetical-descending' ? 'selected' : '' }}>
-                                Alphabetical Descending
+                                @lang('lang.alphabet_desc')
                             </option>
-                            <option value="most-price" {{ request('sort') == 'most-price' ? 'selected' : '' }}>Most Price
+                            <option value="most-price" {{ request('sort') == 'most-price' ? 'selected' : '' }}>@lang('lang.most_price')
                             </option>
-                            <option value="least-price" {{ request('sort') == 'least-price' ? 'selected' : '' }}>Least Price
+                            <option value="least-price" {{ request('sort') == 'least-price' ? 'selected' : '' }}>@lang('lang.least_price')
                             </option>
                         </select>
                         <input type="hidden" name="search" value="{{ request('search') }}">
@@ -44,7 +43,7 @@
                 </div>
                 <div class="mb-4 grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-4">
                     @if (count($products) == 0)
-                        <p class="text-2xl font-bold text-[#3C552D]">No product found</p>
+                        <p class="text-2xl font-bold text-[#3C552D]">@lang('lang.no_product_found')</p>
                     @endif
                     @foreach ($products as $prod)
                         <div
@@ -69,9 +68,9 @@
                                 <a href="#"
                                     class="text-lg font-semibold leading-tight text-gray-900 hover:underline dark:text-white">{{ $prod->name }}</a>
 
-                                <p class="mt-2 text-sm font-medium text-gray-500 dark:text-gray-400">Stock:
+                                <p class="mt-2 text-sm font-medium text-gray-500 dark:text-gray-400">@lang('lang.stock'):
                                     {{ $prod->stock }}
-                                    left</p>
+                                    @lang('lang.stock_left')</p>
                                 <p class="mt-2 text-sm font-medium text-gray-900">
                                     {{ Str::limit($prod->description->description, 50) }}</p>
 
@@ -83,7 +82,7 @@
                                         id="pay-button" type="submit"
                                         class="inline-flex items-center rounded-lg px-4 py-2 text-sm font-medium text-white hover:opacity-45 focus:outline-none focus:ring-4  focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
                                         style="background-color: #3C552D">
-                                        See more...</button>
+                                        @lang('lang.see_more')</button>
                                 </div>
                             </div>
                         </div>

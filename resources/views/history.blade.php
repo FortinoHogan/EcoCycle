@@ -36,16 +36,16 @@
     </style>
     <div class="p-4">
         <div class="block m-auto w-full max-w-[1200px] px-4">
-            <h1 class="font-bold text-[50px] text-[#3C552D] mb-10">MY ORDERS</h1>
+            <h1 class="font-bold text-[50px] text-[#3C552D] mb-10">@lang('lang.my_order')</h1>
             @if ($ths->isEmpty())
-                <p class="font-medium mb-10">You have no orders</p>
+                <p class="font-medium mb-10">@lang('lang.no_order')</p>
             @endif
             @foreach ($ths as $t)
                 <div class="border-b border-[#3C552D] pb-6 mb-6">
                     <div class="flex justify-between border-b-2 pb-2 mb-2">
                         <div class="">
                             <p class="font-medium">{{ $t->created_at->format('M d, Y H:i:s') }}</p>
-                            <p>Order number {{ $t->id }}</p>
+                            <p>@lang('lang.order_number') {{ $t->id }}</p>
                         </div>
                         <div class="flex justify-end">
                             <p class="text-green-600">{{ $t->status }}</p>
@@ -67,7 +67,7 @@
                                 <p>{{ $t->details->first()->product->name }}</p>
                             </div>
                             <div class="flex gap-16 font-medium">
-                                <p>Quantity: {{ $t->details->first()->quantity }}</p>
+                                <p>@lang('lang.quantity'): {{ $t->details->first()->quantity }}</p>
                                 <p>IDR:
                                     {{ number_format($t->details->first()->product->price * $t->details->first()->quantity, 0, ',', '.') }}
                                 </p>
@@ -100,7 +100,7 @@
                                     <p>{{ $detail->product->name }}</p>
                                 </div>
                                 <div class="flex gap-16 font-medium">
-                                    <p>Quantity: {{ $detail->quantity }}</p>
+                                    <p>@lang('lang.quantity'): {{ $detail->quantity }}</p>
                                     <p>IDR:
                                         {{ number_format($detail->product->price * $detail->quantity, 0, ',', '.') }}
                                     </p>
@@ -110,7 +110,7 @@
                     </div>
                     <div class="flex justify-center">
                         <div id="view-all-{{ $t->id }}" class="cursor-pointer flex items-center self-center">
-                            <h2>View All</h2>
+                            <h2>@lang('lang.view_all')</h2>
                             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
                                 fill="#5c5c5c" id="view-all-icon-{{ $t->id }}">
                                 <path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z" />
@@ -121,9 +121,9 @@
                     <div class="flex items-center gap-4 justify-end mt-4">
                         <a href="{{ route('order_detail', $t->id) }}"
                             class="hover:opacity-80 bg-[#76b743] border border-[#76b743] py-[10px] px-[24px] text-white rounded-md min-w-[100px] font-bold align-middle transition-all ease-in-out duration-500">
-                            VIEW DETAIL
+                            @lang('lang.view_detail')
                         </a>
-                        <p>Total {{ $t->details->sum('quantity') }} products: <span class="font-semibold">IDR
+                        <p>Total {{ $t->details->sum('quantity') }} @lang('lang.product'): <span class="font-semibold">IDR
                                 {{ number_format($t->total_price, 0, ',', '.') }}</span></p>
                     </div>
                 </div>
@@ -134,7 +134,7 @@
                     <path
                         d="m612-292 56-56-148-148v-184h-80v216l172 172ZM480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-400Zm0 320q133 0 226.5-93.5T800-480q0-133-93.5-226.5T480-800q-133 0-226.5 93.5T160-480q0 133 93.5 226.5T480-160Z" />
                 </svg>
-                <p>Order history can be reviewed for up to 1 year.</p>
+                <p>@lang('lang.order_history_1')</p>
             </div>
         </div>
     </div>

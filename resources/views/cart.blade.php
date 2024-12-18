@@ -4,9 +4,9 @@
     <div class="p-4 mb-32">
         <div class="block m-auto w-full max-w-[1200px] px-4">
             <div class="container mx-auto">
-                <h1 class="font-bold text-[50px] text-[#3C552D] mb-10">CART</h1>
+                <h1 class="font-bold text-[50px] text-[#3C552D] mb-10">@lang('lang.cart')</h1>
                 @if ($cart->isEmpty())
-                    <p class="font-medium">Your cart is empty!</p>
+                    <p class="font-medium">@lang('lang.cart_empty')</p>
                 @else
                     <div>
                         @foreach ($cart as $item)
@@ -37,7 +37,7 @@
                                 </div>
                             </div>
                             <div class="flex justify-between font-semibold mt-5">
-                                <p>Total ({{ $item->quantity }} item)</p>
+                                <p>Total ({{ $item->quantity }} @lang('lang.item'))</p>
                                 <p>IDR {{ number_format($item->product->price * $item->quantity, 0, ',', '.') }}</p>
                             </div>
                         @endforeach
@@ -58,6 +58,13 @@
 
 @section('scripts')
     <script>
+        const translate = {
+            no_item: @json(__('lang.no_item')),
+            select_one: @json(__('lang.select_one')),
+            checkout_complete: @json(__('lang.checkout_complete')),
+            checkout_failed: @json(__('lang.checkout_failed')),
+            issue_checkout: @json(__('lang.issue_checkout'))
+        }
         document.addEventListener('DOMContentLoaded', () => {
             const updateButtons = document.querySelectorAll('.update-cart');
             const removeButtons = document.querySelectorAll('.remove-item');
@@ -135,8 +142,8 @@
                 if (checkedProducts.length === 0) {
                     Swal.fire({
                         icon: 'warning',
-                        title: 'No items selected',
-                        text: 'Please select at least one product to checkout.',
+                        title: translate.no_item,
+                        text: translate.select_one,
                     });
                     return;
                 }
@@ -173,7 +180,7 @@
                         if (data && data.message) {
                             Swal.fire({
                                 icon: 'success',
-                                title: 'Checkout Complete',
+                                title: translate.checkout_complete,
                                 text: data.message,
                                 timer: 2000,
                                 showConfirmButton: false,
@@ -184,8 +191,8 @@
                         console.error('Error:', error);
                         Swal.fire({
                             icon: 'error',
-                            title: 'Checkout Failed',
-                            text: 'There was an issue processing your checkout. Please try again.',
+                            title: translate.checkout_failed,
+                            text: translate.issue_checkout,
                         });
                     })
                     .finally(() => {

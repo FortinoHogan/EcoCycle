@@ -66,7 +66,7 @@
                     @endif
 
                     <div id="login-buyer-header" class="flex justify-between items-center mb-4 cursor-pointer">
-                        <h2 class="font-bold text-2xl text-[#5c5c5c]">Login as Buyer</h2>
+                        <h2 class="font-bold text-2xl text-[#5c5c5c]">@lang("lang.login_buyer")</h2>
                         <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 -960 960 960" width="36px"
                             fill="#5c5c5c" id="buyerDropdownIcon">
                             <path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z" />
@@ -84,7 +84,7 @@
                                     class="w-full border border-black/10 outline-none h-10" required>
                             </div>
                             <div class="mb-6">
-                                <label for="passwordBuyer" class="text-[#5c5c5c] mb-1">PASSWORD</label>
+                                <label for="passwordBuyer" class="text-[#5c5c5c] mb-1">@lang("lang.password")</label>
                                 <div class="relative flex justify-between">
                                     <input id="passwordBuyer" type="password" name="floating_password"
                                         class="w-full border border-black/10 outline-none h-10" required>
@@ -95,7 +95,7 @@
                                 </div>
                             </div>
                             <button type="submit" class="w-full py-2 bg-[#76b743] text-white h-10">
-                                <span class="button__label">SIGN IN</span>
+                                <span class="button__label">@lang("lang.login")</span>
                             </button>
                         </form>
                     </div>
@@ -104,7 +104,7 @@
 
                 <section class="pb-8 px-6">
                     <div id="login-seller-header" class="flex justify-between items-center mb-4">
-                        <h2 class="font-bold text-2xl text-[#5c5c5c]">Login as Seller</h2>
+                        <h2 class="font-bold text-2xl text-[#5c5c5c]">@lang("lang.login_seller")</h2>
                         <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 -960 960 960" width="36px"
                             fill="#5c5c5c" id="sellerDropdownIcon">
                             <path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z" />
@@ -122,7 +122,7 @@
                                     class="w-full border border-black/10 outline-none h-10" required>
                             </div>
                             <div class="mb-6">
-                                <label for="password" class="text-[#5c5c5c] mb-1">PASSWORD</label>
+                                <label for="password" class="text-[#5c5c5c] mb-1">@lang("lang.password")</label>
                                 <div class="relative flex justify-between">
                                     <input id="passwordSeller" type="password" name="floating_password"
                                         class="w-full border border-black/10 outline-none h-10" required>
@@ -133,7 +133,7 @@
                                 </div>
                             </div>
                             <button type="submit" class="w-full py-2 bg-[#76b743] text-white h-10">
-                                <span class="button__label">SIGN IN</span>
+                                <span class="button__label">@lang("lang.login")</span>
                             </button>
                         </form>
                     </div>
@@ -141,10 +141,10 @@
                 </section>
                 <footer>
                     <span class="border-t-2 p-3 flex justify-center items-center">
-                        <a href="{{ route('register.view') }}" class="text-center text-sm">REGISTER AN ACCOUNT</a>
+                        <a href="{{ route('register.view') }}" class="text-center text-sm">@lang("lang.register_account")</a>
                     </span>
                     <span class="border-t-2 p-3 flex justify-center items-center">
-                        <a href="{{ route('home.view') }}" class="text-center text-sm">BACK TO HOME</a>
+                        <a href="{{ route('home.view') }}" class="text-center text-sm">@lang("lang.back_home")</a>
                     </span>
                 </footer>
             </div>

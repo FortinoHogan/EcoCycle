@@ -11,7 +11,8 @@
         <div class="p-4">
             <div class="flex flex-col gap-5 m-auto w-full max-w-[1200px] px-4">
                 <a href="{{ session('buyer') ? route('shop.view') : route('shop.index') }}">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 -960 960 960" width="32px" fill="#3C552D">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 -960 960 960" width="32px"
+                        fill="#3C552D">
                         <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z" />
                     </svg>
                 </a>
@@ -36,18 +37,18 @@
                         <a href="#"
                             class="text-lg font-semibold leading-tight text-gray-900 hover:underline dark:text-white">{{ $product->name }}</a>
 
-                        <p class="mt-2 text-sm font-medium text-gray-500 dark:text-gray-400">Stock:
+                        <p class="mt-2 text-sm font-medium text-gray-500 dark:text-gray-400">@lang('lang.stock'):
                             {{ $product->stock }}
-                            left</p>
+                            @lang('lang.stock_left')</p>
                         <p class="my-2 text-sm font-medium text-gray-900">{{ $product->description->description }}</p>
                         <span
                             class="me-2 rounded bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900 dark:text-green-300">
-                            Ingredients: {{ $product->description->ingredient }}
+                            @lang('lang.ingredients'): {{ $product->description->ingredient }}
                         </span>
                         <br>
                         <span
                             class="me-2 rounded bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900 dark:text-green-300">
-                            Origin: {{ $product->description->origin }}
+                            @lang('lang.origin'): {{ $product->description->origin }}
                         </span>
                         <div class="mt-8 flex items-center justify-between gap-4 flex-wrap">
                             <p class="text-2xl font-extrabold leading-tight text-gray-900 dark:text-white">Rp.
@@ -62,7 +63,7 @@
                                             stroke-width="2"
                                             d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6" />
                                     </svg>
-                                    ADD TO CART
+                                    @lang('lang.add_to_cart')
                                 </button>
                             @elseif (session('seller'))
                                 <div class="flex gap-5 flex-wrap">
@@ -73,13 +74,13 @@
                                         <button style="background: #76b743"
                                             class="hover:opacity-80 bg-[#76b743] border border-[#76b743] py-[10px] px-[24px] text-white rounded-md min-w-[100px] font-bold align-middle transition-all ease-in-out duration-500"
                                             onclick="confirmDelete({{ $product->id }})" type="button">
-                                            DELETE
+                                            @lang('lang.delete')
                                         </button>
                                     </form>
                                     <button
                                         class="hover:opacity-80 bg-[#76b743] border border-[#76b743] py-[10px] px-[24px] text-white rounded-md min-w-[100px] font-bold align-middle transition-all ease-in-out duration-500"
                                         onclick="toggleModal(true)">
-                                        EDIT
+                                        @lang('lang.edit')
                                     </button>
                                 </div>
                             @endif
@@ -93,7 +94,7 @@
         class="bg-black bg-opacity-40 fixed inset-0 z-50 items-center justify-center" onclick="closeModal()">
         <div class="bg-white rounded-lg shadow-lg max-w-[640px] w-[90%] p-8 h-5/6 overflow-y-auto scrollbar-hidden"
             onclick="stopPropagation(event)">
-            <h2 class="font-bold text-xl text-[#5c5c5c] text-center p-8">Edit Product</h2>
+            <h2 class="font-bold text-xl text-[#5c5c5c] text-center p-8">@lang('lang.edit_product')</h2>
             @if ($errors->any())
                 <div class="bg-[#d73930] py-3 px-4 text-white mb-3 flex items-center justify-between" id="errorMsg">
                     <span>{{ $errors->first() }}</span>
@@ -109,28 +110,28 @@
                 @csrf
                 @method('PUT')
                 <div class="mb-6">
-                    <label for="name" class="block text-sm font-medium text-gray-700">Product Name</label>
+                    <label for="name" class="block text-sm font-medium text-gray-700">@lang('lang.product_name')</label>
                     <input id="name" name="name"
                         class="mt-1 p-2 w-full rounded-sm border border-[#5c5c5c] border-opacity-30 focus:outline-none outline-none"
                         value="{{ $product->name }}">
                 </div>
 
                 <div class="mb-6">
-                    <label for="price" class="block text-sm font-medium text-gray-700">Price</label>
+                    <label for="price" class="block text-sm font-medium text-gray-700">@lang('lang.price')</label>
                     <input id="price" name="price"
                         class="mt-1 p-2 w-full rounded-sm border border-[#5c5c5c] border-opacity-30 focus:outline-none outline-none"
                         value="{{ $product->price }}">
                 </div>
 
                 <div class="mb-6">
-                    <label for="stock" class="block text-sm font-medium text-gray-700">Stock</label>
+                    <label for="stock" class="block text-sm font-medium text-gray-700">@lang('lang.stock')</label>
                     <input id="stock" name="stock"
                         class="mt-1 p-2 w-full rounded-sm border border-[#5c5c5c] border-opacity-30 focus:outline-none outline-none"
                         value="{{ $product->stock }}">
                 </div>
 
                 <div class="mb-6">
-                    <label for="picture" class="block text-sm font-medium text-gray-700">Image</label>
+                    <label for="picture" class="block text-sm font-medium text-gray-700">@lang('lang.image')</label>
                     <input type="file" id="image" name="image"
                         class="mt-1 w-full rounded-sm border border-[#5c5c5c] border-opacity-30 focus:outline-none outline-none"
                         onchange="previewImage(event)">
@@ -144,31 +145,31 @@
                 </div>
 
                 <div class="mb-6">
-                    <label for="ingredients" class="block text-sm font-medium text-gray-700">Ingredients</label>
+                    <label for="ingredients" class="block text-sm font-medium text-gray-700">@lang('lang.ingredients')</label>
                     <input id="ingredients" name="ingredients"
                         class="mt-1 p-2 w-full rounded-sm border border-[#5c5c5c] border-opacity-30 focus:outline-none outline-none"
                         value="{{ $description->ingredient }}">
                 </div>
 
                 <div class="mb-6">
-                    <label for="origin" class="block text-sm font-medium text-gray-700">Origin</label>
+                    <label for="origin" class="block text-sm font-medium text-gray-700">@lang('lang.origin')</label>
                     <input id="origin" name="origin"
                         class="mt-1 p-2 w-full rounded-sm border border-[#5c5c5c] border-opacity-30 focus:outline-none outline-none"
                         value="{{ $description->origin }}">
                 </div>
 
                 <div class="mb-6">
-                    <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+                    <label for="description" class="block text-sm font-medium text-gray-700">@lang('lang.description')</label>
                     <textarea id="description" name="description" rows="4"
                         class="mt-1 p-2 w-full rounded-sm border border-[#5c5c5c] border-opacity-30 focus:outline-none outline-none resize-none">{{ $description->description }}</textarea>
                 </div>
 
                 <div class="mb-6">
-                    <label for="categories" class="block text-sm font-medium text-gray-700">Categories</label>
+                    <label for="categories" class="block text-sm font-medium text-gray-700">@lang('lang.category')</label>
                     <div
                         class="relative mt-1 p-2 w-full rounded-sm border border-[#5c5c5c] border-opacity-30 focus:outline-none focus:border-transparent flex justify-between items-center">
                         <button id="dropdownButton" type="button" class="flex items-center justify-between w-full">
-                            Select Categories
+                            @lang('lang.select_categories')
                             <span class="ml-2 text-xs text-gray-500">+</span>
                         </button>
                         <div id="dropdownMenu"
@@ -188,16 +189,16 @@
                             </div>
                             <button style="background-color: #76b743" id="dropdownButtonDone"
                                 class="hover:opacity-80 border border-[#76b743] py-[10px] px-[24px] text-white rounded-md min-w-[100px] font-bold align-middle transition-all ease-in-out duration-500 ml-2 mb-2"
-                                type="button">Done</button>
+                                type="button">@lang('lang.done')</button>
                         </div>
                     </div>
                 </div>
                 <div class="flex justify-end gap-5">
                     <button type="button"
                         class="hover:opacity-80 py-[10px] px-[24px] text-white rounded-md min-w-[100px] font-bold align-middle transition-all ease-in-out duration-500 bg-gray-500"
-                        onclick="closeModal()">CANCEL</button>
+                        onclick="closeModal()">@lang('lang.cancel')</button>
                     <button
-                        class="hover:opacity-80 bg-[#76b743] border border-[#76b743] py-[10px] px-[24px] text-white rounded-md min-w-[100px] font-bold align-middle transition-all ease-in-out duration-500">SUBMIT
+                        class="hover:opacity-80 bg-[#76b743] border border-[#76b743] py-[10px] px-[24px] text-white rounded-md min-w-[100px] font-bold align-middle transition-all ease-in-out duration-500">@lang('lang.submit')
                     </button>
                 </div>
             </form>
@@ -242,6 +243,14 @@
 
 @section('scripts')
     <script>
+        const translate = {
+            are_you_sure: @json(__('lang.are_you_sure')),
+            yes: @json(__('lang.yes')),
+            no: @json(__('lang.no')),
+            added_to_cart: @json(__('lang.added_to_cart')),
+            failed_added_cart: @json(__('lang.failed_added_cart'))
+        }
+
         const dropdownButton = document.getElementById('dropdownButton');
         const dropdownButtonDone = document.getElementById('dropdownButtonDone');
         const dropdownMenu = document.getElementById('dropdownMenu');
@@ -262,13 +271,13 @@
 
         function confirmDelete(productId) {
             Swal.fire({
-                title: 'Are you sure?',
+                title: translate.are_you_sure,
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#d33',
                 cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Yes',
-                cancelButtonText: 'No'
+                confirmButtonText: translate.yes,
+                cancelButtonText: translate.no
             }).then((result) => {
                 if (result.isConfirmed) {
                     document.getElementById(`delete-form-${productId}`).submit();
@@ -344,7 +353,7 @@
                 .then(data => {
                     Swal.fire({
                         icon: 'success',
-                        title: 'Added to Cart',
+                        title: translate.added_to_cart,
                         text: data.message,
                         timer: 2000,
                         showConfirmButton: false
@@ -355,7 +364,7 @@
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
-                        text: 'Failed to add to cart. Please try again.',
+                        text: translate.failed_added_cart,
                     });
                 })
                 .finally(() => {

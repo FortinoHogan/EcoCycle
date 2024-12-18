@@ -34,7 +34,7 @@
                     <!-- Hover Effect -->
                     <label
                         class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 rounded-full opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
-                        <span class="text-sm text-white text-center">Upload a photo</span>
+                        <span class="text-sm text-white text-center">@lang('lang.upload_photo')</span>
                         <input type="file" class="hidden" />
                     </label>
                 </div>
@@ -53,10 +53,10 @@
                     @endif
                 </p>
                 {{-- Loyalty Point --}}
-                <p class="text-sm text-gray-500 mt-1">Your current point : {{ $buyer->greenPoint }}</p>
+                <p class="text-sm text-gray-500 mt-1">@lang('lang.cur_point') : {{ $buyer->greenPoint }}</p>
                 <!-- Loyalty Program Progress Bar -->
                 <div class="w-full mt-4">
-                    <h3 class="text-sm font-medium text-gray-700">Loyalty Program</h3>
+                    <h3 class="text-sm font-medium text-gray-700">@lang('lang.loyal_prog')</h3>
                     <div class="w-full bg-gray-200 rounded-full h-4 mt-2 shadow-sm">
                         <div class="bg-[#749d5c] h-4 rounded-full" id="progress-bar" style="width: 0%;"></div>
                     </div>
@@ -87,7 +87,7 @@
                 <!-- Name -->
                 <div>
                     <label for="username" class="block text-sm font-medium text-gray-700">
-                        Username
+                        @lang('lang.username_profile')
                     </label>
                     <input id="username" name="username" type="text" value="{{ $buyer->name }}"
                         class="mt-1 w-full rounded border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200" />
@@ -105,7 +105,7 @@
                 {{-- Phone num --}}
                 <div>
                     <label for="phone" class="block text-sm font-medium text-gray-700">
-                        Phone number <span class="text-red-500"></span>
+                        @lang('lang.phone_profile') <span class="text-red-500"></span>
                     </label>
                     <input id="phone" name="phone" type="text" value="{{ $buyer->phone }}"
                         class="mt-1 w-full rounded border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200" />
@@ -113,13 +113,12 @@
 
                 <!-- Password -->
                 <button type="button" onclick="toggleModal(true)"
-                    class="block text-sm font-medium text-gray-700 hover:text-blue-500 hover:underline">Change
-                    Password</button>
+                    class="block text-sm font-medium text-gray-700 hover:text-blue-500 hover:underline">@lang('lang.change_pass')</button>
 
                 <div class="flex justify-center items-center">
                     <button
                         class="px-8 py-1 mt-8 text-center rounded-full text-[#3C552D] bg-white border-2 border-[#3C552D] shadow-lg hover:bg-[#2a4120] hover:text-white transition-all duration-500">
-                        Save
+                        @lang('lang.save')
                     </button>
                 </div>
             </form>
@@ -130,7 +129,7 @@
         class="bg-black bg-opacity-40 fixed inset-0 z-50 items-center justify-center" onclick="closeModal()">
         <div class="bg-white rounded-lg shadow-lg max-w-[640px] w-[90%] p-8 h-fit overflow-y-auto scrollbar-hidden"
             onclick="stopPropagation(event)">
-            <h2 class="font-bold text-xl text-[#5c5c5c] text-center p-8">Change Password</h2>
+            <h2 class="font-bold text-xl text-[#5c5c5c] text-center p-8">@lang('lang.change_pass')</h2>
             @if (session('changePasswordError'))
                 <div class="bg-[#d73930] py-3 px-4 text-white mb-3 flex items-center justify-between" id="errorMsg">
                     <span>{{ session('changePasswordError') }}</span>
@@ -156,7 +155,7 @@
                 onsubmit="showSpinner()">
                 @csrf
                 <div class="mb-6">
-                    <label for="oldPassword" class="text-[#5c5c5c] mb-1">OLD PASSWORD</label>
+                    <label for="oldPassword" class="text-[#5c5c5c] mb-1">@lang('lang.old_pass')</label>
                     <div class="relative flex justify-between">
                         <input id="oldPassword" type="password" name="old_password"
                             class="w-full border border-black/10 outline-none h-10" required>
@@ -168,7 +167,7 @@
                 </div>
 
                 <div class="mb-6">
-                    <label for="newPassword" class="text-[#5c5c5c] mb-1">NEW PASSWORD</label>
+                    <label for="newPassword" class="text-[#5c5c5c] mb-1">@lang('lang.new_pass')</label>
                     <div class="relative flex justify-between">
                         <input id="newPassword" type="password" name="new_password"
                             class="w-full border border-black/10 outline-none h-10" required>
@@ -182,9 +181,9 @@
                 <div class="flex justify-center gap-5">
                     <button type="button"
                         class="hover:opacity-80 py-[10px] px-[24px] text-white rounded-md min-w-[100px] font-bold align-middle transition-all ease-in-out duration-500 bg-gray-500"
-                        onclick="closeModal()">CANCEL</button>
+                        onclick="closeModal()">@lang('lang.cancel')</button>
                     <button
-                        class="hover:opacity-80 bg-[#76b743] border border-[#76b743] py-[10px] px-[24px] text-white rounded-md min-w-[100px] font-bold align-middle transition-all ease-in-out duration-500">SAVE
+                        class="hover:opacity-80 bg-[#76b743] border border-[#76b743] py-[10px] px-[24px] text-white rounded-md min-w-[100px] font-bold align-middle transition-all ease-in-out duration-500">@lang('lang.save_pass')
                     </button>
                 </div>
             </form>
@@ -229,6 +228,11 @@
 
 @section('scripts')
     <script>
+        const translate = {
+            change_pass_success: @json(__("lang.change_pass_success")),
+            update_profile_success: @json(__("lang.update_profile_success")),
+        }
+
         function toggleModal(isVisible) {
             const modal = document.getElementById('modalWrapper');
             if (isVisible) {
@@ -319,7 +323,7 @@
 
         @if (session('changePasswordSuccess'))
             Swal.fire({
-                title: 'Change Password Success',
+                title: translate.change_pass_success,
                 text: '{{ session('success') }}',
                 icon: 'success',
                 confirmButtonText: 'OK',
@@ -329,7 +333,7 @@
 
         @if (session('updateSuccess'))
             Swal.fire({
-                title: 'Update Profile Success',
+                title: translate.update_profile_success,
                 text: '{{ session('success') }}',
                 icon: 'success',
                 confirmButtonText: 'OK',
