@@ -34,23 +34,23 @@
 
         <div class="konten2 mx-32 max-sm:mx-8 flex flex-col items-center">
             <p class="text-center font-bold text-[40px] text-[#3C552D] mb-7">@lang('lang.benefits')</p>
-            <div class="flex gap-3 max-sm:flex max-sm:flex-col max-sm:gap-10">
-                <div class="max-sm:flex max-sm:flex-col">
-                    <div class="text-end w-11/12 mb-10 animate-fromTopLeft max-sm:text-center">
+            <div class="flex gap-16 max-sm:flex max-sm:flex-col max-sm:gap-10">
+                <div class="max-sm:flex max-sm:flex-col sm:w-1/2">
+                    <div class="text-end mb-10 animate-fromTopLeft max-sm:text-center">
                         <p class="font-medium text-lg">@lang("lang.benefits_1")</p>
                         <p class="text-[#616161]">@lang("lang.benefits_1_1")</p>
                     </div>
-                    <div class="text-end w-11/12 animate-fromBottomLeft max-sm:text-center">
+                    <div class="text-end animate-fromBottomLeft max-sm:text-center">
                         <p class="font-medium text-lg">@lang("lang.benefits_2")</p>
                         <p class="text-[#616161]">@lang("lang.benefits_2_2")</p>
                     </div>
                 </div>
-                <div class="max-sm:flex max-sm:flex-col">
-                    <div class="mb-10 w-11/12 animate-fromTopRight max-sm:text-center">
+                <div class="max-sm:flex max-sm:flex-col sm:w-1/2">
+                    <div class="mb-10 animate-fromTopRight max-sm:text-center">
                         <p class="font-medium text-lg">@lang("lang.benefits_3")</p>
                         <p class="text-[#616161]">@lang("lang.benefits_3_3")</p>
                     </div>
-                    <div class="animate-fromBottomRight w-11/12 max-sm:text-center">
+                    <div class="animate-fromBottomRight max-sm:text-center">
                         <p class="font-medium text-lg">@lang("lang.benefits_4")</p>
                         <p class="text-[#616161]">@lang("lang.benefits_4_4")</p>
                     </div>

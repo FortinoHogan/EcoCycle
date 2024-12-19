@@ -111,6 +111,14 @@ class BuyerController extends Controller
                 'regex:/^.+@gmail\.com$/',
             ],
             'floating_password' => 'required',
+        ], [
+            'floating_email.unique' => __('lang.email_unique'),
+            'floating_email.required' => __('lang.email_required'),
+            'floating_email.email' => __('lang.email_email'),
+            'floating_email.regex' => __('lang.email_regex'),
+
+            'floating_password.required' => __('lang.password_required'),
+            'floating_password.min' => __('lang.password_min'),
         ]);
 
         $buyer = Buyer::with('address')->where('email', $request->floating_email)->first();
