@@ -45,6 +45,7 @@ class EcoForumController extends Controller
 
         // Add buyer_id to validated data
         $validated['buyer_id'] = $buyer_id;
+        $image = null;
 
         // If an image is provided, store it manually in the public/images folder
         if ($request->hasFile('image')) {
