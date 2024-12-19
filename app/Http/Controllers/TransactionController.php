@@ -90,11 +90,13 @@ class TransactionController extends Controller
     public function remove_from_cart(Request $request)
     {
         $productId = $request->input('product_id');
-        $cart = session()->get('cart', []);
+        $buyerId = session('buyer')->id;
+        $product = Cart::where('buyer_id', $buyerId)->where('product_id', $productId)->first();
 
-        if (isset($cart[$productId])) {
-            unset($cart[$productId]); // Remove the item from the cart
-            session()->put('cart', $cart);
+        if ($product) {
+            Cart::where('buyer_id', $buyerId)
+                ->where('product_id', $productId)
+                ->delete();
 
             return response()->json(['message' => 'Item removed']);
         }
@@ -104,7 +106,7 @@ class TransactionController extends Controller
 
     public function process_checkout(Request $request)
     {
-        
+
         Config::$serverKey = config('midtrans.server_key');
         Config::$isProduction = config('midtrans.is_production');
         Config::$isSanitized = config('midtrans.is_sanitized');
@@ -177,7 +179,8 @@ class TransactionController extends Controller
         return view('checkout', ['cart' => $cart, 'transaction' => $transaction, 'selected_address' => $selected_address, 'addresses' => $addresses]);
     }
 
-    public function process_success(Request $request) {
+    public function process_success(Request $request)
+    {
         $transaction_id = $request->input('transaction_id');
         $midtrans_data = $request->input('midtrans_data');
 
@@ -186,7 +189,8 @@ class TransactionController extends Controller
         return redirect()->route('success', ['transaction' => $midtrans_data]);
     }
 
-    public function success(Request $request) {
+    public function success(Request $request)
+    {
         $transaction = (object) $request->input('transaction');
         $address = Address::where('buyer_id', session('buyer')->id)->where('main', true)->first();
 
