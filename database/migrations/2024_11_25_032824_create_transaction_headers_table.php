@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('grand_total');
             $table->string('snap_token')->nullable();
             $table->foreignId('address_id')->nullable()->constrained('addresses')->onDelete('cascade');
-            $table->string('payment_method');
+            $table->string('payment_method')->default('');
             $table->timestamps();
         });
     }
