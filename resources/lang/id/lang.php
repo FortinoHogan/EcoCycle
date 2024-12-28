@@ -131,7 +131,6 @@ return [
     "origin_required" => "Asal-usul produk diperlukan",
     "description_required" => "Deskripsi produk diperlukan",
     "categories_required" => "Kategori produk diperlukan",
-"username_required" => "Nama pengguna diperlukan.",
-"username_min" => "Nama pengguna minimal 4 karakter.",
+    "username_required" => "Nama pengguna diperlukan.",
+    "username_min" => "Nama pengguna minimal 4 karakter.",
 ];
-?>

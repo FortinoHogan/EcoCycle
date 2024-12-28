@@ -72,6 +72,7 @@ return [
     "add_to_cart" => "Add to Cart",
     "delete" => "DELETE",
     "edit" => "EDIT",
+    "edit_product" => "Edit Product",
     "submit" => "SUBMIT",
     "are_you_sure" => "Are you sure?",
     "yes" => "Yes",
