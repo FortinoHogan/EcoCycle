@@ -44,13 +44,13 @@
                 </form>
             </div>
             @foreach ($articles as $a)
-                <div class="flex flex-row justify-center my-10 p-3 border border-[#3C552D] rounded-2xl gap-5"
+                <div class="flex flex-row justify-center my-10 p-3 border border-[#3C552D] rounded-2xl gap-5 w-full"
                     id="card">
-                    <div class="sm:max-w-[250px] border-black">
+                    <div class="sm:w-1/4 border-black">
                         <img src="data:image/jpeg;base64,{{ base64_encode($a->image) }}" alt=""
                             class="w-full h-full rounded-bl-2xl rounded-tl-2xl max-sm:rounded-tr-2xl max-sm:rounded-br-2xl object-cover ">
                     </div>
-                    <div class="flex flex-col justify-between gap-3 truncate">
+                    <div class="sm:w-3/4 flex flex-col justify-between gap-3 truncate">
                         <div>
                             <p class="text-xl font-semibold ">{{ $a->title }}</p>
                             <p class="text-sm text-gray-500 mt-2">{{ $a->createdDate }}</p>
