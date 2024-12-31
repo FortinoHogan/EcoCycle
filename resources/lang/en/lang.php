@@ -103,6 +103,7 @@ return [
     "order_detail" => "Order Details",
     "shipping_address" => "Shipping Address",
     "payment_info" => "Payment Information",
+    "payment_method" => "Payment Method",
     "order_sum" => "Order Summary",
     "shipping_fee" => "Shipping Fee",
     "grand_total" => "Grand Total",

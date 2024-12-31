@@ -184,7 +184,10 @@ class TransactionController extends Controller
         $transaction_id = $request->input('transaction_id');
         $midtrans_data = $request->input('midtrans_data');
 
-        TransactionHeader::where('id', $transaction_id)->update(['status' => 'paid']);
+        TransactionHeader::where('id', $transaction_id)->update([
+            'status' => 'paid',
+            'payment_method' => $midtrans_data['payment_type'],
+        ]);
 
         return redirect()->route('success', ['transaction' => $midtrans_data]);
     }

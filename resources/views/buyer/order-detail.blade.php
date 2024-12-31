@@ -71,6 +71,8 @@
             </div>
             <div class="mt-10">
                 <p class="text-2xl font-bold">@lang('lang.payment_info')</p>
+                <p class="mt-4">@lang('lang.payment_method')</p>
+                <p>{{ $t->payment_method }}</p>
             </div>
             <div class="mt-10">
                 <p class="text-2xl font-bold">@lang('lang.order_sum')</p>

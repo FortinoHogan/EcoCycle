@@ -103,6 +103,7 @@ return [
     "order_detail" => "Detail pesanan",
     "shipping_address" => "Alamat Pengiriman",
     "payment_info" => "Informasi pembayaran",
+    "payment_method" => "Metode Pembayaran",
     "order_sum" => "Ringkasan Pemesanan",
     "shipping_fee" => "Biaya pengiriman",
     "grand_total" => "Total keseluruhan",
