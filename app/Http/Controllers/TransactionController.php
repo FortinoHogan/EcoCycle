@@ -159,6 +159,12 @@ class TransactionController extends Controller
         ]);
 
         foreach ($cart as $item) {
+            $product = Product::find($item->product_id);
+            if ($product) {
+                $product->stock -= $item->quantity;
+                $product->save();
+            }
+
             TransactionDetail::create([
                 'transaction_id' => TransactionHeader::latest()->first()->id,
                 'product_id' => $item->product_id,
